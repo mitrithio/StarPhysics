@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{5afdcafb-de51-4604-901c-0c3444bc7166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\System include">
+      <UniqueIdentifier>{f6b5cb86-cecc-478c-830d-63dbe4381b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\TGA files">
+      <UniqueIdentifier>{d141438b-05f3-4851-98e5-b7309991119c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main window">
+      <UniqueIdentifier>{2c232eea-7609-4943-92e4-7dc8741484c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Windowing">
+      <UniqueIdentifier>{817c2996-b071-40cd-b36d-11d8d39d0183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{6a305041-7cfa-40e1-8b07-6b92a70fec8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Main include">
+      <UniqueIdentifier>{bbdb7c73-e35b-4c66-928e-9dbcdd94907b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing">
+      <UniqueIdentifier>{deec51aa-c466-4022-9178-8efbcb9d6773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Bitmaps">
+      <UniqueIdentifier>{89c62ca1-0ca9-48f0-8f4a-387d32283ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{baf50a32-4fbf-4646-b496-7054769e363e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Animations">
+      <UniqueIdentifier>{6eac16fa-6122-45a6-b74c-6c8df3ef839e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{dd1e5144-7ca9-413c-8813-9dcb770d7b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawing\Text">
+      <UniqueIdentifier>{5a576f87-3430-488c-aa6c-3d0af34d7f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main window\Sound">
+      <UniqueIdentifier>{43ce75dc-b273-4ca0-8005-7aaf4f6f773f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WinDraw.h">
+      <Filter>_Main include</Filter>
+    </ClInclude>
+    <ClInclude Include="WinDrawSystemApi.h">
+      <Filter>System\System include</Filter>
+    </ClInclude>
+    <ClInclude Include="TGAFile.h">
+      <Filter>System\TGA files</Filter>
+    </ClInclude>
+    <ClInclude Include="platform.h">
+      <Filter>System\Windowing</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="MainWindow.h">
+      <Filter>Main window</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>Drawing\Bitmaps</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Drawing\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardStatus.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySound.h">
+      <Filter>Main window\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Drawing\Text</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TGAFile.cpp">
+      <Filter>System\TGA files</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>Main window</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>Drawing\Bitmaps</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Drawing\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardStatus.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySound.cpp">
+      <Filter>Main window\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Drawing\Text</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

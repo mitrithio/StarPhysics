@@ -1,0 +1,18 @@
+#ifndef PCE_ENUMDEFINITION_H
+#define PCE_ENUMDEFINITION_H
+
+enum EnumShapeDesc
+{
+	ESD_BOUNDINGSPHERE = 0,
+	
+	ESD_TOTALNUMBERS
+};
+
+enum EnumShapeDescType
+{
+	ESDT_COLLIDER = 0,
+
+	ESDT_TOTALNUMBERS
+};
+
+#endif
