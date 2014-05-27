@@ -3,14 +3,16 @@
 
 enum EnumShapeDesc
 {
-	ESD_BOUNDINGSPHERE = 0,
+	ESD_NONE = 0,
+	ESD_BOUNDINGSPHERE,
 	
 	ESD_TOTALNUMBERS
 };
 
 enum EnumShapeDescType
 {
-	ESDT_COLLIDER = 0,
+	ESDT_NONE = 0,
+	ESDT_COLLIDER,
 
 	ESDT_TOTALNUMBERS
 };

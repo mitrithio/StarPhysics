@@ -40,20 +40,15 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	BoundingSphere *bs = new BoundingSphere(10,0,0);
 
-	PCE_ERROR bsError;
-	bsError = bs->setSubSpheresInitialCapacity(10);
-	if (bsError != PCE_OK)
-	{
-		DrawError::StampError(bsError);
-	}
+	bs->setSubShapesInitialCapacity(10);
 	BoundingSphere bssubs[10] = {BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0)};
 
-	bs->addSubSphereArray(bssubs, 10);
+	bs->addSubShapeArray(bssubs, 10);
 
 	for (int i = 0; i < 10; ++i)
 	{
 		BoundingSphere *bssubs2 = new BoundingSphere(1,0,0);
-		bsError = bs->addSubSphere(*bssubs2);
+		bs->addSubShape(*bssubs2);
 		delete bssubs2;
 	}
 	

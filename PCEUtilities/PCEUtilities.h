@@ -3,5 +3,7 @@
 
 #include "PCEUtilitiesSystemApi.h"
 #include "PCEString.h"
+#include "PCEPoint.h"
+#include "PCEVector.h"
 
 #endif

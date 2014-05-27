@@ -1,0 +1,218 @@
+.TH "Shape" 3 "Tue May 27 2014" "Version 1.0" "PhysiCsEngine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Shape \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shape\&.h>\fP
+.PP
+Inherited by \fBBoundingSphere\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShape\fP (const \fBEnumShapeDesc\fP i_desc=\fBESD_NONE\fP, const \fBEnumShapeDescType\fP i_type=\fBESDT_NONE\fP, unsigned int i_capacity=0, unsigned int i_count=0)"
+.br
+.RI "\fIDefault constructor\&. It sets nullptr to mDesc\&. \fP"
+.ti -1c
+.RI "const \fBEnumShapeDesc\fP \fBgetDescription\fP () const "
+.br
+.RI "\fIGetter for mDesc\&. \fP"
+.ti -1c
+.RI "const \fBEnumShapeDescType\fP \fBgetDescriptionType\fP () const "
+.br
+.RI "\fIGetter for mType\&. \fP"
+.ti -1c
+.RI "\fBPCE_ERROR\fP \fBsetSubShapesInitialCapacity\fP (unsigned int i_numberOfSubShapes)"
+.br
+.RI "\fISetter for initial capacity of sub shapes' array\&. \fP"
+.ti -1c
+.RI "virtual \fBPCE_ERROR\fP \fBaddSubShape\fP (const \fBShape\fP &i_subShape)"
+.br
+.RI "\fIAdds a \fBShape\fP to mpSubShapes array\&. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated\&. \fP"
+.ti -1c
+.RI "virtual \fBPCE_ERROR\fP \fBaddSubShapeArray\fP (const \fBShape\fP *i_subShapes, unsigned int i_numberOfSubShapes)"
+.br
+.RI "\fIAdds a \fBShape\fP to mpSubShapes array\&. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated\&. \fP"
+.ti -1c
+.RI "const \fBShape\fP * \fBgetSubShapes\fP () const "
+.br
+.RI "\fIGetter for mpSubShapes attribute\&. \fP"
+.ti -1c
+.RI "const unsigned int \fBgetSubSpheresCount\fP () const "
+.br
+.RI "\fIGetter for mCountSubShapes attribute\&. \fP"
+.ti -1c
+.RI "const unsigned int \fBgetSubShapesCapacity\fP () const "
+.br
+.RI "\fIGetter for mSubShapesCapacity attribute\&. \fP"
+.ti -1c
+.RI "virtual \fB~Shape\fP ()"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (const \fBShape\fP &rvalue) const "
+.br
+.ti -1c
+.RI "virtual bool \fBoperator!=\fP (const \fBShape\fP &rvalue) const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBEnumShapeDesc\fP \fBmDesc\fP"
+.br
+.ti -1c
+.RI "\fBEnumShapeDescType\fP \fBmType\fP"
+.br
+.ti -1c
+.RI "\fBShape\fP * \fBmpSubShapes\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBmSubShapesCapacity\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBmCountSubShapes\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A \fBShape\fP is a description of bounds of an object\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Shape::Shape (const \fBEnumShapeDesc\fPi_desc = \fC\fBESD_NONE\fP\fP, const \fBEnumShapeDescType\fPi_type = \fC\fBESDT_NONE\fP\fP, unsigned inti_capacity = \fC0\fP, unsigned inti_count = \fC0\fP)\fC [inline]\fP"
+
+.PP
+Default constructor\&. It sets nullptr to mDesc\&. 
+.SS "virtual Shape::~Shape ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBPCE_ERROR\fP Shape::addSubShape (const \fBShape\fP &i_subShape)\fC [virtual]\fP"
+
+.PP
+Adds a \fBShape\fP to mpSubShapes array\&. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_subShape\fP The \fBShape\fP to add\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a PCE_ERROR\&. 
+.RE
+.PP
+
+.SS "\fBPCE_ERROR\fP Shape::addSubShapeArray (const \fBShape\fP *i_subShapes, unsigned inti_numberOfSubShapes)\fC [virtual]\fP"
+
+.PP
+Adds a \fBShape\fP to mpSubShapes array\&. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_subShapes\fP The pointer to first \fBShape\fP to add\&. 
+.br
+\fIi_numberOfSubShapes\fP The length of the array\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a PCE_ERROR\&. 
+.RE
+.PP
+
+.SS "const \fBEnumShapeDesc\fP Shape::getDescription () const\fC [inline]\fP"
+
+.PP
+Getter for mDesc\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+mDesc 
+.RE
+.PP
+
+.SS "const \fBEnumShapeDescType\fP Shape::getDescriptionType () const\fC [inline]\fP"
+
+.PP
+Getter for mType\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+mType 
+.RE
+.PP
+
+.SS "const \fBShape\fP* Shape::getSubShapes () const\fC [inline]\fP"
+
+.PP
+Getter for mpSubShapes attribute\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+A pointer to the sub shapes' array\&. 
+.RE
+.PP
+
+.SS "const unsigned int Shape::getSubShapesCapacity () const\fC [inline]\fP"
+
+.PP
+Getter for mSubShapesCapacity attribute\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+The number of sub shapes used\&. 
+.RE
+.PP
+
+.SS "const unsigned int Shape::getSubSpheresCount () const\fC [inline]\fP"
+
+.PP
+Getter for mCountSubShapes attribute\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+The number of sub shapes used\&. 
+.RE
+.PP
+
+.SS "bool Shape::operator!= (const \fBShape\fP &rvalue) const\fC [virtual]\fP"
+
+.SS "bool Shape::operator== (const \fBShape\fP &rvalue) const\fC [virtual]\fP"
+
+.SS "\fBPCE_ERROR\fP Shape::setSubShapesInitialCapacity (unsigned inti_numberOfSubShapes)"
+
+.PP
+Setter for initial capacity of sub shapes' array\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_numberOfSubShapes\fP The number of initial capacity\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+A PCE_ERROR: PCE_OK if the operation went well, PCE_CAPACITY if memory is full\&. 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "unsigned int Shape::mCountSubShapes\fC [protected]\fP"
+The number of sub shapes added\&. 
+.SS "\fBEnumShapeDesc\fP Shape::mDesc\fC [protected]\fP"
+The description name of shape\&. 
+.SS "\fBShape\fP* Shape::mpSubShapes\fC [protected]\fP"
+Pointer to sub shapes' array\&. 
+.SS "unsigned int Shape::mSubShapesCapacity\fC [protected]\fP"
+The capacity of sub shapes' array\&. 
+.SS "\fBEnumShapeDescType\fP Shape::mType\fC [protected]\fP"
+The description type of shape\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for PhysiCsEngine from the source code\&.

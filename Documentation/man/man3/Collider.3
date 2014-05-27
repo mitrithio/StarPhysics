@@ -1,0 +1,66 @@
+.TH "Collider" 3 "Tue May 27 2014" "Version 1.0" "PhysiCsEngine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Collider \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shape\&.h>\fP
+.PP
+Inherited by \fBBoundingSphere\fP\fC [private]\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBShape\fP * \fBshapeCollidedWith\fP (const PCEPoint &i_point) const =0"
+.br
+.RI "\fICheck for collision\&. \fP"
+.ti -1c
+.RI "virtual const \fBShape\fP * \fBshapeCollidedWith\fP (const \fBShape\fP &i_shape) const =0"
+.br
+.RI "\fICheck for collision\&. \fP"
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual const \fBShape\fP* Collider::shapeCollidedWith (const PCEPoint &i_point) const\fC [pure virtual]\fP"
+
+.PP
+Check for collision\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_point\fP The point where collision could be\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+This \fBShape\fP or a subShape that are involved in collision with i_shape\&. nullptr if neither shape and its sub shapes are involved in collision\&. 
+.RE
+.PP
+
+.PP
+Implemented in \fBBoundingSphere\fP\&.
+.SS "virtual const \fBShape\fP* Collider::shapeCollidedWith (const \fBShape\fP &i_shape) const\fC [pure virtual]\fP"
+
+.PP
+Check for collision\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_shape\fP The \fBShape\fP that could be involved in collision with this \fBShape\fP\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+This \fBShape\fP or a subShape that are involved in collision with i_shape\&. nullptr if neither shape and its sub shapes are involved in collision\&. 
+.RE
+.PP
+
+.PP
+Implemented in \fBBoundingSphere\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for PhysiCsEngine from the source code\&.

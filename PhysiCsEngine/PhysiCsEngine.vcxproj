@@ -89,6 +89,7 @@
     <ClCompile Include="BoundingSphere.cpp" />
     <ClCompile Include="DrawError.cpp" />
     <ClCompile Include="DrawPhysiCsEngineClasses.cpp" />
+    <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PCEUtilities\Utilities.vcxproj">

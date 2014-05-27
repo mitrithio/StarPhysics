@@ -1,0 +1,124 @@
+.TH "BoundingSphere" 3 "Tue May 27 2014" "Version 1.0" "PhysiCsEngine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BoundingSphere \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <BoundingSphere\&.h>\fP
+.PP
+Inherits \fBShape\fP, and \fBCollider\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBoundingSphere\fP ()"
+.br
+.ti -1c
+.RI "\fBBoundingSphere\fP (const \fBBoundingSphere\fP &i_boundingSphere)"
+.br
+.ti -1c
+.RI "\fBBoundingSphere\fP (float i_r, float i_x, float i_y, float i_z=0)"
+.br
+.ti -1c
+.RI "\fB~BoundingSphere\fP ()"
+.br
+.ti -1c
+.RI "\fBBOUNDING_SPHERE_ERROR\fP \fBaddSubSphere\fP (float i_r, float i_x, float i_y, float i_z=0)"
+.br
+.ti -1c
+.RI "const PCEPoint \fBgetCenter\fP () const "
+.br
+.ti -1c
+.RI "void \fBsetCenter\fP (const PCEPoint i_center)"
+.br
+.ti -1c
+.RI "const float \fBgetRadius\fP () const "
+.br
+.ti -1c
+.RI "void \fBsetRadius\fP (const float i_radius)"
+.br
+.ti -1c
+.RI "const \fBShape\fP * \fBshapeCollidedWith\fP (const PCEPoint &i_point) const "
+.br
+.RI "\fICheck for collision\&. \fP"
+.ti -1c
+.RI "const \fBShape\fP * \fBshapeCollidedWith\fP (const \fBShape\fP &i_shape) const "
+.br
+.RI "\fICheck for collision\&. \fP"
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBShape\fP *rvalue) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBShape\fP *rvalue) const "
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "BoundingSphere::BoundingSphere ()"
+
+.SS "BoundingSphere::BoundingSphere (const \fBBoundingSphere\fP &i_boundingSphere)"
+
+.SS "BoundingSphere::BoundingSphere (floati_r, floati_x, floati_y, floati_z = \fC0\fP)"
+
+.SS "BoundingSphere::~BoundingSphere ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBBOUNDING_SPHERE_ERROR\fP BoundingSphere::addSubSphere (floati_r, floati_x, floati_y, floati_z = \fC0\fP)"
+
+.SS "const PCEPoint BoundingSphere::getCenter () const\fC [inline]\fP"
+
+.SS "const float BoundingSphere::getRadius () const\fC [inline]\fP"
+
+.SS "bool BoundingSphere::operator!= (const \fBShape\fP *rvalue) const"
+
+.SS "bool BoundingSphere::operator== (const \fBShape\fP *rvalue) const"
+
+.SS "void BoundingSphere::setCenter (const PCEPointi_center)\fC [inline]\fP"
+
+.SS "void BoundingSphere::setRadius (const floati_radius)\fC [inline]\fP"
+
+.SS "const \fBShape\fP * BoundingSphere::shapeCollidedWith (const PCEPoint &i_point) const\fC [virtual]\fP"
+
+.PP
+Check for collision\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_point\fP The point where collision could be\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+This \fBShape\fP or a subShape that are involved in collision with i_shape\&. nullptr if neither shape and its sub shapes are involved in collision\&. 
+.RE
+.PP
+
+.PP
+Implements \fBCollider\fP\&.
+.SS "const \fBShape\fP * BoundingSphere::shapeCollidedWith (const \fBShape\fP &i_shape) const\fC [virtual]\fP"
+
+.PP
+Check for collision\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIi_shape\fP The \fBShape\fP that could be involved in collision with this \fBShape\fP\&. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+This \fBShape\fP or a subShape that are involved in collision with i_shape\&. nullptr if neither shape and its sub shapes are involved in collision\&. 
+.RE
+.PP
+
+.PP
+Implements \fBCollider\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for PhysiCsEngine from the source code\&.

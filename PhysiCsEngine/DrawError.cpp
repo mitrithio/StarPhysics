@@ -19,10 +19,10 @@ void DrawError::StampError(PCE_ERROR i_error)
 	case PCE_OK:
 		sprintf_s(buffer, "OK");
 		break;
-	case PCE_BS_CAPACITY:
+	case PCE_CAPACITY:
 		sprintf_s(buffer, "Error in capacity extension for subSpheres' array");
 		break;
-	case PCE_BS_ADDSUBSPHERE:
+	case PCE_ADDSUBSPHERE:
 		sprintf_s(buffer, "Error in calling calloc for add a subSphere in the array");
 		break;
 	default:

@@ -30,6 +30,9 @@
     <ClCompile Include="DrawError.cpp">
       <Filter>Systrem\Drawing</Filter>
     </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundingSphere.h">

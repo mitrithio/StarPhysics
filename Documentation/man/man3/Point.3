@@ -1,0 +1,94 @@
+.TH "Point" 3 "Mon May 26 2014" "Version 1.0" "PhysiCsEngine" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Point \- 
+.PP
+A \fBPoint\fP of a \fBShape\fP is always in local coordinates\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shape\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBPoint\fP &rvalue) const "
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBPoint\fP &rvalue) const "
+.br
+.ti -1c
+.RI "\fBPoint\fP & \fBoperator=\fP (const \fBPoint\fP &rvalue)"
+.br
+.ti -1c
+.RI "\fBPoint\fP (float i_x, float i_y, float i_z=0)"
+.br
+.ti -1c
+.RI "\fB~Point\fP ()"
+.br
+.ti -1c
+.RI "const float \fBgetX\fP () const "
+.br
+.ti -1c
+.RI "const float \fBgetY\fP () const "
+.br
+.ti -1c
+.RI "const float \fBgetZ\fP () const "
+.br
+.ti -1c
+.RI "const float * \fBgetCoordinates\fP () const "
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A \fBPoint\fP of a \fBShape\fP is always in local coordinates\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Point::Point (floati_x, floati_y, floati_z = \fC0\fP)\fC [inline]\fP"
+
+.SS "Point::~Point ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "const float* Point::getCoordinates () const\fC [inline]\fP"
+
+.SS "const float Point::getX () const\fC [inline]\fP"
+
+.PP
+\fBReturns:\fP
+.RS 4
+the local X coordinate 
+.RE
+.PP
+
+.SS "const float Point::getY () const\fC [inline]\fP"
+
+.PP
+\fBReturns:\fP
+.RS 4
+the local Y coordinate 
+.RE
+.PP
+
+.SS "const float Point::getZ () const\fC [inline]\fP"
+
+.PP
+\fBReturns:\fP
+.RS 4
+the local Z coordinate 
+.RE
+.PP
+
+.SS "bool Point::operator!= (const \fBPoint\fP &rvalue) const\fC [inline]\fP"
+
+.SS "\fBPoint\fP& Point::operator= (const \fBPoint\fP &rvalue)\fC [inline]\fP"
+
+.SS "bool Point::operator== (const \fBPoint\fP &rvalue) const\fC [inline]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for PhysiCsEngine from the source code\&.

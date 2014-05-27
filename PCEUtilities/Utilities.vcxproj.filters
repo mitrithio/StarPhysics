@@ -7,8 +7,11 @@
     <ClInclude Include="PCEString.h" />
     <ClInclude Include="PCEUtilities.h" />
     <ClInclude Include="PCEUtilitiesSystemApi.h" />
+    <ClInclude Include="PCEPoint.h" />
+    <ClInclude Include="PCEVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCEString.cpp" />
+    <ClCompile Include="PCEPoint.cpp" />
   </ItemGroup>
 </Project>
