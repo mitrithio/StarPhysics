@@ -18,6 +18,15 @@ PCEString::PCEString(const char *io_string)
 	mpString[length] = '\0';
 }
 
+PCEString::PCEString(const PCEString &i_other)
+{
+	length = i_other.length;
+	mpString = new char[length + 1];
+	for (unsigned int i = 0; i < length; ++i)
+	{
+		mpString[i] = i_other.mpString[i];
+	}
+}
 
 PCEString::~PCEString(void)
 {
@@ -73,33 +82,22 @@ bool PCEString::operator!=(const PCEString &rvalue)
 
 PCEString& PCEString::operator=(const PCEString &rvalue)
 {
- 	/*if (length == 0)
- 	{
- 		mpString = new char[rvalue.size()];
- 	}
- 	else if (length != rvalue.size())
+ 	if (*this != rvalue)
 	{
-		delete[] mpString;
-		mpString = new char[rvalue.size()];
+		length = rvalue.length;
+		mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue.mpString, length);
 	}
-
-	for (int i = 0; rvalue[i] != '\0'; ++i)
-	{
-		mpString[i] = rvalue[i];
-	}*/
-
-	length = rvalue.length;
-	mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue.mpString, length);
 
 	return *this;
 }
 
 PCEString& PCEString::operator=(const char *rvalue)
 {
-	length = getSizeFromCharPtr(rvalue);
-	
-	mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue, length);
-
+	if (*this != rvalue)
+	{
+		length = getSizeFromCharPtr(rvalue);
+		mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue, length);
+	}
 	return *this;
 }
 
@@ -115,7 +113,6 @@ PCEString& PCEString::operator+=(const PCEString &rvalue)
 	{
 		tmpString[i] = mpString[i];
 	}
-	//--i;
 	for(int j = 0; j < rvalue.length; ++i, ++j)
 	{
 		tmpString[i] = rvalue.mpString[j];
@@ -134,10 +131,18 @@ PCEString& PCEString::operator+=(const char *rvalue)
 	return *this += tmpString;
 }
 
-PCEString& PCEString::operator+(const PCEString &rvalue)
+const PCEString PCEString::operator+(const PCEString &rvalue) const
 {
-	*this += rvalue;
-	return *this;
+	PCEString tmp(*this);
+	tmp += rvalue;
+	return tmp;
+}
+
+const PCEString PCEString::operator+(const char *rvalue) const
+{
+	PCEString tmp(*this);
+	tmp += rvalue;
+	return tmp;
 }
 
 size_t PCEString::getSizeFromCharPtr(const char* i_charPtr) const
@@ -155,15 +160,19 @@ size_t PCEString::getSizeFromCharPtr(const char* i_charPtr) const
 
 char* PCEString::createStringFromCharPtr(const char* i_charPtr, size_t i_newLength)
 {
-	if (mpString == nullptr)
+	if (i_charPtr == nullptr)
 	{
-		mpString = new char[i_newLength + 1];
+		return nullptr;
 	}
-	else
+
+
+	if (mpString != nullptr)
 	{
 		delete[] mpString;
-		mpString = new char[i_newLength + 1];
 	}
+
+	length = i_newLength;
+	mpString = new char[length + 1];
 
 	for (int i = 0; i < length; ++i)
 	{
@@ -172,4 +181,20 @@ char* PCEString::createStringFromCharPtr(const char* i_charPtr, size_t i_newLeng
 
 	mpString[i_newLength] = '\0';
 	return mpString;
+}
+
+bool PCEString::operator==(const char *rvalue)
+{
+	bool isEqual = (mpString != nullptr && rvalue != nullptr);
+
+	for (unsigned int i = 0; isEqual && mpString[i] != '\0' && rvalue[i] != '\0'; ++i)
+	{
+		isEqual = (mpString[i] == rvalue[i]);
+	}
+
+	return isEqual;
+}
+bool PCEString::operator!=(const char *rvalue)
+{
+	return !(*this == rvalue);
 }

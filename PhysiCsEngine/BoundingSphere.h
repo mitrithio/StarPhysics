@@ -4,7 +4,7 @@
 #include "PCESystemApi.h"
 #include "Shape.h"
 
-typedef enum PCE_ERROR BOUNDING_SPHERE_ERROR;
+//typedef enum PCE_ERROR BOUNDING_SPHERE_ERROR;
 
 class BoundingSphere : public Collider
 {
@@ -19,8 +19,6 @@ public:
 	*/
 	/************************************************************************/
 	BoundingSphere(float i_r, float i_x, float i_y, float i_z = 0);
-
-	~BoundingSphere();
 
 	/************************************************************************/
 	/*
@@ -47,12 +45,8 @@ public:
 
 	bool operator==(const Shape& rvalue) const;
 	bool operator!=(const Shape& rvalue) const;
-	const Shape& operator=(const Shape& rvalue);
-
-private:
-	PCEPoint mCenter;
-	float mRadius;
-
+	Shape& operator=(const Shape& rvalue);
+	
 	/************************************************************************/
 	/*
 	BE CAREFULL: this operator do not deallocate nothing in the lValue!!
@@ -63,6 +57,12 @@ private:
 	
 	bool operator==(const BoundingSphere& rvalue) const;
 	bool operator!=(const BoundingSphere& rvalue) const;
+
+private:
+	PCEPoint mCenter;
+	float mRadius;
+
+	
 	const Collider* shapeCollidedWith(const BoundingSphere &i_sphere) const;
 };
 

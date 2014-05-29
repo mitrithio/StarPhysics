@@ -22,12 +22,12 @@ public:
 		}
 	}
 
-	PCEVector(const T& i_arrayElements, const size_t i_arraySize)
+	PCEVector(const T* i_arrayElements, const size_t i_arraySize)
 	{
-		mCapacity = i_arraySize;
-		mCount = i_arraySize;
+		mCapacity = i_arraySize + 10;
+		mCount = 0;
 		mpElements = new T[mCapacity];
-
+		push_back(i_arrayElements,i_arraySize);
 	}
 
 	PCEVector(const PCEVector<T>& i_otherVector)
@@ -53,6 +53,32 @@ public:
 		}
 		mpElements[mCount] = io_newElement;
 		++mCount;
+	}
+
+	void push_back(const PCEVector<T>& i_otherVector)
+	{
+		if (mCount + i_otherVector.mCount > mCapacity)
+		{
+			addCapacity(mCount + i_otherVector.mCount - mCapacity + 10);
+		}
+		for(size_t i = 0; i < i_otherVector.mCount; ++i)
+		{
+			mpElements[mCount] = i_otherVector.mpElements[i];
+			++mCount;
+		}
+	}
+
+	void push_back(const T* i_arrayElements, const unsigned int i_numberOfNewElements)
+	{
+		if (mCount + i_numberOfNewElements > mCapacity)
+		{
+			addCapacity(mCount + i_numberOfNewElements - mCapacity + 10);
+		}
+		for(size_t i = 0; i < i_numberOfNewElements; ++i)
+		{
+			mpElements[mCount] = i_arrayElements[i];
+			++mCount;
+		}
 	}
 
 	void shrink_to_fit()
@@ -89,27 +115,34 @@ public:
 
 	void erase(const size_t i_atIndex)
 	{
-		if (at(i_atIndex))
+		if (i_atIndex < mCount && i_atIndex >= 0)
 		{
-			T* tpElements = mpElements;
-
-			mpElements = new T[mCapacity];
-			if (mpElements != nullptr && tpElements != nullptr)
+			if (mCount > 1)
 			{
-				for (size_t i = 0; i < mCount; ++i)
+				T* tpElements = mpElements;
+
+				mpElements = new T[mCapacity];
+				if (mpElements != nullptr && tpElements != nullptr)
 				{
-					if( i < i_atIndex)
+					for (size_t i = 0; i < mCount; ++i)
 					{
-						mpElements[i] = tpElements[i];
+						if( i < i_atIndex)
+						{
+							mpElements[i] = tpElements[i];
+						}
+						else if( i > i_atIndex)
+						{
+							mpElements[i-1] = tpElements[i];
+						}
 					}
-					else if( i > i_atIndex)
-					{
-						mpElements[i-1] = tpElements[i];
-					}
+					delete[] tpElements;
 				}
-				delete[] tpElements;
+			} 
+			else
+			{
+				mpElements = nullptr;
 			}
-			mCapacity = mCount;
+			--mCount;
 		}
 	}
 
@@ -126,15 +159,13 @@ public:
 
 	bool operator==(const PCEVector<T>& rvalue) const
 	{
-		bool isEqual = true;
-		if (mCount != rvalue.mCount || mCapacity != rvalue.mCapacity)
-		{
-			isEqual = false;
-		}
+		bool isEqual = (mCount == rvalue.mCount && mCapacity == rvalue.mCapacity);
+
 		for (size_t i = 0; isEqual && i < mCount; ++i)
 		{
 			isEqual = ( mpElements[i] == rvalue.mpElements[i] ); 
 		}
+
 		return isEqual;
 	}
 
@@ -143,20 +174,23 @@ public:
 		return !(*this == rvalue);
 	}
 
-	const PCEVector<T>& operator=(const PCEVector<T>& i_otherVector)
+	const PCEVector<T>& operator=(const PCEVector<T>& rvalue)
 	{
-		if (this != &i_otherVector)
+		if (this != &rvalue || *this != rvalue)
 		{
 			if (mpElements != nullptr)
 			{
 				delete[] mpElements;
 			}
-			mCapacity = i_otherVector.mCapacity;
-			mCount = i_otherVector.mCount;
-			mpElements = new T[mCapacity];
-			for (size_t i = 0; i < mCount; ++i)
+			mCapacity = rvalue.mCapacity;
+			mCount = rvalue.mCount;
+			if (mCapacity != 0)
 			{
-				mpElements[i] = i_otherVector[i];
+				mpElements = new T[mCapacity];
+				for (size_t i = 0; i < mCount; ++i)
+				{
+					mpElements[i] = rvalue[i];
+				}
 			}
 		}
 		return *this;
@@ -185,6 +219,8 @@ private:
 			}
 		}
 	}
+
+	
 };
 
 #endif

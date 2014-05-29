@@ -15,6 +15,7 @@ private:
 public:
 	PCEString();
 	PCEString(const char* io_string);
+	PCEString(const PCEString &i_other);
 
 	~PCEString();
 
@@ -24,12 +25,17 @@ public:
 	char& operator[](const int iValue) const;
 	bool operator==(const PCEString &rvalue);
 	bool operator!=(const PCEString &rvalue);
+	bool operator==(const char *rvalue);
+	bool operator!=(const char *rvalue);
 	PCEString& operator=(const PCEString &rvalue);
 	PCEString& operator=(const char *rvalue);
 	PCEString& operator+=(const PCEString &rvalue);
 	PCEString& operator+=(const char *rvalue);
-	PCEString& operator+(const PCEString &rvalue);
+	const PCEString operator+(const PCEString &rvalue) const;
+	const PCEString operator+(const char *rvalue) const;
 
 };
 
 #endif
+
+

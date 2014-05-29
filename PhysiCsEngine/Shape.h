@@ -32,12 +32,6 @@ public:
 	inline const EnumShapeDescType getDescriptionType() const	{return mType;}
 
 	/*!
-	\brief Setter for initial capacity of sub shapes' array.
-	\param [in] i_numberOfSubShapes The number of initial capacity.
-	*/
-	void setSubShapesInitialCapacity(unsigned int i_numberOfSubShapes);
-
-	/*!
 	\brief Adds a Shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
 	\param [in] i_subShape The Shape to add.
 	*/
@@ -54,23 +48,11 @@ public:
 	\brief Getter for mpSubShapes attribute.
 	\return A pointer to the sub shapes' vector.
 	*/
-	inline const PCEVector<Shape*>& getSubShapes() const		{return mSubShapes;}
-	
-	/*!
-	\brief Getter for mCountSubShapes attribute
-	\return The number of sub shapes used.
-	*/
-	inline const size_t getSubShapesCount() const	{return mSubShapes.size();}
+	inline const PCEVector<Shape*>* getSubShapes() const		{return &mSubShapes;}
 
-	/*!
-	\brief Getter for mSubShapesCapacity attribute
-	\return The number of sub shapes used.
-	*/
-	inline const size_t getSubShapesCapacity() const	{return mSubShapes.capacity();}
-
-	virtual bool operator==(const Shape& rvalue) const = 0;
-	virtual bool operator!=(const Shape& rvalue) const = 0;
-	virtual const Shape& operator=(const Shape& rvalue) = 0;
+	virtual bool operator==(const Shape& rvalue) const;
+	virtual bool operator!=(const Shape& rvalue) const;
+	virtual Shape& operator=(const Shape& rvalue);
 
 protected:
 	EnumShapeDesc mDesc;				/*!< \brief The description name of shape. */

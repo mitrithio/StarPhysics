@@ -14,12 +14,18 @@ public:
 	/*!
 		\brief Redefinition of == operator.
 	*/
-	inline bool operator== (const PCEPoint& rvalue) const;
+	inline bool operator== (const PCEPoint& rvalue) const
+	{
+		return mX == rvalue.mX && mY == rvalue.mY && mZ == rvalue.mZ;
+	}
 	
 	/*!
 		\brief Redefinition of != operator.
 	*/
-	inline bool operator!= (const PCEPoint& rvalue) const;
+	inline bool operator!= (const PCEPoint& rvalue) const
+	{
+		return !(*this == rvalue);
+	}
 		
 	/*!
 		\brief Redefinition of = operator.

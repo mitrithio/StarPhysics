@@ -30,7 +30,7 @@ const Collider* BoundingSphere::shapeCollidedWith(const PCEPoint &i_point) const
 	float d2CenterPoint = (mCenter.mX - i_point.mX)*(mCenter.mX - i_point.mX) + (mCenter.mY - i_point.mY)*(mCenter.mY - i_point.mY) + (mCenter.mZ - i_point.mZ)*(mCenter.mZ - i_point.mZ);
 	if (d2CenterPoint <= mRadius*mRadius)
 	{
-		for (unsigned int i = 0; i < getSubShapesCount(); ++i)
+		for (unsigned int i = 0; i < mSubShapes.size(); ++i)
 		{
 			const Collider * collisionBound = static_cast<const Collider *>(mSubShapes[i])->shapeCollidedWith(i_point);
 			if (collisionBound != nullptr)
@@ -50,22 +50,12 @@ const Collider* BoundingSphere::shapeCollidedWith(const Collider &i_shape) const
 	return nullptr;
 }
 
-BoundingSphere::~BoundingSphere()
-{
-}
-
-
-
-/************************************************************************/
-
-//						PRIVATE METHODS									//
-//						   operators									//
-/************************************************************************/
-
 BoundingSphere& BoundingSphere::operator=(const BoundingSphere& rvalue)
 {
-	if (this != &rvalue)
+	if (this != &rvalue || *this != rvalue)
 	{
+		this->mDesc = rvalue.mDesc;
+		this->mType = rvalue.mType;
 		this->mCenter = rvalue.mCenter;
 		this->mRadius = rvalue.mRadius;
 		this->mSubShapes = rvalue.mSubShapes;
@@ -75,46 +65,25 @@ BoundingSphere& BoundingSphere::operator=(const BoundingSphere& rvalue)
 
 bool BoundingSphere::operator==(const BoundingSphere& rvalue) const
 {
-	if (this == &rvalue)
-	{
-		return true;
-	}
-
-	if (&rvalue == nullptr && this != nullptr)
-	{
-		return false;
-	}
-
-	return (this->mCenter == rvalue.mCenter &&
-			this->mRadius == rvalue.mRadius &&
-			this->mSubShapes == rvalue.mSubShapes);
+	return mDesc == rvalue.mDesc		&&
+		   mType == rvalue.mType		&&
+		   mCenter == rvalue.mCenter	&&
+		   mRadius == rvalue.mRadius	&&
+		   mSubShapes == rvalue.mSubShapes;
 }
 
 bool BoundingSphere::operator!=(const BoundingSphere& rvalue) const
 {
-	return !(this->operator==(rvalue));
+	return !(*this == rvalue);
 }
 
 bool BoundingSphere::operator==(const Shape& rvalue) const
 {
-	if (typeid(*this) != typeid(rvalue))
-	{
-		return false;
-	}
-
-	if (this == &rvalue)
-	{
-		return true;
-	}
-	
-	if (&rvalue == nullptr)
-	{
-		return false;
-	}
-
-
-	const BoundingSphere * rvalueSphere = static_cast<const BoundingSphere*>(&rvalue);
-	return *this == *rvalueSphere;
+// 	if (typeid(rvalue) == typeid(BoundingSphere))
+// 	{
+// 		return *this == *static_cast<const BoundingSphere *>(&rvalue);
+// 	}
+	return *this == *dynamic_cast<const BoundingSphere *>(&rvalue);
 }
 
 bool BoundingSphere::operator!=(const Shape& rvalue) const
@@ -122,25 +91,17 @@ bool BoundingSphere::operator!=(const Shape& rvalue) const
 	return !(*this != rvalue);
 }
 
-const Shape& BoundingSphere::operator=(const Shape& rvalue)
+Shape& BoundingSphere::operator=(const Shape& rvalue)
 {
-	assert(typeid(rvalue) == typeid(BoundingSphere));
-	if (this != &rvalue)
+	if (typeid(rvalue) == typeid(BoundingSphere))
 	{
-		operator=(*static_cast<const BoundingSphere*>(&rvalue));
+		return operator=(*static_cast<const BoundingSphere *>(&rvalue));
 	}
-	return *this;
+	return *static_cast<Shape*>(nullptr);
 }
 
-
-/************************************************************************/
-
-//						PRIVATE METHODS									//
-//						 other methods									//
-/************************************************************************/
-
 BoundingSphere::BoundingSphere(const BoundingSphere& i_boundingSphere)
-	: Collider(i_boundingSphere.mDesc, i_boundingSphere.getSubShapesCapacity())
+	: Collider(i_boundingSphere.mDesc)
 	, mCenter(i_boundingSphere.mCenter)
 	, mRadius(i_boundingSphere.mRadius)
 {
