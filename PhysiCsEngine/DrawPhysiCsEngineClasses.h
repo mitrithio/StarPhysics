@@ -9,7 +9,7 @@ public:
 	DrawPhysiCsEngineClasses(void);
 	~DrawPhysiCsEngineClasses(void);
 
-	static void DrawBoundingSphere(const BoundingSphere &i_sphere);
+	static void DrawBoundingSphere(const BoundingSphere* i_sphere);
 };
 
 #endif

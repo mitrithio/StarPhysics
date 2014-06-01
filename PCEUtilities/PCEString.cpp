@@ -1,77 +1,67 @@
+#include <assert.h>
+#include "PCEUtilitiesSystemApi.h"
 #include "PCEString.h"
 
-PCEString::PCEString():
-	  mpString(nullptr)
-	, length(0)
+PCEString::PCEString(int capacity):
+	  mp_string(nullptr)
+	, m_length(capacity)
 {}
 
 PCEString::PCEString(const char *io_string)
 {
-	length = getSizeFromCharPtr(io_string);
+	m_length = getSizeFromCharPtr(io_string);
 	
-	mpString = new char[length + 1];
+	mp_string = new char[m_length + 1];
 	
-	for (size_t i = 0; i < length; ++i)
+	for (size_t i = 0; i < m_length; ++i)
 	{
-		mpString[i] = io_string[i];
+		mp_string[i] = io_string[i];
 	}
-	mpString[length] = '\0';
+	mp_string[m_length] = '\0';
 }
 
 PCEString::PCEString(const PCEString &i_other)
 {
-	length = i_other.length;
-	mpString = new char[length + 1];
-	for (unsigned int i = 0; i < length; ++i)
+	m_length = i_other.m_length;
+	mp_string = new char[m_length + 1];
+	for (unsigned int i = 0; i < m_length; ++i)
 	{
-		mpString[i] = i_other.mpString[i];
+		mp_string[i] = i_other.mp_string[i];
 	}
 }
 
 PCEString::~PCEString(void)
 {
-	if (mpString != nullptr && length != 0)
+	if (mp_string != nullptr)
 	{
-		delete[] mpString;
+		delete[] mp_string;
 	}
 }
 
-const size_t PCEString::size() const
+const int PCEString::size() const
 {
-	return length;
+	return m_length;
 }
 
 char* PCEString::operator*()
 {
-	return mpString;
+	return mp_string;
 }
 
 char& PCEString::operator[](const int iValue) const
 {
-	return mpString[iValue];
+	return mp_string[iValue];
 }
 
 bool PCEString::operator==(const PCEString &rvalue)
 {
-	bool equalFlag = true;
-	
-	if (length != rvalue.length)
-	{
-		equalFlag = false;
-	}
+	bool equalFlag = (m_length == rvalue.m_length);
 
-	int i = 0;
-	for (; i < length && equalFlag; ++i)
+	for (int index = 0; equalFlag && index < m_length; ++index)
 	{
-		if (mpString[i] != rvalue[i])
-		{
-			equalFlag = false;
-		}
+		equalFlag = (mp_string[index] == rvalue[index]);
 	}
-	/*if (mpString[i] != rvalue[i] && mpString != '\0')
-	{
-		equalFlag = false;
-	}*/
+	
 	return equalFlag;
 }
 
@@ -84,8 +74,8 @@ PCEString& PCEString::operator=(const PCEString &rvalue)
 {
  	if (*this != rvalue)
 	{
-		length = rvalue.length;
-		mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue.mpString, length);
+		m_length = rvalue.m_length;
+		mp_string = (m_length == 0) ? nullptr : createSubStringFromCharPtr(rvalue.mp_string, m_length);
 	}
 
 	return *this;
@@ -95,33 +85,33 @@ PCEString& PCEString::operator=(const char *rvalue)
 {
 	if (*this != rvalue)
 	{
-		length = getSizeFromCharPtr(rvalue);
-		mpString = (length == 0) ? nullptr : createStringFromCharPtr(rvalue, length);
+		m_length = getSizeFromCharPtr(rvalue);
+		mp_string = (m_length == 0) ? nullptr : createSubStringFromCharPtr(rvalue, m_length);
 	}
 	return *this;
 }
 
 PCEString& PCEString::operator+=(const PCEString &rvalue)
 {
-	size_t totalStringSize = length;
-	totalStringSize += rvalue.length;
+	size_t totalStringSize = m_length;
+	totalStringSize += rvalue.m_length;
 	
 	char *tmpString = new char[totalStringSize + 1];
 
-	int i = 0;
-	for (; i < length; ++i)
+	int indexOfThis = 0;
+	for (; indexOfThis < m_length; ++indexOfThis)
 	{
-		tmpString[i] = mpString[i];
+		tmpString[indexOfThis] = mp_string[indexOfThis];
 	}
-	for(int j = 0; j < rvalue.length; ++i, ++j)
+	for(int indexOfRvalue = 0; indexOfRvalue < rvalue.m_length; ++indexOfThis, ++indexOfRvalue)
 	{
-		tmpString[i] = rvalue.mpString[j];
+		tmpString[indexOfThis] = rvalue.mp_string[indexOfRvalue];
 	}
 
 	tmpString[totalStringSize] = '\0';
-	delete[] mpString;
-	mpString = tmpString;
-	length = totalStringSize;
+	delete[] mp_string;
+	mp_string = tmpString;
+	m_length = totalStringSize;
 	return *this;
 }
 
@@ -158,42 +148,36 @@ size_t PCEString::getSizeFromCharPtr(const char* i_charPtr) const
 	return (tStr - i_charPtr);
 }
 
-char* PCEString::createStringFromCharPtr(const char* i_charPtr, size_t i_newLength)
+char* PCEString::createSubStringFromCharPtr(const char* i_charPtr, size_t i_newLength)
 {
-	if (i_charPtr == nullptr)
+	assert(i_charPtr != nullptr);
+	
+	delete[] mp_string;
+
+	m_length = i_newLength;
+	mp_string = new char[m_length + 1];
+
+	for (int idx = 0; idx < m_length; ++idx)
 	{
-		return nullptr;
+		mp_string[idx] = i_charPtr[idx];
 	}
 
-
-	if (mpString != nullptr)
-	{
-		delete[] mpString;
-	}
-
-	length = i_newLength;
-	mpString = new char[length + 1];
-
-	for (int i = 0; i < length; ++i)
-	{
-		mpString[i] = i_charPtr[i];
-	}
-
-	mpString[i_newLength] = '\0';
-	return mpString;
+	mp_string[i_newLength] = '\0';
+	return mp_string;
 }
 
 bool PCEString::operator==(const char *rvalue)
 {
-	bool isEqual = (mpString != nullptr && rvalue != nullptr);
+	bool isEqual = (mp_string != nullptr && rvalue != nullptr);
 
-	for (unsigned int i = 0; isEqual && mpString[i] != '\0' && rvalue[i] != '\0'; ++i)
+	for (unsigned int i = 0; isEqual && mp_string[i] != '\0' && rvalue[i] != '\0'; ++i)
 	{
-		isEqual = (mpString[i] == rvalue[i]);
+		isEqual = (mp_string[i] == rvalue[i]);
 	}
 
 	return isEqual;
 }
+
 bool PCEString::operator!=(const char *rvalue)
 {
 	return !(*this == rvalue);

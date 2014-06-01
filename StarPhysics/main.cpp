@@ -27,43 +27,30 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	mainWindow.SetEventHandler(eventHandler);
 
-// 	BoundingSphere *bs = new BoundingSphere(10,0,0);
-// 
-// 	BoundingSphere *bssubs = new BoundingSphere[10];
-// 	BoundingSphere *newBS = new BoundingSphere(1,1,1);
-// 	for (int i = 0; i < 10; ++i)
-// 	{
-// 		bssubs[i] = *newBS;
-// 	}
-// 
-// 	DrawPhysiCsEngineClasses::DrawBoundingSphere(*newBS);
-// 
-// 	//BoundingSphere bssubs[10] = {BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0), BoundingSphere(1,0,0)};
-// 
-// 	PCEVector<BoundingSphere> vBoundingSphere(bssubs, 10);
-// 
-// 	bs->addSubShapeArray(bssubs, 10);
-// 
-// 	for (int i = 0; i < 10; ++i)
-// 	{
-// 		BoundingSphere *bssubs2 = new BoundingSphere(1,0,0);
-// 		bs->addSubShape(*bssubs2);
-// 		vBoundingSphere.push_back(*bssubs2);
-// 		delete bssubs2;
-// 	}
-// 	
-// 	bs->addSubSphere(1,2,2);
-// 	vBoundingSphere.push_back(*new BoundingSphere(1,2,2));
-// 
-// 	DrawPhysiCsEngineClasses::DrawBoundingSphere(*bs);
-// 	
-// 	const PCEVector<Shape *> * tp = bs->getSubShapes();
-// 
-// 	for (unsigned int i = 0; i < tp->size(); ++i)
-// 	{
-// 		DrawPhysiCsEngineClasses::DrawBoundingSphere(*static_cast<BoundingSphere *>(tp->at(i)));
-// 		//DrawPhysiCsEngineClasses::DrawBoundingSphere(vBoundingSphere[i]);
-// 	}
+	// TESTING:
+   	BoundingSphere *bs = new BoundingSphere(10,0,0);
+
+	DrawPhysiCsEngineClasses::DrawBoundingSphere(bs);
+
+	PCEVector<Shape *> bsSub(10);
+
+	Shape** arrayShape = new Shape*[11];
+
+	for(int index = 0; index < 10; ++index)
+	{
+		arrayShape[index] = new BoundingSphere(7,27,42);
+	}
+
+	arrayShape[10] = new BoundingSphere(5,18,120);
+
+	bsSub.push_back(arrayShape, 11);
+
+	bs->addSubShape(bsSub);
+
+	bs->addSubShape(arrayShape, 11);
+
+	DrawPhysiCsEngineClasses::DrawBoundingSphere(bs);
+   	
 
 	while(mainWindow.IsAlive())		 
 	{
@@ -76,7 +63,12 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	mainWindow.ClearEventHandler();
-	//delete bs;
+	delete bs;
+	for (int i = 0; i < 11; ++i)
+	{
+		delete arrayShape[i];
+	}
+	delete arrayShape;
 	delete eventHandler;
 	return 0;
 }

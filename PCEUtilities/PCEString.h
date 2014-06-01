@@ -6,20 +6,20 @@
 class PCEString
 {
 private:
-	char *mpString;
-	size_t length;
+	char *mp_string;
+	size_t m_length;
 	PCEString& operator-(const PCEString &rvalue){return *this;};
 	PCEString& operator-=(const PCEString &rvalue){return *this;};
 	size_t getSizeFromCharPtr(const char* i_charPtr) const;
-	char* createStringFromCharPtr(const char* i_charPtr, size_t i_newLength);
+	char* createSubStringFromCharPtr(const char* i_charPtr, size_t i_newLength);
 public:
-	PCEString();
+	PCEString(int capacity);
 	PCEString(const char* io_string);
 	PCEString(const PCEString &i_other);
 
 	~PCEString();
 
-	const size_t size() const;
+	const int size() const;
 
 	char* operator*(void);
 	char& operator[](const int iValue) const;
