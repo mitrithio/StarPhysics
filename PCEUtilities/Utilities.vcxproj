@@ -75,14 +75,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PCEPoint.h" />
+    <ClInclude Include="PCEList.h" />
+    <ClInclude Include="PCEMap.h" />
     <ClInclude Include="PCEString.h" />
     <ClInclude Include="PCEUtilities.h" />
     <ClInclude Include="PCEUtilitiesSystemApi.h" />
     <ClInclude Include="PCEVector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PCEPoint.cpp" />
     <ClCompile Include="PCEString.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

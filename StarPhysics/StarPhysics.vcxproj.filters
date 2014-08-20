@@ -13,15 +13,63 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{ac83b58f-3199-4ff6-b95d-7fd0f21ef311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{14a1e0f5-7525-4ce8-bb48-a6525cc1ea06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionableObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CirclesController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEventHandler.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionableObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CirclesController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

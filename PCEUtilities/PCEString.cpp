@@ -2,6 +2,11 @@
 #include "PCEUtilitiesSystemApi.h"
 #include "PCEString.h"
 
+PCEString::PCEString()
+	: mp_string(nullptr)
+	, m_length(0)
+{}
+
 PCEString::PCEString(int capacity):
 	  mp_string(nullptr)
 	, m_length(capacity)
@@ -28,6 +33,11 @@ PCEString::PCEString(const PCEString &i_other)
 	{
 		mp_string[i] = i_other.mp_string[i];
 	}
+}
+
+PCEString::PCEString( int i_int )
+{
+	*this = intToString(i_int);
 }
 
 PCEString::~PCEString(void)
@@ -72,10 +82,12 @@ bool PCEString::operator!=(const PCEString &rvalue)
 
 PCEString& PCEString::operator=(const PCEString &rvalue)
 {
- 	if (*this != rvalue)
+ 	if (this != &rvalue)
 	{
 		m_length = rvalue.m_length;
+		char *tmpString = mp_string;
 		mp_string = (m_length == 0) ? nullptr : createSubStringFromCharPtr(rvalue.mp_string, m_length);
+		delete [] tmpString;
 	}
 
 	return *this;
@@ -181,4 +193,37 @@ bool PCEString::operator==(const char *rvalue)
 bool PCEString::operator!=(const char *rvalue)
 {
 	return !(*this == rvalue);
+}
+
+const char* PCEString::getStringAsChar() const
+{
+	return mp_string;
+}
+
+PCEString PCEString::intToString(const int i_int)
+{
+	int num = i_int;
+	PCEString newStr;
+	char digit;
+	while(num > 0)
+	{
+		digit = char(num%10 + 48);
+		newStr += digit;
+		num /= 10;
+	}
+	revertString(&newStr);
+	return newStr;
+}
+
+void PCEString::revertString(PCEString* io_string)
+{
+	if( io_string != nullptr )
+	{
+		PCEString tmpString(io_string->size);
+		for (int i = 0; i < tmpString.size(); ++i)
+		{
+			tmpString[i] = (*io_string)[tmpString.size() - i];
+		}
+		*io_string = tmpString;
+	}
 }

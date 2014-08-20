@@ -6,20 +6,6 @@
 
 class GameEventHandler: public EventHandler
 {
-private: 
-	int x;
-	Bitmap * backgroundImg;
-
-	void CreateBitmaps()
-	{
-		backgroundImg = new Bitmap("startScreen.tga");
-	}
-
-	void DestroyBitmaps()
-	{
-		delete backgroundImg;
-	}
-
 public: 
 	GameEventHandler()
 	{
@@ -52,8 +38,22 @@ public:
 
 	void OnRender(Bitmap* renderTarget)
 	{ 
-		backgroundImg->DrawTo(renderTarget,0,0);
+		m_oBackgroundImg->DrawTo(renderTarget,0,0);
 		renderTarget->RenderText(x, 240, "some text", 255, 255, 255); 
+	}
+
+private: 
+	int x;
+	Bitmap * m_oBackgroundImg;
+
+	void CreateBitmaps()
+	{
+		m_oBackgroundImg = new Bitmap("startScreen.tga");
+	}
+
+	void DestroyBitmaps()
+	{
+		delete m_oBackgroundImg;
 	}
 };
 

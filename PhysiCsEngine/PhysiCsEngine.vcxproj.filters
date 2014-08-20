@@ -7,13 +7,13 @@
     <Filter Include="_Main include">
       <UniqueIdentifier>{3b17264b-ce89-4550-b3f5-e65e39be56f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systrem">
+    <Filter Include="System">
       <UniqueIdentifier>{8575c338-b82b-4936-bfc4-c76720bcf6e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systrem\System include">
+    <Filter Include="System\System include">
       <UniqueIdentifier>{6f929eed-829d-4327-9bb3-15300544ccd4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systrem\Drawing">
+    <Filter Include="System\Drawing">
       <UniqueIdentifier>{3909cbbe-8e4b-4fa7-b459-ae4ef541e5fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -21,43 +21,49 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoundingSphere.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="DrawPhysiCsEngineClasses.cpp">
-      <Filter>Systrem\Drawing</Filter>
+      <Filter>System\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="DrawError.cpp">
-      <Filter>Systrem\Drawing</Filter>
+      <Filter>System\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="Shape.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoundingSphere.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="PCE.h">
       <Filter>_Main include</Filter>
     </ClInclude>
     <ClInclude Include="PCESystemApi.h">
-      <Filter>Systrem\System include</Filter>
+      <Filter>System\System include</Filter>
     </ClInclude>
     <ClInclude Include="DrawPhysiCsEngineClasses.h">
-      <Filter>Systrem\Drawing</Filter>
+      <Filter>System\Drawing</Filter>
     </ClInclude>
     <ClInclude Include="DrawError.h">
-      <Filter>Systrem\Drawing</Filter>
-    </ClInclude>
-    <ClInclude Include="ErrorDefinitions.h">
-      <Filter>Systrem</Filter>
+      <Filter>System\Drawing</Filter>
     </ClInclude>
     <ClInclude Include="Shape.h">
       <Filter>Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="SphereCollider.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorDefinitions.h">
+      <Filter>System\System include</Filter>
+    </ClInclude>
     <ClInclude Include="EnumDefinitions.h">
-      <Filter>Systrem</Filter>
+      <Filter>System\System include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

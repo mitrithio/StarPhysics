@@ -6,7 +6,7 @@
 #include "ErrorDefinitions.h"
 
 /*!
-	A Shape is a description of bounds of an object.
+	\brief A Shape is a description of bounds of an object.
 */
 class Shape{
 public:
@@ -35,23 +35,21 @@ public:
 
 	/*!
 	\brief Adds a Shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
-	\param [in] i_subShapeArray The Shape to add.
+	\param [in] i_subShape The Shape to add.
 	*/
-	virtual void addSubShape(Shape &i_subShapeArray);
+	virtual void addSubShape(Shape& i_subShape);
 
+	/*!
+	\brief Adds an array of pointer to shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
+	\param [in] i_subShapeVector The array of pointer to shape to add.
+	*/
 	virtual void addSubShape(const PCEVector<Shape *>& i_subShapeVector);
-
-	virtual void addSubShape(Shape** i_subShapeArray, const unsigned int i_numberOfElements);
 
 	/*!
 	\brief Getter for mpSubShapes attribute.
 	\return A pointer to the sub shapes' vector.
 	*/
 	inline const PCEVector<Shape*>& getSubShapes() const		{return m_subShapes;}
-
-// 	virtual bool operator==(const Shape& rvalue) const;
-// 	virtual bool operator!=(const Shape& rvalue) const;
-// 	virtual Shape& operator=(const Shape& rvalue);
 
 protected:
 	EnumShapeDesc m_desc;				/*!< \brief The description name of shape. */
@@ -76,29 +74,28 @@ public:
 		: Shape(i_desc, ESDT_COLLIDER, i_capacity)
 	{}
 
-
-
 	/*!
 	\brief Check for collision.
 	\param [in] i_point The point where collision could be.
 	\return This Shape or a subShape that are involved in collision with i_shape. 
 			nullptr if neither shape and its sub shapes are involved in collision.
 	*/
-	virtual const bool shapeCollidedWith(const PCEPoint &i_point,  const Collider * o_shapeCollided) const = 0;
+	virtual const Collider* subShapeCollidedWith(const PCEVector3& i_point) const = 0;
 
 	/*!
 	\brief Check for collision.
-	\param [in] i_shape The Shape that could be involved in collision with this Shape.
-	\param [out] o_shapeCollided The Collider actually collided with input shape.
+	\param [in] i_collider The Shape that could be involved in collision with this Shape.
 	\return This Shape or a subShape that are involved in collision with i_shape. 
 			nullptr if neither shape and its sub shapes are involved in collision.
 	*/
-	virtual const bool shapeCollidedWith(const Collider * i_shape, const Collider * o_shapeCollided) const = 0;
+	virtual const Collider* subShapeCollidedWith(const Collider& i_collider) const = 0;
 };
 
 class Mesh : public Shape
 {
+public:
 
+	virtual void drawShape() = 0;
 };
 
 #endif

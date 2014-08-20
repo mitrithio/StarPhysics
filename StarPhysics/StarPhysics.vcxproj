@@ -79,7 +79,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="CirclesController.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GraphicComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicComponent.cpp" />
+    <ClCompile Include="PositionableObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PCEUtilities\Utilities.vcxproj">
@@ -93,7 +99,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="CirclesController.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="GameEventHandler.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphicComponent.h" />
+    <ClInclude Include="PhysicComponent.h" />
+    <ClInclude Include="PositionableObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

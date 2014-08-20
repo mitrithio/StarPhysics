@@ -76,7 +76,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoundingSphere.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="DrawError.h" />
     <ClInclude Include="DrawPhysiCsEngineClasses.h" />
     <ClInclude Include="ErrorDefinitions.h" />
@@ -86,7 +87,8 @@
     <ClInclude Include="Shape.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="DrawError.cpp" />
     <ClCompile Include="DrawPhysiCsEngineClasses.cpp" />
     <ClCompile Include="Shape.cpp" />

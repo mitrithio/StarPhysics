@@ -3,7 +3,7 @@
 
 #include "PCESystemApi.h"
 #include "ErrorDefinitions.h"
-#include "BoundingSphere.h"
+#include "SphereCollider.h"
 #include "DrawPhysiCsEngineClasses.h"
 #include "DrawError.h"
 
