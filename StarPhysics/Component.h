@@ -15,7 +15,7 @@ enum ComponentType
 class Component : public PositionableObject
 {
 public:
-	Component(ComponentType i_type, PCEVector2 i_position, float i_rotation, bool i_isEnabled = true, const PositionableObject * i_owner = nullptr) 
+	Component(ComponentType i_type, PCEVector2 i_position, float i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr) 
 		: PositionableObject(i_position, i_rotation, i_isEnabled, i_owner)
 		, m_type(i_type)
 	{}

@@ -21,6 +21,4 @@ private:
 	PCEString m_sImagePath;
 };
 
-const PCEString Circle::STRING_IMAGE_PATH = "/images/circle";
-
 #endif

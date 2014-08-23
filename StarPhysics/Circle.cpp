@@ -16,5 +16,7 @@ Circle::~Circle(void)
 void Circle::setLevel(unsigned int i_uiLevel)
 {
 	m_uiLevel = i_uiLevel;
-	m_sImagePath = STRING_IMAGE_PATH + PCEString::intToString(i_uiLevel) + ".tga";
+	m_sImagePath = STRING_IMAGE_PATH + PCEString::INT_TO_STRING(i_uiLevel) + ".tga";
 }
+
+const PCEString Circle::STRING_IMAGE_PATH("/images/circle");

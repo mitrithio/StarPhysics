@@ -41,6 +41,5 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	mainWindow.ClearEventHandler();
 	delete eventHandler;
-
 	return 0;
 }

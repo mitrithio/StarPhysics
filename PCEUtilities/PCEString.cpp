@@ -7,10 +7,18 @@ PCEString::PCEString()
 	, m_length(0)
 {}
 
-PCEString::PCEString(int capacity):
-	  mp_string(nullptr)
-	, m_length(capacity)
-{}
+PCEString::PCEString( int i_iInteger, bool i_bValIsCapacity /*= true*/ )
+{
+	if ( i_bValIsCapacity )
+	{
+		mp_string = nullptr;
+		m_length = i_iInteger;
+	}
+	else
+	{
+		*this = INT_TO_STRING( i_iInteger );
+	}
+}
 
 PCEString::PCEString(const char *io_string)
 {
@@ -33,11 +41,6 @@ PCEString::PCEString(const PCEString &i_other)
 	{
 		mp_string[i] = i_other.mp_string[i];
 	}
-}
-
-PCEString::PCEString( int i_int )
-{
-	*this = intToString(i_int);
 }
 
 PCEString::~PCEString(void)
@@ -200,7 +203,7 @@ const char* PCEString::getStringAsChar() const
 	return mp_string;
 }
 
-PCEString PCEString::intToString(const int i_int)
+PCEString PCEString::INT_TO_STRING(const int i_int)
 {
 	int num = i_int;
 	PCEString newStr;
@@ -211,16 +214,16 @@ PCEString PCEString::intToString(const int i_int)
 		newStr += digit;
 		num /= 10;
 	}
-	revertString(&newStr);
+	REVERT_STRING(&newStr);
 	return newStr;
 }
 
-void PCEString::revertString(PCEString* io_string)
+void PCEString::REVERT_STRING(PCEString* io_string)
 {
 	if( io_string != nullptr )
 	{
-		PCEString tmpString(io_string->size);
-		for (int i = 0; i < tmpString.size(); ++i)
+		PCEString tmpString( io_string->size() );
+		for( int i = 0; i < tmpString.size(); ++i )
 		{
 			tmpString[i] = (*io_string)[tmpString.size() - i];
 		}

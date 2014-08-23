@@ -8,10 +8,9 @@ class PCEString
 public:
 
 	PCEString();
-	PCEString(int capacity);
+	PCEString(int i_iInteger, bool i_bValIsCapacity = true);
 	PCEString(const char* io_string);
 	PCEString(const PCEString &i_other);
-	PCEString(int i_int);
 
 	~PCEString();
 
@@ -31,8 +30,8 @@ public:
 	const PCEString operator+(const PCEString &rvalue) const;
 	const PCEString operator+(const char *rvalue) const;
 
-	static PCEString intToString(const int i_int);
-	static void revertString(PCEString* io_string);
+	static PCEString INT_TO_STRING(const int i_int);
+	static void REVERT_STRING(PCEString* io_string);
 
 private:
 	char *mp_string;

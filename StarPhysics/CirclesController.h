@@ -16,14 +16,7 @@ public:
 
 private:
 
-	PCEMap<PCEString, Circle> m_voCircles;
-
-
-	struct NodeFreeCircle
-	{
-		Circle* pNode;
-		Circle* pNext;
-	};
+	PCEMap<PCEString, Circle*> m_voCircles;
 };
 
 #endif

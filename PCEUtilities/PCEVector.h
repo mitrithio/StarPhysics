@@ -9,168 +9,168 @@ class PCEVector
 public:
 
 	PCEVector(const unsigned int i_capacity = 0)
-		: m_count(0)
-		, m_capacity(i_capacity)
+		: m_uiCount(0)
+		, m_uiCapacity(i_capacity)
 	{
 		if (i_capacity == 0)
 		{
-			mp_elements = nullptr;
+			m_pElements = nullptr;
 		}
 		else
 		{
-			mp_elements = new T[m_capacity];
+			m_pElements = new T[m_uiCapacity];
 		}
 	}
 
 	PCEVector(const T* i_arrayElements, const unsigned int i_arraySize)
 	{
-		m_capacity = i_arraySize + 10;
-		m_count = 0;
-		mp_elements = new T[m_capacity];
+		m_uiCapacity = i_arraySize + 10;
+		m_uiCount = 0;
+		m_pElements = new T[m_uiCapacity];
 		push_back(i_arrayElements,i_arraySize);
 	}
 
 	PCEVector(T* i_arrayElements, const unsigned int i_arraySize)
 	{
-		m_capacity = i_arraySize + 10;
-		m_count = 0;
-		mp_elements = new T[m_capacity];
+		m_uiCapacity = i_arraySize + 10;
+		m_uiCount = 0;
+		m_pElements = new T[m_uiCapacity];
 		push_back(i_arrayElements,i_arraySize);
 	}
 
 	PCEVector(const PCEVector<T>& i_otherVector)
 	{
-		m_capacity = i_otherVector.m_capacity;
-		m_count = i_otherVector.m_count;
-		mp_elements = new T[m_capacity];
-		for(unsigned int index = 0; index < m_count; ++index)
+		m_uiCapacity = i_otherVector.m_uiCapacity;
+		m_uiCount = i_otherVector.m_uiCount;
+		m_pElements = new T[m_uiCapacity];
+		for(unsigned int index = 0; index < m_uiCount; ++index)
 		{
-			mp_elements[index] = i_otherVector[index];
+			m_pElements[index] = i_otherVector[index];
 		}
 	}
 
 	~PCEVector()
 	{
-		if (mp_elements != nullptr)
+		if (m_pElements != nullptr)
 		{
-			delete[] mp_elements;
+			delete[] m_pElements;
 		}
 	}
 
-	T& operator[](const unsigned int i_index) const		{return mp_elements[i_index];}
+	T& operator[](const unsigned int i_index) const		{return m_pElements[i_index];}
 
-	T& at(const unsigned int i_index) const		{assert(i_index < m_count); return mp_elements[i_index];}
+	T& at(const unsigned int i_index) const		{assert(i_index < m_uiCount); return m_pElements[i_index];}
 
 	void push_back(const T& io_newElement)
 	{
-		if (m_count == m_capacity)
+		if (m_uiCount == m_uiCapacity)
 		{
 			addCapacity(10);
 		}
-		mp_elements[m_count] = io_newElement;
-		++m_count;
+		m_pElements[m_uiCount] = io_newElement;
+		++m_uiCount;
 	}
 
 	void push_back(T& io_newElement)
 	{
-		if (m_count == m_capacity)
+		if (m_uiCount == m_uiCapacity)
 		{
 			addCapacity(10);
 		}
-		mp_elements[m_count] = io_newElement;
-		++m_count;
+		m_pElements[m_uiCount] = io_newElement;
+		++m_uiCount;
 	}
 
 	void push_back(const PCEVector<T>& i_otherVector)
 	{
-		if (m_count + i_otherVector.m_count > m_capacity)
+		if (m_uiCount + i_otherVector.m_uiCount > m_uiCapacity)
 		{
-			addCapacity(m_count + i_otherVector.m_count - m_capacity + 10);
+			addCapacity(m_uiCount + i_otherVector.m_uiCount - m_uiCapacity + 10);
 		}
-		for(unsigned int index = 0; index < i_otherVector.m_count; ++index)
+		for(unsigned int index = 0; index < i_otherVector.m_uiCount; ++index)
 		{
-			mp_elements[m_count] = i_otherVector.mp_elements[index];
-			++m_count;
+			m_pElements[m_uiCount] = i_otherVector.m_pElements[index];
+			++m_uiCount;
 		}
 	}
 
 	void push_back(const T* i_arrayElements, const unsigned int i_numberOfNewElements)
 	{
-		if (m_count + i_numberOfNewElements > m_capacity)
+		if (m_uiCount + i_numberOfNewElements > m_uiCapacity)
 		{
-			addCapacity(m_count + i_numberOfNewElements - m_capacity + 10);
+			addCapacity(m_uiCount + i_numberOfNewElements - m_uiCapacity + 10);
 		}
 		for(unsigned int index = 0; index < i_numberOfNewElements; ++index)
 		{
-			mp_elements[m_count] = i_arrayElements[index];
-			++m_count;
+			m_pElements[m_uiCount] = i_arrayElements[index];
+			++m_uiCount;
 		}
 	}
 
 	void push_back(T* i_arrayElements, const unsigned int i_numberOfNewElements)
 	{
-		if (m_count + i_numberOfNewElements > m_capacity)
+		if (m_uiCount + i_numberOfNewElements > m_uiCapacity)
 		{
-			addCapacity(m_count + i_numberOfNewElements - m_capacity + 10);
+			addCapacity(m_uiCount + i_numberOfNewElements - m_uiCapacity + 10);
 		}
 		for(unsigned int index = 0; index < i_numberOfNewElements; ++index)
 		{
-			mp_elements[m_count] = i_arrayElements[index];
-			++m_count;
+			m_pElements[m_uiCount] = i_arrayElements[index];
+			++m_uiCount;
 		}
 	}
 
 	void shrink_to_fit()
 	{
-		if (m_count != m_capacity)
+		if (m_uiCount != m_uiCapacity)
 		{
-			T* tpElements = mp_elements;
+			T* tpElements = m_pElements;
 
-			mp_elements = new T[m_count];
-			if (mp_elements != nullptr && tpElements != nullptr)
+			m_pElements = new T[m_uiCount];
+			if (m_pElements != nullptr && tpElements != nullptr)
 			{
-				for(unsigned int index = 0; index < m_count; ++index)
+				for(unsigned int index = 0; index < m_uiCount; ++index)
 				{
-					mp_elements[index] = tpElements[index];
+					m_pElements[index] = tpElements[index];
 				}
 				delete[] tpElements;
 			}
-			m_capacity = m_count;
+			m_uiCapacity = m_uiCount;
 		}
 	}
 
 	void resize(const unsigned int i_newCapacity)
 	{
-		if(i_newCapacity > m_capacity)
+		if(i_newCapacity > m_uiCapacity)
 		{
-			addCapacity(i_newCapacity - m_capacity);
+			addCapacity(i_newCapacity - m_uiCapacity);
 		}
 	}
 
 	bool empty() const
 	{
-		return (m_count == 0);
+		return (m_uiCount == 0);
 	}
 
 	void erase(const unsigned int i_atIndex)
 	{
-		assert(i_atIndex < m_count && i_atIndex >= 0);
-		if (m_count > 1)
+		assert(i_atIndex < m_uiCount && i_atIndex >= 0);
+		if (m_uiCount > 1)
 		{
-			T* tpElements = mp_elements;
+			T* tpElements = m_pElements;
 
-			mp_elements = new T[m_capacity];
-			if (mp_elements != nullptr && tpElements != nullptr)
+			m_pElements = new T[m_uiCapacity];
+			if (m_pElements != nullptr && tpElements != nullptr)
 			{
-				for(unsigned int index = 0; index < m_count; ++index)
+				for(unsigned int index = 0; index < m_uiCount; ++index)
 				{
 					if( index < i_atIndex)
 					{
-						mp_elements[index] = tpElements[index];
+						m_pElements[index] = tpElements[index];
 					}
 					else if( index > i_atIndex)
 					{
-						mp_elements[index-1] = tpElements[index];
+						m_pElements[index-1] = tpElements[index];
 					}
 				}
 				delete[] tpElements;
@@ -178,22 +178,22 @@ public:
 		} 
 		else
 		{
-			mp_elements = nullptr;
+			m_pElements = nullptr;
 		}
-		--m_count;
+		--m_uiCount;
 	}
 
-	const unsigned int size() const		{return m_count;}
+	const unsigned int size() const		{return m_uiCount;}
 
-	const unsigned int capacity() const	{return m_capacity;}
+	const unsigned int capacity() const	{return m_uiCapacity;}
 
 	bool operator==(const PCEVector<T>& rvalue) const
 	{
-		bool isEqual = (m_count == rvalue.m_count && m_capacity == rvalue.m_capacity);
+		bool isEqual = (m_uiCount == rvalue.m_uiCount && m_uiCapacity == rvalue.m_uiCapacity);
 
-		for(unsigned int index = 0; isEqual && index < m_count; ++index)
+		for(unsigned int index = 0; isEqual && index < m_uiCount; ++index)
 		{
-			isEqual = ( mp_elements[index] == rvalue.mp_elements[index] ); 
+			isEqual = ( m_pElements[index] == rvalue.m_pElements[index] ); 
 		}
 
 		return isEqual;
@@ -208,18 +208,18 @@ public:
 	{
 		if (this != &rvalue || *this != rvalue)
 		{
-			if (mp_elements != nullptr)
+			if (m_pElements != nullptr)
 			{
-				delete[] mp_elements;
+				delete[] m_pElements;
 			}
-			m_capacity = rvalue.m_capacity;
-			m_count = rvalue.m_count;
-			if (m_capacity != 0)
+			m_uiCapacity = rvalue.m_uiCapacity;
+			m_uiCount = rvalue.m_uiCount;
+			if (m_uiCapacity != 0)
 			{
-				mp_elements = new T[m_capacity];
-				for(unsigned int index = 0; index < m_count; ++index)
+				m_pElements = new T[m_uiCapacity];
+				for(unsigned int index = 0; index < m_uiCount; ++index)
 				{
-					mp_elements[index] = rvalue[index];
+					m_pElements[index] = rvalue[index];
 				}
 			}
 		}
@@ -228,31 +228,31 @@ public:
 
 	void clear()
 	{
-		T* tmpElements = mp_elements;
-		mp_elements = nullptr;
+		T* tmpElements = m_pElements;
+		m_pElements = nullptr;
 		delete [] tmpElements;
-		m_count = 0;
-		m_capacity = 0;
+		m_uiCount = 0;
+		m_uiCapacity = 0;
 	}
 
 private:
-	T *mp_elements;
-	unsigned int m_capacity;
-	unsigned int m_count;
+	T* m_pElements;
+	unsigned int m_uiCapacity;
+	unsigned int m_uiCount;
 
 	void addCapacity(unsigned int i_value)
 	{
 		if(i_value != 0)
 		{
-			m_capacity += i_value;
-			T* tpElements = mp_elements;
+			m_uiCapacity += i_value;
+			T* tpElements = m_pElements;
 
-			mp_elements = new T[m_capacity];
-			if (mp_elements != nullptr && tpElements != nullptr)
+			m_pElements = new T[m_uiCapacity];
+			if (m_pElements != nullptr && tpElements != nullptr)
 			{
-				for(unsigned int index = 0; index < m_count; ++index)
+				for(unsigned int index = 0; index < m_uiCount; ++index)
 				{
-					mp_elements[index] = tpElements[index];
+					m_pElements[index] = tpElements[index];
 				}
 				delete[] tpElements;
 			}

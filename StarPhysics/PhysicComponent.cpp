@@ -1,7 +1,7 @@
 #include "PhysicComponent.h"
 
 
-PhysicComponent::PhysicComponent(PCEVector2 i_position, float i_rotation, bool i_isEnabled /* = true */, const PositionableObject * i_owner /* = nullptr */)
+PhysicComponent::PhysicComponent(PCEVector2 i_position, float i_rotation, bool i_isEnabled /* = true */, PositionableObject * i_owner /* = nullptr */)
 	: Component(PHYSIC, i_position, i_rotation, i_isEnabled, i_owner)
 {
 }

@@ -5,5 +5,6 @@
 #include "PCEString.h"
 #include "PCEVector.h"
 #include "PCEMap.h"
+#include "PCEList.h"
 
 #endif

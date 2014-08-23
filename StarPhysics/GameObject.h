@@ -8,7 +8,7 @@
 class GameObject : public PositionableObject
 {
 public:
-	GameObject(PCEVector2 i_position, float i_rotation, const PositionableObject * i_owner = nullptr);
+	GameObject(PCEVector2 i_position, float i_rotation, PositionableObject * i_owner = nullptr);
 	virtual ~GameObject(void);
 
 	void addComponent(Component* io_component);
