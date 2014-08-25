@@ -14,7 +14,7 @@ SphereCollider::SphereCollider(float i_r, float i_x, float i_y, float i_z)
 
 SphereCollider::SphereCollider()
 	: Collider(ESD_BOUNDINGSPHERE)
-	, mCenter(0.0f,0.0f)
+	, mCenter(0.0f,0.0f,0.0f)
 	, mRadius(0.0f)
 {}
 

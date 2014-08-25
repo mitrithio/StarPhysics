@@ -14,10 +14,10 @@ public:
 	PCEList(const T& i_oFirstNode)
 	{
 		m_pHead = new Node();
-		m_pHead->pData = &i_oFirstNode;
-		m_pHead->pNext = nullptr;
-		m_pHead->pPrev = nullptr;
-		m_pHead->uiVectorIndex = 0;
+		m_pHead->m_pData = &i_oFirstNode;
+		m_pHead->m_pNext = nullptr;
+		m_pHead->m_pPrev = nullptr;
+		m_pHead->m_uiVectorIndex = 0;
 		m_pBack = m_pHead;
 		m_oVectorList.push_back(i_oFirstNode);
 	}
@@ -32,20 +32,20 @@ public:
 		if( m_pHead != nullptr)
 		{
 			Node * tmp = new Node();
-			m_pBack->pNext = tmp;
-			tmp->pPrev = m_pBack;
-			tmp->pData = &i_oLastNode;
-			tmp->pNext = nullptr;
-			tmp->uiVectorIndex = m_oVectorList.size();
+			m_pBack->m_pNext = tmp;
+			tmp->m_pPrev = m_pBack;
+			tmp->m_pData = &i_oLastNode;
+			tmp->m_pNext = nullptr;
+			tmp->m_uiVectorIndex = m_oVectorList.size();
 			m_pBack = tmp;
 		}
 		else
 		{
 			m_pHead = new Node();
-			m_pHead->pData = &i_oLastNode;
-			m_pHead->pNext = nullptr;
-			m_pHead->pPrev = nullptr;
-			m_pHead->uiVectorIndex = 0;
+			m_pHead->m_pData = &i_oLastNode;
+			m_pHead->m_pNext = nullptr;
+			m_pHead->m_pPrev = nullptr;
+			m_pHead->m_uiVectorIndex = 0;
 			m_pBack = m_pHead;
 		}
 		m_oVectorList.push_back(i_oLastNode);
@@ -56,19 +56,19 @@ public:
 		if( m_pHead != nullptr )
 		{
 			Node * tmp = new Node();
-			tmp->pData = &i_oNewFirstNode;
-			tmp->pNext = m_pHead;
-			tmp->pPrev = nullptr;
-			tmp->uiVectorIndex = m_oVectorList.size();
+			tmp->m_pData = &i_oNewFirstNode;
+			tmp->m_pNext = m_pHead;
+			tmp->m_pPrev = nullptr;
+			tmp->m_uiVectorIndex = m_oVectorList.size();
 			m_pHead = tmp;
 		}
 		else
 		{
 			m_pHead = new Node();
-			m_pHead->pData = &i_oNewFirstNode;
-			m_pHead->pNext = nullptr;
-			m_pHead->pPrev = nullptr;
-			m_pHead->uiVectorIndex = 0;
+			m_pHead->m_pData = &i_oNewFirstNode;
+			m_pHead->m_pNext = nullptr;
+			m_pHead->m_pPrev = nullptr;
+			m_pHead->m_uiVectorIndex = 0;
 			m_pBack = m_pHead; 
 		}
 		m_oVectorList.push_back(i_oLastNode);
@@ -77,30 +77,30 @@ public:
 	bool DeleteNode( const T& i_oData )
 	{
 		unsigned int uiIndex = 0;
-		for (Node* pNodeIterator = m_pHead; pNodeIterator != nullptr; pNodeIterator = pNodeIterator->pNext)
+		for (Node* pNodeIterator = m_pHead; pNodeIterator != nullptr; pNodeIterator = pNodeIterator->m_pNext)
 		{
-			if (pNodeIterator->pData == &i_oData)
+			if (pNodeIterator->m_pData == &i_oData)
 			{
 				Node* tmpNode = pNodeIterator;
 				if (pNodeIterator == m_pHead)
 				{
-					m_pHead = tmpNode->pNext;
-					m_pHead->pPrev = nullptr;
+					m_pHead = tmpNode->m_pNext;
+					m_pHead->m_pPrev = nullptr;
 				}
 				else
 				{				
-					Node* jumpingNode = pNodeIterator->pPrev;
+					Node* jumpingNode = pNodeIterator->m_pPrev;
 					if (pNodeIterator == m_pBack)
 					{
-						jumpingNode->pNext = nullptr;
+						jumpingNode->m_pNext = nullptr;
 						m_pBack = jumpingNode;
 					}
 					else
 					{
-						jumpingNode->pNext = tmpNode->pNext;
-						jumpingNode = tmpNode->pNext;
-						jumpingNode->pPrev = tmpNode->pPrev;
-						UpdateIndexFromTo( jumpingNode->uiVectorIndex, m_oVectorList.size() - 1 );
+						jumpingNode->m_pNext = tmpNode->m_pNext;
+						jumpingNode = tmpNode->m_pNext;
+						jumpingNode->m_pPrev = tmpNode->m_pPrev;
+						UpdateIndexFromTo( jumpingNode->m_uiVectorIndex, m_oVectorList.size() - 1 );
 					}
 				}
 				m_oVectorList.erase(uiIndex);
@@ -141,10 +141,10 @@ public:
 private:
 	struct Node
 	{
-		unsigned int uiVectorIndex;
-		const T * pData;
-		Node * pNext;
-		Node * pPrev;
+		unsigned int m_uiVectorIndex;
+		const T * m_pData;
+		Node * m_pNext;
+		Node * m_pPrev;
 	};
 
 	Node * m_pHead;
@@ -152,9 +152,18 @@ private:
 	PCEVector<T> m_oVectorList;
 
 	PCEList(const PCEList<T>& i_list)
+		: m_pBack( nullptr )
+		, m_pHead( nullptr )
 	{
-		m_pHead = i_list.m_pHead;
-		m_pBack = i_list.m_pBack;
+// 		Node* oListIterator = i_list.m_pHead;
+// 		for ( unsigned int uiIndex = 0; uiIndex < i_list.size(); ++uiIndex )
+// 		{
+// 			Node* oNewNode = new Node();
+// 			oNewNode->m_uiVectorIndex = uiIndex;
+// 			oNewNode->m_pNext = m_pBack;
+// 			oNewNode->m_pPrev = m_pHead;
+// 			oNewNode->m_pData = new T(oListIterator->m_pData);
+// 		}
 	}
 
 	PCEList& operator=(const PCEList<T>& i_other)
@@ -163,6 +172,7 @@ private:
 		{
 			m_pHead = i_other.m_pHead;
 			m_pBack = i_other.m_pBack;
+			m_oVectorList = i_list.m_oVectorList;
 		}
 		return *this;
 	}
@@ -196,7 +206,7 @@ private:
 		while ( pNodeIterator != i_pTo )
 		{
 			Node* tmpNode = pNodeIterator;
-			pNodeIterator = pNodeIterator->pNext;
+			pNodeIterator = pNodeIterator->m_pNext;
 			m_oVectorList.erase(  )
 			delete tmpNode;
 			++uiIndexErased;

@@ -1,5 +1,5 @@
 #ifdef _DEBUG	// _DEBUG: memory leak detection
-#include "vld.h"
+//#include "vld.h"
 #endif  // end _DEBUG
 
 /*

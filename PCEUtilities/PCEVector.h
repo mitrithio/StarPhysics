@@ -206,9 +206,9 @@ public:
 
 	const PCEVector<T>& operator=(const PCEVector<T>& rvalue)
 	{
-		if (this != &rvalue || *this != rvalue)
+		if ( this != &rvalue )
 		{
-			if (m_pElements != nullptr)
+			if ( m_pElements != nullptr )
 			{
 				delete[] m_pElements;
 			}
