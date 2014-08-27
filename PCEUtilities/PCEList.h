@@ -1,6 +1,12 @@
 #ifndef PCELIST_H
 #define PCELIST_H
 
+/************************************************************************/
+/*
+	This is a List implemented on a PCEVector. To use this class properly,
+	the T type must have a working copy constructor.
+*/
+/************************************************************************/
 template <class T>
 class PCEList
 {
@@ -149,30 +155,65 @@ private:
 
 	Node * m_pHead;
 	Node * m_pBack;
-	PCEVector<T> m_oVectorList;
+	PCEVector<T*> m_oVectorList;
 
-	PCEList(const PCEList<T>& i_list)
+	PCEList( const PCEList<T>& i_oList )
 		: m_pBack( nullptr )
 		, m_pHead( nullptr )
 	{
-// 		Node* oListIterator = i_list.m_pHead;
-// 		for ( unsigned int uiIndex = 0; uiIndex < i_list.size(); ++uiIndex )
-// 		{
-// 			Node* oNewNode = new Node();
-// 			oNewNode->m_uiVectorIndex = uiIndex;
-// 			oNewNode->m_pNext = m_pBack;
-// 			oNewNode->m_pPrev = m_pHead;
-// 			oNewNode->m_pData = new T(oListIterator->m_pData);
-// 		}
+		m_oVectorList.resize( i_oList.size() );
+ 		if ( m_oVectorList.capacity() > 0 )
+ 		{
+			Node* oCopyListIterator = i_oList.m_pHead;
+		
+			Node* oNewNodeIterator = new Node();
+			oNewNodeIterator->m_uiVectorIndex = 0;
+			oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+			m_pHead = oNewNodeIterator;
+			m_oVectorList.push_back(oNewNodeIterator);
+			for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
+ 			{
+				oCopyListIterator = oCopyListIterator->m_pNext;
+
+				oNewNodeIterator->m_pNext = new Node();
+				oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
+				oNewNodeIterator = oNewNodeIterator->m_pNext;
+				oNewNodeIterator->m_uiVectorIndex = uiIndex;
+				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+				m_oVectorList.push_back( oNewNodeIterator );
+ 			}
+			m_pBack = oNewNodeIterator;
+		}
 	}
 
 	PCEList& operator=(const PCEList<T>& i_other)
 	{
 		if( this != &i_other )
 		{
-			m_pHead = i_other.m_pHead;
-			m_pBack = i_other.m_pBack;
-			m_oVectorList = i_list.m_oVectorList;
+			m_oVectorList.clear();
+			m_oVectorList.resize( i_oList.size() );
+			if ( m_oVectorList.capacity() > 0 )
+			{
+				Node* oCopyListIterator = i_oList.m_pHead;
+
+				Node* oNewNodeIterator = new Node();
+				oNewNodeIterator->m_uiVectorIndex = 0;
+				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+				m_pHead = oNewNodeIterator;
+				m_oVectorList.push_back(oNewNodeIterator);
+				for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
+				{
+					oCopyListIterator = oCopyListIterator->m_pNext;
+
+					oNewNodeIterator->m_pNext = new Node();
+					oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
+					oNewNodeIterator = oNewNodeIterator->m_pNext;
+					oNewNodeIterator->m_uiVectorIndex = uiIndex;
+					oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+					m_oVectorList.push_back( oNewNodeIterator );
+				}
+				m_pBack = oNewNodeIterator;
+			}
 		}
 		return *this;
 	}
