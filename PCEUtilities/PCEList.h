@@ -24,13 +24,74 @@ public:
 		m_pHead->m_pNext = nullptr;
 		m_pHead->m_pPrev = nullptr;
 		m_pHead->m_uiVectorIndex = 0;
-		m_pBack = m_pHead;
+		m_pBack = m_pHead->m_pNext;
 		m_oVectorList.push_back(i_oFirstNode);
+	}
+
+	PCEList( const PCEList<T>& i_oList )
+		: m_pBack( nullptr )
+		, m_pHead( nullptr )
+	{
+		m_oVectorList.resize( i_oList.size() );
+		if ( m_oVectorList.capacity() > 0 )
+		{
+			Node* oCopyListIterator = i_oList.m_pHead;
+
+			Node* oNewNodeIterator = new Node();
+			oNewNodeIterator->m_uiVectorIndex = 0;
+			oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+			m_pHead = oNewNodeIterator;
+			m_oVectorList.push_back(oNewNodeIterator);
+			for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
+			{
+				oCopyListIterator = oCopyListIterator->m_pNext;
+
+				oNewNodeIterator->m_pNext = new Node();
+				oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
+				oNewNodeIterator = oNewNodeIterator->m_pNext;
+				oNewNodeIterator->m_uiVectorIndex = uiIndex;
+				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+				m_oVectorList.push_back( oNewNodeIterator );
+			}
+			m_pBack = oNewNodeIterator;
+		}
 	}
 	
 	~PCEList()
 	{
 		DeleteList();
+	}
+
+	PCEList& operator=(const PCEList<T>& i_other)
+	{
+		if( this != &i_other )
+		{
+			m_oVectorList.clear();
+			m_oVectorList.resize( i_oList.size() );
+			if ( m_oVectorList.capacity() > 0 )
+			{
+				Node* oCopyListIterator = i_oList.m_pHead;
+
+				Node* oNewNodeIterator = new Node();
+				oNewNodeIterator->m_uiVectorIndex = 0;
+				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+				m_pHead = oNewNodeIterator;
+				m_oVectorList.push_back(oNewNodeIterator);
+				for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
+				{
+					oCopyListIterator = oCopyListIterator->m_pNext;
+
+					oNewNodeIterator->m_pNext = new Node();
+					oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
+					oNewNodeIterator = oNewNodeIterator->m_pNext;
+					oNewNodeIterator->m_uiVectorIndex = uiIndex;
+					oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
+					m_oVectorList.push_back( oNewNodeIterator );
+				}
+				m_pBack = oNewNodeIterator;
+			}
+		}
+		return *this;
 	}
 
 	void push_back(const T& i_oLastNode)
@@ -142,87 +203,77 @@ public:
 		m_pBack = nullptr;
 		DeleteFromTo( tmpHead, tmpBack );
 	}
-	
 
-private:
-	struct Node
+	class PCEIterator
 	{
-		unsigned int m_uiVectorIndex;
-		const T * m_pData;
-		Node * m_pNext;
-		Node * m_pPrev;
-	};
-
-	Node * m_pHead;
-	Node * m_pBack;
-	PCEVector<T*> m_oVectorList;
-
-	PCEList( const PCEList<T>& i_oList )
-		: m_pBack( nullptr )
-		, m_pHead( nullptr )
-	{
-		m_oVectorList.resize( i_oList.size() );
- 		if ( m_oVectorList.capacity() > 0 )
- 		{
-			Node* oCopyListIterator = i_oList.m_pHead;
-		
-			Node* oNewNodeIterator = new Node();
-			oNewNodeIterator->m_uiVectorIndex = 0;
-			oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
-			m_pHead = oNewNodeIterator;
-			m_oVectorList.push_back(oNewNodeIterator);
-			for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
- 			{
-				oCopyListIterator = oCopyListIterator->m_pNext;
-
-				oNewNodeIterator->m_pNext = new Node();
-				oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
-				oNewNodeIterator = oNewNodeIterator->m_pNext;
-				oNewNodeIterator->m_uiVectorIndex = uiIndex;
-				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
-				m_oVectorList.push_back( oNewNodeIterator );
- 			}
-			m_pBack = oNewNodeIterator;
-		}
-	}
-
-	PCEList& operator=(const PCEList<T>& i_other)
-	{
-		if( this != &i_other )
+	public:
+		PCEIterator( const Node& i_pNode )
 		{
-			m_oVectorList.clear();
-			m_oVectorList.resize( i_oList.size() );
-			if ( m_oVectorList.capacity() > 0 )
-			{
-				Node* oCopyListIterator = i_oList.m_pHead;
-
-				Node* oNewNodeIterator = new Node();
-				oNewNodeIterator->m_uiVectorIndex = 0;
-				oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
-				m_pHead = oNewNodeIterator;
-				m_oVectorList.push_back(oNewNodeIterator);
-				for ( unsigned int uiIndex = 1; uiIndex < i_oList.size(); ++uiIndex )
-				{
-					oCopyListIterator = oCopyListIterator->m_pNext;
-
-					oNewNodeIterator->m_pNext = new Node();
-					oNewNodeIterator->m_pNext->m_pPrev = oNewNodeIterator;
-					oNewNodeIterator = oNewNodeIterator->m_pNext;
-					oNewNodeIterator->m_uiVectorIndex = uiIndex;
-					oNewNodeIterator->m_pData = new T( oCopyListIterator->m_pData );
-					m_oVectorList.push_back( oNewNodeIterator );
-				}
-				m_pBack = oNewNodeIterator;
-			}
+			m_pNode = &i_pNode;
 		}
-		return *this;
-	}
+
+		PCEIterator( const PCEIterator& i_PCEIt )
+		{
+			m_pNode = i_PCEIt.m_pNode;
+		}
+
+		~PCEIterator();
+
+		PCEIterator& operator++()
+		{
+			m_pNode = m_pNode->m_pNext;
+			return *this;
+		}
+
+		PCEIterator operator++( int )
+		{
+			PCEIterator tempId( *this );
+			++tempId;
+			return tempId;
+		}
+
+		PCEIterator& operator--()
+		{
+			m_pNode = m_pNode->m_pPrev;
+			return *this;
+		}
+
+		PCEIterator operator--( int )
+		{
+			PCEIterator tempId( *this );
+			--tempId;
+			return tempId;
+		}
+
+		const T* operator*() const
+		{
+			return m_pNode->m_pData;
+		}
+
+		bool operator==( const PCEIterator& i_other )
+		{
+			return ( *m_pNode == i_other.m_pNode );
+		}
+
+		bool operator!=( const PCEIterator& i_other )
+		{
+			return !( *this == i_other );
+		}
+
+	private:
+		PCEIterator();
+		
+	private:
+		Node* m_pNode;
+	};
+	
+private:
 
 	void DeleteList()
 	{
 		if (m_pHead != nullptr)
 		{
- 			DeleteFromTo(m_pHead, m_pBack);
+			DeleteFromTo(m_pHead, m_pBack);
 		}
 	}
 
@@ -249,10 +300,10 @@ private:
 			Node* tmpNode = pNodeIterator;
 			pNodeIterator = pNodeIterator->m_pNext;
 			m_oVectorList.erase(  )
-			delete tmpNode;
+				delete tmpNode;
 			++uiIndexErased;
 		}
-		
+
 		delete i_pTo;
 		return true;
 	}
@@ -265,6 +316,18 @@ private:
 		}
 	}
 
+private:
+	struct Node
+	{
+		unsigned int m_uiVectorIndex;
+		const T * m_pData;
+		Node * m_pNext;
+		Node * m_pPrev;
+	};
+
+	Node * m_pHead;
+	Node * m_pBack;
+	PCEVector<T*> m_oVectorList;
 
 };
 
