@@ -57,9 +57,16 @@ public:
 		}
 	}
 
-	T& operator[](const unsigned int i_index) const		{return m_pElements[i_index];}
+	T& operator[](const unsigned int i_index) const		
+	{
+		return m_pElements[i_index];
+	}
 
-	T& at(const unsigned int i_index) const		{assert(i_index < m_uiCount); return m_pElements[i_index];}
+	T& at(const unsigned int i_index) const
+	{
+		assert(i_index < m_uiCount); 
+		return m_pElements[i_index];
+	}
 
 	void push_back(const T& io_newElement)
 	{
@@ -141,9 +148,9 @@ public:
 
 	void resize(const unsigned int i_newCapacity)
 	{
-		if(i_newCapacity > m_uiCapacity)
+		if( i_newCapacity > m_uiCapacity )
 		{
-			addCapacity(i_newCapacity - m_uiCapacity);
+			addCapacity( i_newCapacity - m_uiCapacity );
 		}
 	}
 
@@ -183,9 +190,15 @@ public:
 		--m_uiCount;
 	}
 
-	const unsigned int size() const		{return m_uiCount;}
+	const unsigned int size() const
+	{
+		return m_uiCount;
+	}
 
-	const unsigned int capacity() const	{return m_uiCapacity;}
+	const unsigned int capacity() const
+	{
+		return m_uiCapacity;
+	}
 
 	bool operator==(const PCEVector<T>& rvalue) const
 	{
@@ -257,6 +270,122 @@ private:
 				delete[] tpElements;
 			}
 		}
+	}
+
+public:
+
+	class PCEIterator
+	{
+	public:
+
+		PCEIterator()
+			: m_uiIndex(0)
+		{
+		}
+
+		PCEIterator( unsigned int i_uiIndex )
+			: m_uiIndex(i_uiIndex)
+		{
+		}
+
+		PCEIterator( const PCEIterator& i_PCEIt )
+			: m_uiIndex( i_PCEIt.m_uiIndex )
+		{
+		}
+
+		virtual ~PCEIterator(){}
+
+		virtual PCEIterator& operator++()
+		{
+			++m_uiIndex;
+			return *this;
+		}
+
+		virtual PCEIterator operator++( int )
+		{
+			PCEIterator tempIt( *this );
+			++tempIt;
+			return tempIt;
+		}
+
+		virtual PCEIterator& operator--()
+		{
+			--m_uiIndex;
+			return *this;
+		}
+
+		virtual PCEIterator operator--( int )
+		{
+			PCEIterator tempIt( *this );
+			--tempIt;
+			return tempIt;
+		}
+
+		virtual PCEIterator& operator+=( const PCEIterator& i_other )
+		{
+			m_uiIndex += i_other.m_uiIndex;
+			return *this;
+		}
+
+		virtual PCEIterator operator+( const PCEIterator& i_other )
+		{
+			m_uiIndex += i_other.m_uiIndex;
+			return *this;
+		}
+
+		virtual PCEIterator operator+( unsigned int i_uiAddedIndex )
+		{
+			m_uiIndex += i_uiAddedIndex;
+			return *this;
+		}
+
+		virtual bool operator==( const PCEIterator& i_other )
+		{
+			return ( m_uiIndex == i_other.m_uiIndex );
+		}
+
+		virtual bool operator!=( const PCEIterator& i_other )
+		{
+			return !( *this == i_other );
+		}
+
+		virtual T& operator*()
+		{
+			return m_pVector->at( m_uiIndex );
+		}
+
+		virtual const T& operator*() const
+		{
+			return m_pVector->at( m_uiIndex );
+		}
+
+	protected:
+
+		unsigned int m_uiIndex;
+		PCEVector<T>* m_pVector;
+	};
+
+	PCEIterator begin()
+	{
+		return PCEIterator();
+	}
+
+	PCEIterator end()
+	{
+		return PCEIterator( size() );
+	}
+
+	const PCEIterator& find( const T& i_value )
+	{
+		for ( PCEIterator it = begin(); it != end(); ++it )
+		{
+			if ( (*it) == i_value )
+			{
+				return it;
+			}
+		}
+
+		return end();
 	}
 
 };
@@ -380,7 +509,7 @@ public:
 		, mY(0)
 	{}
 		
-	PCEVector2(float i_x, float i_y, float i_z = 0)
+	PCEVector2(float i_x, float i_y)
 		: mX(i_x)
 		, mY(i_y)
 	{}
@@ -389,6 +518,7 @@ public:
 		: mX(i_other.mX)
 		, mY(i_other.mY)
 	{}
+
 };
 
 #endif

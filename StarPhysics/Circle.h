@@ -4,21 +4,24 @@
 #include "gameobject.h"
 #include "../PCEUtilities/PCEUtilities.h"
 
-class Circle :
-	public GameObject
+class Circle : public GameObject
 {
 public:
+	Circle();
+	Circle( const Circle& i_oCircle );
 	Circle( PCEVector2 i_oPosition, float i_fRotation );
 	~Circle(void);
 
 	void setLevel(unsigned int i_uiLevel);
-	const unsigned int getLevel() const;
+	unsigned int getLevel() const;
+
+	bool operator==( const Circle& i_other );
+	bool operator!=( const Circle& i_other );
+	Circle& operator=( const Circle& i_other );
 
 private:
-	static const PCEString STRING_IMAGE_PATH;
 
 	unsigned int m_uiLevel;
-	PCEString m_sImagePath;
 };
 
 #endif

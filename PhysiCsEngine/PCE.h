@@ -3,7 +3,10 @@
 
 #include "PCESystemApi.h"
 #include "ErrorDefinitions.h"
+#include "EnumDefinitions.h"
+#include "Shape.h"
 #include "SphereCollider.h"
+#include "PlaneCollider.h"
 #include "DrawPhysiCsEngineClasses.h"
 #include "DrawError.h"
 

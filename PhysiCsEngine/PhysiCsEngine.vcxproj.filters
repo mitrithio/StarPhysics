@@ -36,6 +36,9 @@
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="PlaneCollider.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCE.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="EnumDefinitions.h">
       <Filter>System\System include</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneCollider.h">
+      <Filter>Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

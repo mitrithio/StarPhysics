@@ -48,7 +48,7 @@ private:
 
 	void CreateBitmaps()
 	{
-		m_oBackgroundImg = new Bitmap("startScreen.tga");
+		m_oBackgroundImg = new Bitmap("StartScreen.tga");
 	}
 
 	void DestroyBitmaps()

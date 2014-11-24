@@ -9,9 +9,10 @@
     <ClInclude Include="PCEUtilitiesSystemApi.h" />
     <ClInclude Include="PCEVector.h" />
     <ClInclude Include="PCEMap.h" />
-    <ClInclude Include="PCEList.h" />
+    <ClInclude Include="PCEObjectId.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCEString.cpp" />
+    <ClCompile Include="PCEObjectId.cpp" />
   </ItemGroup>
 </Project>

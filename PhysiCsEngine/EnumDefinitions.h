@@ -5,6 +5,7 @@ enum EnumShapeDesc
 {
 	ESD_NONE = 0,
 	ESD_BOUNDINGSPHERE,
+	ESD_PLANE,
 	
 	ESD_TOTALNUMBERS
 };

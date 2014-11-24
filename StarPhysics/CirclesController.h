@@ -2,21 +2,34 @@
 #define CIRCLECONTROLLER_H
 
 #include "../PCEUtilities/PCEUtilities.h"
-
-class Circle;
+#include <float.h>
+#include "Circle.h"
 
 class CirclesController
 {
 public:
-	CirclesController(void);
-	~CirclesController(void);
+	CirclesController();
+	CirclesController( unsigned int i_uiNumberOfCircles );
 
-	const Circle* GetCircle();
-	void CreateCircle(PCEVector2 i_oPosition, float i_fRotation);
+	~CirclesController();
+
+	const PCEObjectId& GetNextFreeCircleID();
+	void SetCircleFree( const PCEObjectId& i_oCircleId, bool i_bFree );
+	void CreateCircle( PCEVector2 i_oPosition, float i_fRotation );
+
+	void CreateCirclePool( unsigned int i_uiNumberOfCircle );
+
+	void Update( float i_fDeltaTime = 0 );
 
 private:
 
-	PCEMap<PCEString, Circle*> m_voCircles;
+	PCEVector<bool>					m_vIsCircleFree;
+	PCEMap<PCEObjectId, Circle*>	m_oCirclesMap;
+	unsigned int					m_uiNextCircleFree;
+
+	static const PCEString		IMAGES_CIRCLE_PATH;
 };
+
+static const Circle INVALID_CIRCLE( PCEVector2( FLT_MAX, FLT_MAX ), FLT_MAX );
 
 #endif

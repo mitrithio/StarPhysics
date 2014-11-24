@@ -23,7 +23,7 @@ void DrawPhysiCsEngineClasses::DrawBoundingSphere(const SphereCollider* i_sphere
    	{
    		sprintf_s(buffer, "*** SubSpheres: *** \n"); 
    		OutputDebugStringA(buffer);
-   		for(int i = 0; i < tpSubs.size(); ++i)
+   		for(uint32_t i = 0; i < tpSubs.size(); ++i)
    		{
  			if (tpSubs.at(i) != nullptr)
  			{

@@ -1,20 +1,19 @@
 #include "PositionableObject.h"
 
+#include <float.h>
 
-PositionableObject::PositionableObject(PCEVector2 i_position, float i_rotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/)
-	: m_pParent(i_owner)
-	, m_oRelativePosition(i_position)
-	, m_fRelativeRotation(i_rotation)
-	, m_bEnabled(i_isEnabled)
-	, m_spObjectID(nullptr)
+
+PositionableObject::PositionableObject( PCEVector2 i_oRelativePosition, float i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
+	: m_pParent( i_owner )
+	, m_oRelativePosition( i_oRelativePosition )
+	, m_fRelativeRotation( i_fRelativeRotation )
+	, m_bEnabled( i_isEnabled )
+	, m_oId( INVALID_OBJECT_ID )
 {
-	m_oAbsolutePosition = m_pParent->GetAbsolutePosition() + m_oRelativePosition;
 }
-
 
 PositionableObject::~PositionableObject(void)
 {
-	delete m_spObjectID;
 }
 
 float PositionableObject::GetAbsoluteRotation() const
@@ -45,7 +44,6 @@ float PositionableObject::GetRelativeRotation() const
 void PositionableObject::SetRelativePosition( PCEVector2 i_oPostion )
 {
 	m_oRelativePosition = i_oPostion;
-	m_oAbsolutePosition = m_pParent->GetAbsolutePosition() + m_oRelativePosition;
 }
 
 const PCEVector2& PositionableObject::GetRelativePosition()
@@ -55,7 +53,12 @@ const PCEVector2& PositionableObject::GetRelativePosition()
 
 const PCEVector2& PositionableObject::GetAbsolutePosition()
 {
-	return m_oAbsolutePosition;
+	if (m_pParent != nullptr)
+	{
+		return m_oRelativePosition + m_pParent->GetAbsolutePosition();
+	}
+
+	return m_oRelativePosition;
 }
 
 const PositionableObject* PositionableObject::GetOwner() const
@@ -63,15 +66,66 @@ const PositionableObject* PositionableObject::GetOwner() const
 	return m_pParent;
 }
 
-const PCEString* PositionableObject::GetID() const
+const PCEObjectId& PositionableObject::GetID() const
 {
-	return m_spObjectID;
+	return m_oId;
 }
 
 void PositionableObject::SetID( const char* i_ID )
 {
-	if (m_spObjectID == nullptr)
+	if ( i_ID )
 	{
-		m_spObjectID = new PCEString( i_ID );
+		PCEObjectId temp( i_ID );
+		m_oId = temp;
 	}
+}
+
+// PROTECTED:
+
+PositionableObject::PositionableObject()
+	: m_pParent(nullptr)
+	, m_oRelativePosition( PCEVector2( FLT_MAX, FLT_MAX ) )
+	, m_fRelativeRotation( FLT_MAX )
+	, m_bEnabled(false)
+	, m_oId(INVALID_OBJECT_ID)
+{
+}
+
+PositionableObject::PositionableObject( const PositionableObject& i_other )
+	: m_pParent( i_other.m_pParent )
+	, m_oRelativePosition( i_other.m_oRelativePosition )
+	, m_fRelativeRotation( i_other.m_fRelativeRotation )
+	, m_bEnabled( i_other.m_bEnabled )
+	, m_oId( i_other.m_oId ) 
+{
+}
+
+PositionableObject& PositionableObject::operator=( const PositionableObject& i_other )
+{
+	if ( this != &i_other )
+	{
+		m_oId = i_other.m_oId;
+		m_pParent = i_other.m_pParent;
+		m_oRelativePosition = i_other.m_oRelativePosition;
+		m_fRelativeRotation = i_other.m_fRelativeRotation;
+		m_bEnabled = i_other.m_bEnabled;
+	}
+
+	return *this;
+}
+
+bool PositionableObject::operator==( const PositionableObject& i_other )
+{
+	return ( 
+		m_oId == i_other.m_oId				&&
+		m_pParent == i_other.m_pParent						&&
+		m_oRelativePosition == i_other.m_oRelativePosition &&
+		m_fRelativeRotation == i_other.m_fRelativeRotation &&
+		m_bEnabled == i_other.m_bEnabled
+		);
+}
+
+bool PositionableObject::operator!=( const PositionableObject& i_other )
+{
+	return !(*this == i_other);
 }

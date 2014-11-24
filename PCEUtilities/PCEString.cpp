@@ -1,5 +1,4 @@
 #include <assert.h>
-#include "PCEUtilitiesSystemApi.h"
 #include "PCEString.h"
 
 PCEString::PCEString()
@@ -7,7 +6,7 @@ PCEString::PCEString()
 	, m_length(0)
 {}
 
-PCEString::PCEString( int i_iInteger, bool i_bValIsCapacity /*= true*/ )
+PCEString::PCEString( int i_iInteger, bool i_bValIsCapacity /*= false*/ )
 {
 	if ( i_bValIsCapacity )
 	{
@@ -16,7 +15,17 @@ PCEString::PCEString( int i_iInteger, bool i_bValIsCapacity /*= true*/ )
 	}
 	else
 	{
-		*this = INT_TO_STRING( i_iInteger );
+		if ( i_iInteger == 0 )
+		{
+			mp_string = "0";
+			m_length = getSizeFromCharPtr( mp_string );
+		}
+		else
+		{
+			itoa( i_iInteger, mp_string, 10 );
+			m_length = getSizeFromCharPtr( mp_string );
+		}
+
 	}
 }
 
@@ -51,7 +60,7 @@ PCEString::~PCEString(void)
 	}
 }
 
-const int PCEString::size() const
+const int PCEString::length() const
 {
 	return m_length;
 }
@@ -70,7 +79,7 @@ bool PCEString::operator==(const PCEString &rvalue)
 {
 	bool equalFlag = (m_length == rvalue.m_length);
 
-	for (int index = 0; equalFlag && index < m_length; ++index)
+	for (size_t index = 0; equalFlag && index < m_length; ++index)
 	{
 		equalFlag = (mp_string[index] == rvalue[index]);
 	}
@@ -113,12 +122,12 @@ PCEString& PCEString::operator+=(const PCEString &rvalue)
 	
 	char *tmpString = new char[totalStringSize + 1];
 
-	int indexOfThis = 0;
+	size_t indexOfThis = 0;
 	for (; indexOfThis < m_length; ++indexOfThis)
 	{
 		tmpString[indexOfThis] = mp_string[indexOfThis];
 	}
-	for(int indexOfRvalue = 0; indexOfRvalue < rvalue.m_length; ++indexOfThis, ++indexOfRvalue)
+	for(size_t indexOfRvalue = 0; indexOfRvalue < rvalue.m_length; ++indexOfThis, ++indexOfRvalue)
 	{
 		tmpString[indexOfThis] = rvalue.mp_string[indexOfRvalue];
 	}
@@ -172,7 +181,7 @@ char* PCEString::createSubStringFromCharPtr(const char* i_charPtr, size_t i_newL
 	m_length = i_newLength;
 	mp_string = new char[m_length + 1];
 
-	for (int idx = 0; idx < m_length; ++idx)
+	for (size_t idx = 0; idx < m_length; ++idx)
 	{
 		mp_string[idx] = i_charPtr[idx];
 	}
@@ -198,34 +207,29 @@ bool PCEString::operator!=(const char *rvalue)
 	return !(*this == rvalue);
 }
 
-const char* PCEString::getStringAsChar() const
+const char* PCEString::c_str() const
 {
 	return mp_string;
 }
 
-PCEString PCEString::INT_TO_STRING(const int i_int)
+PCEString PCEString::INT_TO_STRING( int i_int )
 {
-	int num = i_int;
-	PCEString newStr;
-	char digit;
-	while(num > 0)
-	{
-		digit = char(num%10 + 48);
-		newStr += digit;
-		num /= 10;
-	}
-	REVERT_STRING(&newStr);
-	return newStr;
+	if (i_int == 0)
+		return "0";
+	
+	char tmp[sizeof(int)*8+1];
+	_itoa_s( i_int%10, tmp, 10 );
+	return tmp;
 }
 
 void PCEString::REVERT_STRING(PCEString* io_string)
 {
 	if( io_string != nullptr )
 	{
-		PCEString tmpString( io_string->size() );
-		for( int i = 0; i < tmpString.size(); ++i )
+		PCEString tmpString( io_string->length() );
+		for( int i = 0; i < tmpString.length(); ++i )
 		{
-			tmpString[i] = (*io_string)[tmpString.size() - i];
+			tmpString[i] = (*io_string)[tmpString.length() - i];
 		}
 		*io_string = tmpString;
 	}

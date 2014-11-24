@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="PlaneCollider.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="DrawError.h" />
     <ClInclude Include="DrawPhysiCsEngineClasses.h" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="PlaneCollider.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="DrawError.cpp" />
     <ClCompile Include="DrawPhysiCsEngineClasses.cpp" />

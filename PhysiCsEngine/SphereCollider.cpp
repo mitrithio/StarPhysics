@@ -54,25 +54,23 @@ const Collider* SphereCollider::subShapeCollidedWith(const Collider& i_collider)
 	else return i_collider.subShapeCollidedWith(*this);
 }
 
-
-// punto di collisione: centro + raggio*versore(centro-centro)
 const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sphere) const
 {
-	float fDistanceFromOtherCollider = sqrtf((mCenter.mX - i_sphere->mCenter.mX)*(mCenter.mX - i_sphere->mCenter.mX) + (mCenter.mY - i_sphere->mCenter.mY)*(mCenter.mY - i_sphere->mCenter.mY) + (mCenter.mZ - i_sphere->mCenter.mZ)*(mCenter.mZ - i_sphere->mCenter.mZ));
-	int iDistanceFromOtherCollider = *(int*)&fDistanceFromOtherCollider;
+	float fSquareDistanceFromOtherCollider = (mCenter.mX - i_sphere->mCenter.mX)*(mCenter.mX - i_sphere->mCenter.mX) + (mCenter.mY - i_sphere->mCenter.mY)*(mCenter.mY - i_sphere->mCenter.mY) + (mCenter.mZ - i_sphere->mCenter.mZ)*(mCenter.mZ - i_sphere->mCenter.mZ);
+	int iSquareDistanceFromOtherCollider = *(int*)&fSquareDistanceFromOtherCollider;
 
-	float fRadiusDistance = mRadius + i_sphere->mRadius;
-	int iRadiusDistance = *(int*)&fRadiusDistance;
+	float fSquareRadiusDistance = ( mRadius + i_sphere->mRadius ) * ( mRadius + i_sphere->mRadius );
+	int iSquareRadiusDistance = *(int*)&fSquareRadiusDistance;
 
 	const Collider * pCollider = nullptr;
-	if (iDistanceFromOtherCollider <= iRadiusDistance)
+	if (iSquareDistanceFromOtherCollider <= iSquareRadiusDistance)
 	{
 		bool bColliderFound = false;
-		for (int index = 0; !bColliderFound && index < m_subShapes.size(); ++index)
+		for (uint32_t uiIndex = 0; !bColliderFound && uiIndex < m_subShapes.size(); ++uiIndex)
 		{
-			if (m_subShapes[index]->getDescriptionType() == ESDT_COLLIDER)
+			if (m_subShapes[uiIndex]->getDescriptionType() == ESDT_COLLIDER)
 			{
-				pCollider = static_cast<const Collider*>(m_subShapes[index])->subShapeCollidedWith(*i_sphere);
+				pCollider = static_cast<const Collider*>(m_subShapes[uiIndex])->subShapeCollidedWith(*i_sphere);
 				bColliderFound = (pCollider != nullptr);
 			}
 		}

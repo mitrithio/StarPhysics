@@ -4,30 +4,22 @@
 #include "../PCEUtilities/PCEVector.h"
 #include "PositionableObject.h"
 
-enum ComponentType
-{
-	PHYSIC = 0,
-	GRAPHIC,
-
-	numOFID
-};
-
 class Component : public PositionableObject
 {
 public:
-	Component(ComponentType i_type, PCEVector2 i_position, float i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr) 
-		: PositionableObject(i_position, i_rotation, i_isEnabled, i_owner)
-		, m_type(i_type)
-	{}
+	Component(const PCEObjectId& i_type, PCEVector2 i_position, float i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr);
 
-	virtual ~Component(){}
+	virtual ~Component();
 
 	virtual void update(float i_deltaTime = 0) = 0;
 
-	const ComponentType getType() const			{return m_type;}
+	const PCEObjectId& getType() const;
 
 protected:
-	ComponentType m_type;
+	PCEObjectId m_eType;
 };
+
+static const PCEObjectId GRAPHIC_COMPONENT("GRAPHIC");
+static const PCEObjectId PHYSIC_COMPONENT("PHYSIC");
 
 #endif

@@ -19,6 +19,9 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{14a1e0f5-7525-4ce8-bb48-a6525cc1ea06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WinDrawModification">
+      <UniqueIdentifier>{da3f6757-e0e2-42fd-b03c-e0ac081be72b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,6 +43,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CirclesController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CirclesController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

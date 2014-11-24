@@ -14,6 +14,7 @@
 #include "../PCEUtilities/PCEUtilities.h"		//load the whole PCEUtilities library
 #include "GameEventHandler.h"
 #include <stdio.h>
+#include "CirclesController.h"
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 { 
@@ -28,6 +29,10 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	mainWindow.SetEventHandler(eventHandler);
 
 	// TESTING:
+
+	CirclesController* pController = new CirclesController( 5 );
+
+	delete pController;
 
 	while(mainWindow.IsAlive())		 
 	{

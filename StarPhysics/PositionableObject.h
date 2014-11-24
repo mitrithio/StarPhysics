@@ -1,14 +1,12 @@
 #ifndef	POSITIONABLE_OBJECT_H
 #define POSITIONABLE_OBJECT_H
 
-// #include "../PCEUtilities/PCEUtilities.h"
-#include "../PCEUtilities/PCEVector.h"
-#include "../PCEUtilities/PCEString.h"
+#include "../PCEUtilities/PCEUtilities.h"
 
 class PositionableObject
 {
 public:
-	PositionableObject(PCEVector2 i_oPosition, float i_fRotation, bool i_bEnabled = true, PositionableObject * i_oOwner  = nullptr);
+	PositionableObject(PCEVector2 i_oRelativePosition, float i_fRelativeRotation, bool i_bEnabled = true, PositionableObject * i_oOwner  = nullptr);
 	virtual ~PositionableObject(void);
 
 	float GetAbsoluteRotation() const;
@@ -20,20 +18,25 @@ public:
 	const PCEVector2& GetAbsolutePosition();
 	const PositionableObject* GetOwner() const;
 
-	const PCEString* GetID() const;
+	const PCEObjectId& GetID() const;
 	void SetID(const char* i_ID);
 
 protected:
-	bool operator==(const PositionableObject& i_other);
+
+	PositionableObject();
 	PositionableObject(const PositionableObject& i_other);
+	PositionableObject& operator=(const PositionableObject& i_other);
+	bool operator==(const PositionableObject& i_other);
+	bool operator!=(const PositionableObject& i_other);
+
+protected:
 
 	PositionableObject * m_pParent;
 	PCEVector2 m_oRelativePosition;
-	PCEVector2 m_oAbsolutePosition;
 	float m_fRelativeRotation;
 
 private:
-	const PCEString * m_spObjectID;
+	PCEObjectId m_oId;
 
 protected:
 	bool m_bEnabled;

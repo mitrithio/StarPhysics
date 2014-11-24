@@ -79,8 +79,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="CirclesController.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicComponent.cpp" />
     <ClCompile Include="main.cpp" />
@@ -99,6 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="CirclesController.h" />
     <ClInclude Include="Component.h" />

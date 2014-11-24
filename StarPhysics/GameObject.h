@@ -8,16 +8,32 @@
 class GameObject : public PositionableObject
 {
 public:
+	
 	GameObject(PCEVector2 i_position, float i_rotation, PositionableObject * i_owner = nullptr);
+
 	virtual ~GameObject(void);
 
-	void addComponent(Component* io_component);
+	virtual void Update( float i_fDeltaTime );
+	void RegisterComponent(Component* i_pComponent);
 
 protected:
-	PCEMap<ComponentType, PCEVector<Component*>*> m_components;
+
+	GameObject();
+	GameObject( const GameObject& i_other );
+	GameObject& operator=( const GameObject& i_other );
+	bool operator==( const GameObject& i_other );
+	bool operator!=( const GameObject& i_other );
+
+protected:
+	typedef PCEVector<Component*>							VectorComponent;
+	typedef VectorComponent::PCEIterator					VectorComponentIterator;
+	typedef PCEMap<ComponentType, PCEVector<Component*>>	MapComponents;
+	typedef MapComponents::PCEIterator						MapComponentsIterator;
+	
+	MapComponents m_mComponents;
 
 private:
-	void removeComponents();
+	void UnregisterComponents();
 };
 
 #endif

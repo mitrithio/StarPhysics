@@ -1,22 +1,75 @@
 #include "CirclesController.h"
 #include "Circle.h"
+#include "PhysicComponent.h"
+#include "GraphicComponent.h"
+
+const PCEString CirclesController::IMAGES_CIRCLE_PATH( "Sphere0");
 
 
-CirclesController::CirclesController(void)
+CirclesController::CirclesController()
+	: m_uiNextCircleFree( 0 )
 {
 }
 
-
-CirclesController::~CirclesController(void)
+CirclesController::CirclesController( unsigned int i_uiNumberOfCircles )
 {
+	CreateCirclePool( i_uiNumberOfCircles );
+}
+
+
+CirclesController::~CirclesController()
+{
+	for ( PCEMap<PCEObjectId,Circle*>::PCEIterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
+	{
+		delete (*it).second;
+	}
 }
 
 void CirclesController::CreateCircle( PCEVector2 i_oPosition, float i_fRotation )
 {
-	Circle* oCircle = new Circle( i_oPosition, i_fRotation );
-	oCircle->SetEnable(false);
-	PCEString sKey("Circle");
-	sKey += PCEString::INT_TO_STRING( m_voCircles.size() + 1 );
-	oCircle->SetID( sKey.getStringAsChar() );
-	//m_voCircles[sKey] = oCircle;
+	Circle * pCircle = new Circle( i_oPosition, i_fRotation );
+	pCircle->SetEnable( false );
+	PCEString sKey( "Circle" );
+	sKey += PCEString::INT_TO_STRING( m_oCirclesMap.size() );
+	pCircle->SetID( sKey.c_str() );
+	pCircle->RegisterComponent( new PhysicComponent( i_oPosition, i_fRotation, true, pCircle ) );
+	pCircle->setLevel( 1 );
+	sKey = IMAGES_CIRCLE_PATH.c_str();
+	sKey += PCEString::INT_TO_STRING( pCircle->getLevel() ) + ".tga";
+	pCircle->RegisterComponent( new GraphicComponent( sKey.c_str(), i_oPosition, i_fRotation, pCircle, true ) );
+	m_oCirclesMap[PCEObjectId(sKey)] = pCircle;
+	m_vIsCircleFree.push_back( true );
+}
+
+void CirclesController::CreateCirclePool( unsigned int i_uiNumberOfCircle )
+{
+	if ( m_oCirclesMap.size() == 0 )
+	{
+		for ( unsigned int uiIndex = 0; uiIndex < i_uiNumberOfCircle; ++uiIndex )
+		{
+			CreateCircle( PCEVector2( 0, 0 ), 0.f );
+		}
+		m_uiNextCircleFree = 0;
+	}
+}
+
+void CirclesController::Update( float i_fDeltaTime )
+{
+	for ( PCEMap<PCEObjectId,Circle*>::PCEIterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
+	{
+		(*it).second->Update( i_fDeltaTime );
+	}
+}
+
+const PCEObjectId& CirclesController::GetNextFreeCircleID()
+{
+	for ( unsigned int uiIndex = 0; uiIndex < m_vIsCircleFree.size(); ++uiIndex )
+	{
+		if ( m_vIsCircleFree.at(uiIndex) && ( m_oCirclesMap.begin() + uiIndex != m_oCirclesMap.end() ) )
+		{
+			return (*( m_oCirclesMap.begin() + uiIndex )).second->GetID();
+		}
+	}
+
+	return INVALID_CIRCLE.GetID();
 }

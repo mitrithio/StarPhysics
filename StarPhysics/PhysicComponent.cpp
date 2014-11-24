@@ -2,7 +2,7 @@
 
 
 PhysicComponent::PhysicComponent(PCEVector2 i_position, float i_rotation, bool i_isEnabled /* = true */, PositionableObject * i_owner /* = nullptr */)
-	: Component(PHYSIC, i_position, i_rotation, i_isEnabled, i_owner)
+	: Component(PHYSIC_COMPONENT, i_position, i_rotation, i_isEnabled, i_owner)
 {
 }
 
