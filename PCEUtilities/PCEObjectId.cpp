@@ -28,12 +28,12 @@ unsigned long PCEObjectId::Djb2HashAlgorithm( const char* str )
 	return hash;
 }
 
-bool PCEObjectId::operator==( const PCEObjectId& i_other )
+bool PCEObjectId::operator==( const PCEObjectId& i_other ) const
 {
 	return m_ulHash == i_other.m_ulHash;
 }
 
-bool PCEObjectId::operator!=( const PCEObjectId& i_other )
+bool PCEObjectId::operator!=( const PCEObjectId& i_other ) const
 {
 	return ( *this == i_other );
 }

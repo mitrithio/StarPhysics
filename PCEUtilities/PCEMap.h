@@ -115,12 +115,12 @@ public:
 		return *this;
 	}
 
-	bool operator==( const PCEMap<KeyType,ValueType>& i_other )
+	bool operator==( const PCEMap<KeyType,ValueType>& i_other ) const
 	{
 		return m_keyValueVector == i_other.m_keyValueVector;
 	}
 
-	bool operator!=( const PCEMap<KeyType,ValueType>& i_other )
+	bool operator!=( const PCEMap<KeyType,ValueType>& i_other ) const
 	{
 		return !(*this == i_other);
 	}
@@ -215,12 +215,12 @@ public:
 			return *this;
 		}
 
-		virtual bool operator==( const PCEIterator& i_other )
+		virtual bool operator==( const PCEIterator& i_other ) const
 		{
 			return ( m_uiIndex == i_other.m_uiIndex );
 		}
 
-		virtual bool operator!=( const PCEIterator& i_other )
+		virtual bool operator!=( const PCEIterator& i_other ) const
 		{
 			return !( *this == i_other );
 		}

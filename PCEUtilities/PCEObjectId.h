@@ -13,8 +13,8 @@ public:
 
 	static unsigned long Djb2HashAlgorithm( const char* str );
 
-	bool operator==( const PCEObjectId& i_other );
-	bool operator!=( const PCEObjectId& i_other );
+	bool operator==( const PCEObjectId& i_other ) const;
+	bool operator!=( const PCEObjectId& i_other ) const;
 	PCEObjectId& operator=( const PCEObjectId& i_other );
 
 private:

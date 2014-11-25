@@ -82,7 +82,6 @@
     <ClInclude Include="DrawError.h" />
     <ClInclude Include="DrawPhysiCsEngineClasses.h" />
     <ClInclude Include="ErrorDefinitions.h" />
-    <ClInclude Include="EnumDefinitions.h" />
     <ClInclude Include="PCE.h" />
     <ClInclude Include="PCESystemApi.h" />
     <ClInclude Include="Shape.h" />

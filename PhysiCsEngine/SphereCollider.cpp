@@ -6,14 +6,14 @@
 
 
 SphereCollider::SphereCollider(float i_r, float i_x, float i_y, float i_z)
-	: Collider(ESD_BOUNDINGSPHERE) 
+	: Collider(PCEIds::DESC_BOUNDING_SPHERE) 
 	, mRadius(i_r)
 	, mCenter(i_x, i_y, i_z)
 {
 }
 
 SphereCollider::SphereCollider()
-	: Collider(ESD_BOUNDINGSPHERE)
+	: Collider(PCEIds::DESC_BOUNDING_SPHERE)
 	, mCenter(0.0f,0.0f,0.0f)
 	, mRadius(0.0f)
 {}
@@ -33,7 +33,7 @@ const Collider* SphereCollider::subShapeCollidedWith(const PCEVector3 &i_point) 
 		bool bColliderFound = false;
 		for (unsigned int i = 0; !bColliderFound && i < m_subShapes.size(); ++i)
 		{
-			if (m_subShapes[i]->getDescriptionType() == ESDT_COLLIDER)
+			if (m_subShapes[i]->getDescriptionType() == PCEIds::TYPE_COLLIDER)
 			{
 				pCollider = static_cast<const Collider *>(m_subShapes[i])->subShapeCollidedWith(i_point);
 				bColliderFound = (pCollider != nullptr);
@@ -49,7 +49,7 @@ const Collider* SphereCollider::subShapeCollidedWith(const PCEVector3 &i_point) 
 
 const Collider* SphereCollider::subShapeCollidedWith(const Collider& i_collider) const
 {
-	if (i_collider.getDescription() == ESD_BOUNDINGSPHERE)
+	if (i_collider.getDescription() == PCEIds::DESC_BOUNDING_SPHERE)
 		return subShapeCollidedWith(static_cast<const SphereCollider *>(&i_collider));
 	else return i_collider.subShapeCollidedWith(*this);
 }
@@ -68,7 +68,7 @@ const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sph
 		bool bColliderFound = false;
 		for (uint32_t uiIndex = 0; !bColliderFound && uiIndex < m_subShapes.size(); ++uiIndex)
 		{
-			if (m_subShapes[uiIndex]->getDescriptionType() == ESDT_COLLIDER)
+			if (m_subShapes[uiIndex]->getDescriptionType() == PCEIds::TYPE_COLLIDER)
 			{
 				pCollider = static_cast<const Collider*>(m_subShapes[uiIndex])->subShapeCollidedWith(*i_sphere);
 				bColliderFound = (pCollider != nullptr);

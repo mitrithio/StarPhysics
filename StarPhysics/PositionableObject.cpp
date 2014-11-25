@@ -114,7 +114,7 @@ PositionableObject& PositionableObject::operator=( const PositionableObject& i_o
 	return *this;
 }
 
-bool PositionableObject::operator==( const PositionableObject& i_other )
+bool PositionableObject::operator==( const PositionableObject& i_other ) const
 {
 	return ( 
 		m_oId == i_other.m_oId				&&
@@ -125,7 +125,7 @@ bool PositionableObject::operator==( const PositionableObject& i_other )
 		);
 }
 
-bool PositionableObject::operator!=( const PositionableObject& i_other )
+bool PositionableObject::operator!=( const PositionableObject& i_other ) const
 {
 	return !(*this == i_other);
 }

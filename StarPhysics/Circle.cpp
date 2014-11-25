@@ -38,7 +38,7 @@ Circle& Circle::operator=( const Circle& i_other )
 	return *this;
 }
 
-bool Circle::operator==( const Circle& i_other )
+bool Circle::operator==( const Circle& i_other ) const
 {
 	return ( 
 			GameObject::operator==(i_other)		&&
@@ -46,7 +46,7 @@ bool Circle::operator==( const Circle& i_other )
 			);
 }
 
-bool Circle::operator!=( const Circle& i_other )
+bool Circle::operator!=( const Circle& i_other ) const
 {
 	return !(*this == i_other);
 }

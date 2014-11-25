@@ -339,7 +339,7 @@ public:
 			return *this;
 		}
 
-		virtual bool operator==( const PCEIterator& i_other )
+		virtual bool operator==( const PCEIterator& i_other ) const
 		{
 			return ( m_uiIndex == i_other.m_uiIndex );
 		}

@@ -26,8 +26,8 @@ protected:
 	PositionableObject();
 	PositionableObject(const PositionableObject& i_other);
 	PositionableObject& operator=(const PositionableObject& i_other);
-	bool operator==(const PositionableObject& i_other);
-	bool operator!=(const PositionableObject& i_other);
+	bool operator==(const PositionableObject& i_other) const;
+	bool operator!=(const PositionableObject& i_other) const;
 
 protected:
 

@@ -21,13 +21,13 @@ protected:
 	GameObject();
 	GameObject( const GameObject& i_other );
 	GameObject& operator=( const GameObject& i_other );
-	bool operator==( const GameObject& i_other );
-	bool operator!=( const GameObject& i_other );
+	bool operator==( const GameObject& i_other ) const;
+	bool operator!=( const GameObject& i_other ) const;
 
 protected:
 	typedef PCEVector<Component*>							VectorComponent;
 	typedef VectorComponent::PCEIterator					VectorComponentIterator;
-	typedef PCEMap<ComponentType, PCEVector<Component*>>	MapComponents;
+	typedef PCEMap<PCEObjectId, PCEVector<Component*>>		MapComponents;
 	typedef MapComponents::PCEIterator						MapComponentsIterator;
 	
 	MapComponents m_mComponents;

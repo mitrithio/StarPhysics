@@ -19,10 +19,10 @@ public:
 
 	char* operator*(void);
 	char& operator[](const int iValue) const;
-	bool operator==(const PCEString &rvalue);
-	bool operator!=(const PCEString &rvalue);
-	bool operator==(const char *rvalue);
-	bool operator!=(const char *rvalue);
+	bool operator==(const PCEString &rvalue) const;
+	bool operator!=(const PCEString &rvalue) const;
+	bool operator==(const char *rvalue) const;
+	bool operator!=(const char *rvalue) const;
 	PCEString& operator=(const PCEString &rvalue);
 	PCEString& operator=(const char *rvalue);
 	PCEString& operator+=(const PCEString &rvalue);

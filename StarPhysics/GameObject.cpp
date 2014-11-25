@@ -19,7 +19,7 @@ void GameObject::RegisterComponent(Component* i_pComponent)
 
 void GameObject::UnregisterComponents()
 {
-	for ( PCEMap<ComponentType, PCEVector<Component*>>::PCEIterator it = m_mComponents.begin(); it != m_mComponents.end(); ++it )
+	for ( PCEMap<PCEObjectId, PCEVector<Component*>>::PCEIterator it = m_mComponents.begin(); it != m_mComponents.end(); ++it )
 	{
 		(*it).second.clear();
 	}
@@ -60,7 +60,7 @@ GameObject& GameObject::operator=( const GameObject& i_other )
 	return *this;
 }
 
-bool GameObject::operator==( const GameObject& i_other )
+bool GameObject::operator==( const GameObject& i_other ) const
 {
 	return (
 		PositionableObject::operator==(i_other)	&&
@@ -68,7 +68,7 @@ bool GameObject::operator==( const GameObject& i_other )
 		);
 }
 
-bool GameObject::operator!=( const GameObject& i_other )
+bool GameObject::operator!=( const GameObject& i_other ) const
 {
 	return !( *this == i_other );
 }

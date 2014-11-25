@@ -16,6 +16,9 @@
     <Filter Include="System\Drawing">
       <UniqueIdentifier>{3909cbbe-8e4b-4fa7-b459-ae4ef541e5fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Controller">
+      <UniqueIdentifier>{3a714790-171d-42d7-9e30-23dbbe7a92ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -63,9 +66,6 @@
       <Filter>Shapes</Filter>
     </ClInclude>
     <ClInclude Include="ErrorDefinitions.h">
-      <Filter>System\System include</Filter>
-    </ClInclude>
-    <ClInclude Include="EnumDefinitions.h">
       <Filter>System\System include</Filter>
     </ClInclude>
     <ClInclude Include="PlaneCollider.h">

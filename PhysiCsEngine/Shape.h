@@ -2,8 +2,16 @@
 #define PCE_SHAPE_H
 
 #include "..\PCEUtilities\PCEUtilities.h"
-#include "EnumDefinitions.h"
 #include "ErrorDefinitions.h"
+
+namespace PCEIds
+{
+	static const PCEObjectId DESC_BOUNDING_SPHERE("BoundingSphereDesc");
+	static const PCEObjectId DESC_PLANE("PlaneDesc");
+
+	static const PCEObjectId TYPE_COLLIDER("TypeCollider");
+}
+
 
 /*!
 	\brief A Shape is a description of bounds of an object.
@@ -13,7 +21,7 @@ public:
 	/*!
 	\brief Default constructor. It sets nullptr to m_desc.
 	*/
-	Shape(const EnumShapeDesc i_desc = ESD_NONE, const EnumShapeDescType i_type = ESDT_NONE, unsigned int i_capacity = 0)
+	Shape(const PCEObjectId& i_desc = INVALID_OBJECT_ID, const PCEObjectId& i_type = INVALID_OBJECT_ID, unsigned int i_capacity = 0)
 		: m_desc(i_desc)
 		, m_type(i_type)
 		, m_subShapes(i_capacity)
@@ -25,13 +33,13 @@ public:
 	\brief Getter for m_desc
 	\return m_desc
 	*/
-	inline const EnumShapeDesc getDescription() const			{return m_desc;}
+	inline const PCEObjectId& getDescription() const			{return m_desc;}
 	
 	/*!
 	\brief Getter for m_type
 	\return m_type
 	*/
-	inline const EnumShapeDescType getDescriptionType() const	{return m_type;}
+	inline const PCEObjectId& getDescriptionType() const	{return m_type;}
 
 	/*!
 	\brief Adds a Shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
@@ -52,8 +60,8 @@ public:
 	inline const PCEVector<Shape*>& getSubShapes() const		{return m_subShapes;}
 
 protected:
-	EnumShapeDesc m_desc;				/*!< \brief The description name of shape. */
-	EnumShapeDescType m_type;			/*!< \brief The description type of shape. */
+	PCEObjectId m_desc;				/*!< \brief The description name of shape. */
+	PCEObjectId m_type;			/*!< \brief The description type of shape. */
 										
 	PCEVector<Shape*> m_subShapes;		/*!< \brief A PCEVector of Shape.*/
 
@@ -70,8 +78,8 @@ class Collider : public Shape
 {
 public:
 
-	Collider(const EnumShapeDesc i_desc = ESD_NONE, unsigned int i_capacity = 0)
-		: Shape(i_desc, ESDT_COLLIDER, i_capacity)
+	Collider(const PCEObjectId& i_desc = INVALID_OBJECT_ID, unsigned int i_capacity = 0)
+		: Shape(i_desc, PCEIds::TYPE_COLLIDER, i_capacity)
 	{}
 
 	/*!

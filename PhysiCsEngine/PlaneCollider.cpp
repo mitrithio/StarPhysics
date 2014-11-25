@@ -3,7 +3,7 @@
 #include "SphereCollider.h"
 
 PlaneCollider::PlaneCollider( float i_a, float i_b, float i_c, float i_d )
-	: Collider(ESD_PLANE)
+	: Collider(PCEIds::DESC_PLANE)
 	, m_a(i_a)
 	, m_b(i_b)
 	, m_c(i_c)
@@ -12,7 +12,7 @@ PlaneCollider::PlaneCollider( float i_a, float i_b, float i_c, float i_d )
 }
 
 PlaneCollider::PlaneCollider( PCEVector3 i_oOrthogonalVector, PCEVector3 i_oPoint )
-	: Collider(ESD_PLANE)
+	: Collider(PCEIds::DESC_PLANE)
 	, m_a( i_oOrthogonalVector.mX )
 	, m_b( i_oOrthogonalVector.mY )
 	, m_c( i_oOrthogonalVector.mZ )
@@ -21,7 +21,7 @@ PlaneCollider::PlaneCollider( PCEVector3 i_oOrthogonalVector, PCEVector3 i_oPoin
 }
 
 PlaneCollider::PlaneCollider( PCEVector3 i_oFirstVector, PCEVector3 i_oSecondVector, PCEVector3 i_oPoint )
-	: Collider(ESD_PLANE)
+	: Collider(PCEIds::DESC_PLANE)
 {
 	m_a = i_oFirstVector.mY * i_oSecondVector.mZ - i_oFirstVector.mZ * i_oSecondVector.mY;
 	m_b = i_oFirstVector.mZ * i_oSecondVector.mX - i_oFirstVector.mX * i_oSecondVector.mZ;
@@ -41,7 +41,7 @@ const Collider* PlaneCollider::subShapeCollidedWith( const PCEVector3& i_oPoint 
 
 const Collider* PlaneCollider::subShapeCollidedWith( const Collider& i_oCollider ) const
 {
-	if (i_oCollider.getDescription() == ESD_BOUNDINGSPHERE)
+	if (i_oCollider.getDescription() == PCEIds::DESC_BOUNDING_SPHERE )
 		return subShapeCollidedWith(static_cast<const SphereCollider *>(&i_oCollider));
 	else return i_oCollider.subShapeCollidedWith(*this);
 }

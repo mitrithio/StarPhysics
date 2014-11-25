@@ -75,7 +75,7 @@ char& PCEString::operator[](const int iValue) const
 	return mp_string[iValue];
 }
 
-bool PCEString::operator==(const PCEString &rvalue)
+bool PCEString::operator==(const PCEString &rvalue) const
 {
 	bool equalFlag = (m_length == rvalue.m_length);
 
@@ -87,7 +87,7 @@ bool PCEString::operator==(const PCEString &rvalue)
 	return equalFlag;
 }
 
-bool PCEString::operator!=(const PCEString &rvalue)
+bool PCEString::operator!=(const PCEString &rvalue) const
 {
 	return !(*this == rvalue);
 }
@@ -190,7 +190,7 @@ char* PCEString::createSubStringFromCharPtr(const char* i_charPtr, size_t i_newL
 	return mp_string;
 }
 
-bool PCEString::operator==(const char *rvalue)
+bool PCEString::operator==(const char *rvalue) const
 {
 	bool isEqual = (mp_string != nullptr && rvalue != nullptr);
 
@@ -202,7 +202,7 @@ bool PCEString::operator==(const char *rvalue)
 	return isEqual;
 }
 
-bool PCEString::operator!=(const char *rvalue)
+bool PCEString::operator!=(const char *rvalue) const
 {
 	return !(*this == rvalue);
 }

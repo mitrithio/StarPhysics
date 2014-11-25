@@ -15,8 +15,8 @@ public:
 	void setLevel(unsigned int i_uiLevel);
 	unsigned int getLevel() const;
 
-	bool operator==( const Circle& i_other );
-	bool operator!=( const Circle& i_other );
+	bool operator==( const Circle& i_other ) const;
+	bool operator!=( const Circle& i_other ) const;
 	Circle& operator=( const Circle& i_other );
 
 private:
