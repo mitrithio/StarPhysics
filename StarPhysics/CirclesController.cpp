@@ -29,15 +29,16 @@ void CirclesController::CreateCircle( PCEVector2 i_oPosition, float i_fRotation 
 {
 	Circle * pCircle = new Circle( i_oPosition, i_fRotation );
 	pCircle->SetEnable( false );
-	PCEString sKey( "Circle" );
-	sKey += PCEString::INT_TO_STRING( m_oCirclesMap.size() );
-	pCircle->SetID( sKey.c_str() );
+	PCEString szKey( "Circle" );
+	szKey += PCEString::INT_TO_STRING( m_oCirclesMap.size() );
+	pCircle->SetID( szKey.c_str() );
 	pCircle->RegisterComponent( new PhysicComponent( i_oPosition, i_fRotation, true, pCircle ) );
 	pCircle->setLevel( 1 );
-	sKey = IMAGES_CIRCLE_PATH.c_str();
-	sKey += PCEString::INT_TO_STRING( pCircle->getLevel() ) + ".tga";
-	pCircle->RegisterComponent( new GraphicComponent( sKey.c_str(), i_oPosition, i_fRotation, pCircle, true ) );
-	m_oCirclesMap[PCEObjectId(sKey)] = pCircle;
+	
+	PCEString szImagePath = IMAGES_CIRCLE_PATH;
+	szImagePath += PCEString::INT_TO_STRING( pCircle->getLevel() ) + ".tga";
+	pCircle->RegisterComponent( new GraphicComponent( szImagePath.c_str(), i_oPosition, i_fRotation, pCircle, true ) );
+	m_oCirclesMap[PCEObjectId(szKey)] = pCircle;
 	m_vIsCircleFree.push_back( true );
 }
 

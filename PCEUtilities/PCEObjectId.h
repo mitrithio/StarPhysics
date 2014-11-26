@@ -20,6 +20,9 @@ public:
 private:
 
 	unsigned long m_ulHash;
+#ifdef _DEBUG
+	PCEString m_szDebugName;
+#endif
 };
 
 static PCEObjectId INVALID_OBJECT_ID("");

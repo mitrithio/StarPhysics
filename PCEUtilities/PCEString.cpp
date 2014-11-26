@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <assert.h>
 #include "PCEString.h"
 
@@ -6,26 +7,24 @@ PCEString::PCEString()
 	, m_length(0)
 {}
 
-PCEString::PCEString( int i_iInteger, bool i_bValIsCapacity /*= false*/ )
+PCEString::PCEString( int i_iVal, bool i_bValIsCapacity /*= false*/ )
 {
 	if ( i_bValIsCapacity )
 	{
 		mp_string = nullptr;
-		m_length = i_iInteger;
+		m_length = i_iVal;
 	}
 	else
 	{
-		if ( i_iInteger == 0 )
+		char c[128];
+		sprintf_s( c,"%d",i_iVal );
+		m_length = getSizeFromCharPtr(c);
+		mp_string = new char[m_length+1];
+		for ( unsigned int uiIndex = 0; uiIndex < m_length; ++uiIndex )
 		{
-			mp_string = "0";
-			m_length = getSizeFromCharPtr( mp_string );
+			mp_string[uiIndex] = c[uiIndex];
 		}
-		else
-		{
-			itoa( i_iInteger, mp_string, 10 );
-			m_length = getSizeFromCharPtr( mp_string );
-		}
-
+		mp_string[m_length] = '\0';
 	}
 }
 
@@ -214,11 +213,8 @@ const char* PCEString::c_str() const
 
 PCEString PCEString::INT_TO_STRING( int i_int )
 {
-	if (i_int == 0)
-		return "0";
-	
-	char tmp[sizeof(int)*8+1];
-	_itoa_s( i_int%10, tmp, 10 );
+	char tmp[128];
+	sprintf_s( tmp,"%d",i_int );
 	return tmp;
 }
 

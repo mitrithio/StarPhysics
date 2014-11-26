@@ -18,33 +18,29 @@
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdShow)
 { 
-	MainWindow mainWindow;
-	mainWindow.Create(1024,768,"StarPhysics");
+	MainWindow oMainWindow;
+	oMainWindow.Create(1024,768,"StarPhysics");
 
-	const float secondsPerFrame = (1.f / 60.f); 
-	Timer t;
+	const float fSecondsPerFrame = (1.f / 60.f); 
+	Timer oTimer;
 
-	GameEventHandler *eventHandler = new GameEventHandler();
+	GameEventHandler *pEventHandler = new GameEventHandler();
 
-	mainWindow.SetEventHandler(eventHandler);
+	oMainWindow.SetEventHandler(pEventHandler);
 
 	// TESTING:
 
-	CirclesController* pController = new CirclesController( 5 );
-
-	delete pController;
-
-	while(mainWindow.IsAlive())		 
+	while(oMainWindow.IsAlive())
 	{
-		t.TimeFromLast();
+		oTimer.TimeFromLast();
 
-		mainWindow.DispatchInput(); 
-		mainWindow.Redraw();
+		oMainWindow.DispatchInput(); 
+		oMainWindow.Redraw();
 
-		wait(secondsPerFrame - t.TimeFromLast());
+		wait(fSecondsPerFrame - oTimer.TimeFromLast());
 	}
 
-	mainWindow.ClearEventHandler();
-	delete eventHandler;
+	oMainWindow.ClearEventHandler();
+	delete pEventHandler;
 	return 0;
 }

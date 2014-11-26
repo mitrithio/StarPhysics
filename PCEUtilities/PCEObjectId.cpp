@@ -8,11 +8,17 @@ PCEObjectId::PCEObjectId()
 PCEObjectId::PCEObjectId( const PCEString& i_szString )
 {
 	m_ulHash = Djb2HashAlgorithm( i_szString.c_str() );
+#ifdef _DEBUG
+	m_szDebugName = i_szString;
+#endif
 }
 
 PCEObjectId::PCEObjectId( const PCEObjectId& i_other )
 {
 	m_ulHash = i_other.m_ulHash;
+#ifdef _DEBUG
+	m_szDebugName = i_other.m_szDebugName;
+#endif
 }
 
 unsigned long PCEObjectId::Djb2HashAlgorithm( const char* str )
@@ -43,6 +49,9 @@ PCEObjectId& PCEObjectId::operator=( const PCEObjectId& i_other )
 	if ( this != &i_other )
 	{
 		m_ulHash = i_other.m_ulHash;
+#ifdef _DEBUG
+		m_szDebugName = i_other.m_szDebugName;
+#endif
 	}
 
 	return *this;
