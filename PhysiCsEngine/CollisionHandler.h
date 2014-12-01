@@ -12,7 +12,7 @@ public:
 	CollisionHandler();
 	~CollisionHandler();
 
-	void AddShape( const RigidBody& i_oRigidBody );
+	void RegisterShape( const RigidBody& i_oRigidBody );
 	unsigned int DetectCollisions() const;
 	
 private:

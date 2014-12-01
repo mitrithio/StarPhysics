@@ -10,6 +10,7 @@
     <ClInclude Include="PCEVector.h" />
     <ClInclude Include="PCEMap.h" />
     <ClInclude Include="PCEObjectId.h" />
+    <ClInclude Include="PCEMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCEString.cpp" />

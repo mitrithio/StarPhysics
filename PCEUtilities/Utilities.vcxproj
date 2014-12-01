@@ -75,6 +75,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PCEMath.h" />
     <ClInclude Include="PCEObjectId.h" />
     <ClInclude Include="PCEMap.h" />
     <ClInclude Include="PCEString.h" />
