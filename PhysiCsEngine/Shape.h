@@ -88,7 +88,7 @@ public:
 	\return This Shape or a subShape that are involved in collision with i_shape. 
 			nullptr if neither shape and its sub shapes are involved in collision.
 	*/
-	virtual const Collider* subShapeCollidedWith(const PCEVector3& i_point) const = 0;
+	virtual const Collider* subShapeCollidedWith(const PCEHVector3& i_point) const = 0;
 
 	/*!
 	\brief Check for collision.

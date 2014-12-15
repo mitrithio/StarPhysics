@@ -6,5 +6,6 @@
 #include "PCEVector.h"
 #include "PCEMap.h"
 #include "PCEObjectId.h"
+#include "PCEMath.h"
 
 #endif

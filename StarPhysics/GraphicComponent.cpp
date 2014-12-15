@@ -1,6 +1,6 @@
 #include "GraphicComponent.h"
 
-GraphicComponent::GraphicComponent( const PCEString& i_sImagePath, PCEVector2 i_oPosition, float i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled /*= true*/ )
+GraphicComponent::GraphicComponent( const PCEString& i_sImagePath, PCEPoint i_oPosition, float i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled /*= true*/ )
 	: Component( GRAPHIC_COMPONENT, i_oPosition, i_fRotation )
 {
 	CreateBitmap( i_sImagePath.c_str() );
@@ -14,8 +14,8 @@ GraphicComponent::~GraphicComponent(void)
 
 void GraphicComponent::OnRender(Bitmap* renderTarget)
 {
-	const PCEVector2* pAbsolutePosition = &GetAbsolutePosition();
-	mp_image->DrawRotatedTo( renderTarget, pAbsolutePosition->mX, pAbsolutePosition->mY, m_oRelativePosition.mX, m_oRelativePosition.mY, GetAbsoluteRotation() );
+	const PCEPoint& pAbsolutePosition = GetAbsolutePosition();
+	mp_image->DrawRotatedTo( renderTarget, pAbsolutePosition[0], pAbsolutePosition[1], m_oRelativePosition[0], m_oRelativePosition[1], GetAbsoluteRotation() );
 }
 
 void GraphicComponent::setOwner( GameObject & i_owner )

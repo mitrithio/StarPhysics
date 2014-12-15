@@ -11,27 +11,27 @@ PlaneCollider::PlaneCollider( float i_a, float i_b, float i_c, float i_d )
 {
 }
 
-PlaneCollider::PlaneCollider( PCEVector3 i_oOrthogonalVector, PCEVector3 i_oPoint )
+PlaneCollider::PlaneCollider( PCEHVector3 i_oOrthogonalVector, PCEHVector3 i_oPoint )
 	: Collider(PCEIds::DESC_PLANE)
-	, m_a( i_oOrthogonalVector.mX )
-	, m_b( i_oOrthogonalVector.mY )
-	, m_c( i_oOrthogonalVector.mZ )
-	, m_d( - ( m_a * i_oPoint.mX + m_b * i_oPoint.mY + m_c * i_oPoint.mZ ) )
+	, m_a( i_oOrthogonalVector[0] )
+	, m_b( i_oOrthogonalVector[1] )
+	, m_c( i_oOrthogonalVector[2] )
+	, m_d( - ( m_a * i_oPoint[0] + m_b * i_oPoint[1] + m_c * i_oPoint[2] ) )
 {
 }
 
-PlaneCollider::PlaneCollider( PCEVector3 i_oFirstVector, PCEVector3 i_oSecondVector, PCEVector3 i_oPoint )
+PlaneCollider::PlaneCollider( PCEHVector3 i_oFirstVector, PCEHVector3 i_oSecondVector, PCEHVector3 i_oPoint )
 	: Collider(PCEIds::DESC_PLANE)
 {
-	m_a = i_oFirstVector.mY * i_oSecondVector.mZ - i_oFirstVector.mZ * i_oSecondVector.mY;
-	m_b = i_oFirstVector.mZ * i_oSecondVector.mX - i_oFirstVector.mX * i_oSecondVector.mZ;
-	m_c = i_oFirstVector.mX * i_oSecondVector.mY - i_oFirstVector.mY * i_oSecondVector.mX;
-	m_d = - ( m_a * i_oPoint.mX + m_b * i_oPoint.mY + m_c * i_oPoint.mZ );
+	m_a = i_oFirstVector[1] * i_oSecondVector[2] - i_oFirstVector[2] * i_oSecondVector[1];
+	m_b = i_oFirstVector[2] * i_oSecondVector[0] - i_oFirstVector[0] * i_oSecondVector[2];
+	m_c = i_oFirstVector[0] * i_oSecondVector[1] - i_oFirstVector[1] * i_oSecondVector[0];
+	m_d = - ( m_a * i_oPoint[0] + m_b * i_oPoint[1] + m_c * i_oPoint[2] );
 }
 
-const Collider* PlaneCollider::subShapeCollidedWith( const PCEVector3& i_oPoint ) const
+const Collider* PlaneCollider::subShapeCollidedWith( const PCEHVector3& i_oPoint ) const
 {
-	if ( m_a * i_oPoint.mX + m_b * i_oPoint.mY + m_c * i_oPoint.mZ == m_d )
+	if ( m_a * i_oPoint[0] + m_b * i_oPoint[1] + m_c * i_oPoint[2] == m_d )
 	{
 		return this;
 	}
@@ -51,8 +51,8 @@ const Collider* PlaneCollider::subShapeCollidedWith( const SphereCollider* i_pSp
 	float fSquareRadius = ( i_pSphereCollider->getRadius() * i_pSphereCollider->getRadius() );
 	int iSquareRadius = *(int*)&fSquareRadius;
 
-	const PCEVector3& oSphereCenter = i_pSphereCollider->getCenter();
-	float fSquareDistance = ( m_a*oSphereCenter.mX + m_b*oSphereCenter.mY + m_c*oSphereCenter.mZ - m_d );
+	const PCEHVector3& oSphereCenter = i_pSphereCollider->getCenter();
+	float fSquareDistance = ( m_a*oSphereCenter[0] + m_b*oSphereCenter[1] + m_c*oSphereCenter[2] - m_d );
 	fSquareDistance *= fSquareDistance;
 	fSquareDistance /= ( m_a + m_b + m_c );
 	int iSquareDistance = *(int*)&fSquareDistance;

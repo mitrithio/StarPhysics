@@ -76,15 +76,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCEMath.h" />
+    <ClInclude Include="PCEMatrix.h" />
     <ClInclude Include="PCEObjectId.h" />
     <ClInclude Include="PCEMap.h" />
+    <ClInclude Include="PCEPoint.h" />
+    <ClInclude Include="PCEQuaternion.h" />
     <ClInclude Include="PCEString.h" />
     <ClInclude Include="PCEUtilities.h" />
     <ClInclude Include="PCEUtilitiesSystemApi.h" />
     <ClInclude Include="PCEVector.h" />
+    <ClInclude Include="PCEVector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PCEMath.cpp" />
+    <ClCompile Include="PCEMatrix.cpp" />
     <ClCompile Include="PCEObjectId.cpp" />
+    <ClCompile Include="PCEQuaternion.cpp" />
     <ClCompile Include="PCEString.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

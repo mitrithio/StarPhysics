@@ -11,9 +11,33 @@
     <ClInclude Include="PCEMap.h" />
     <ClInclude Include="PCEObjectId.h" />
     <ClInclude Include="PCEMath.h" />
+    <ClInclude Include="PCEMatrix.h">
+      <Filter>PCEMath</Filter>
+    </ClInclude>
+    <ClInclude Include="PCEVector3.h">
+      <Filter>PCEMath</Filter>
+    </ClInclude>
+    <ClInclude Include="PCEPoint.h">
+      <Filter>PCEMath</Filter>
+    </ClInclude>
+    <ClInclude Include="PCEQuaternion.h">
+      <Filter>PCEMath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCEString.cpp" />
     <ClCompile Include="PCEObjectId.cpp" />
+    <ClCompile Include="PCEMatrix.cpp">
+      <Filter>PCEMath</Filter>
+    </ClCompile>
+    <ClCompile Include="PCEQuaternion.cpp">
+      <Filter>PCEMath</Filter>
+    </ClCompile>
+    <ClCompile Include="PCEMath.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="PCEMath">
+      <UniqueIdentifier>{d34ea7d9-e468-4362-a410-ce2bd6ae70c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

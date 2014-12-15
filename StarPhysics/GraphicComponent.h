@@ -9,7 +9,7 @@
 class GraphicComponent : public Component
 {
 public:
-	GraphicComponent(const PCEString& i_sImagePath, PCEVector2 i_oPosition, float i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled = true);
+	GraphicComponent(const PCEString& i_sImagePath, PCEPoint i_oPosition, float i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled = true);
 	~GraphicComponent(void);
 
 	void OnRender(Bitmap* renderTarget);

@@ -15,7 +15,7 @@ DrawPhysiCsEngineClasses::~DrawPhysiCsEngineClasses(void)
 void DrawPhysiCsEngineClasses::DrawBoundingSphere(const SphereCollider* i_sphere)
 {
 	char buffer[256]; 
-	sprintf_s(buffer, "SphereCollider: %f, %f, %f; radius: %f\n", i_sphere->getCenter().mX, i_sphere->getCenter().mY, i_sphere->getCenter().mZ, i_sphere->getRadius()); 
+	sprintf_s(buffer, "SphereCollider: %f, %f, %f; radius: %f\n", i_sphere->getCenter()[0], i_sphere->getCenter()[1], i_sphere->getCenter()[2], i_sphere->getRadius()); 
 	OutputDebugStringA(buffer);
 
    	const PCEVector<Shape *> tpSubs = i_sphere->getSubShapes();

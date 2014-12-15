@@ -148,10 +148,8 @@ public:
 
 	void resize(const unsigned int i_newCapacity)
 	{
-		if( i_newCapacity > m_uiCapacity )
-		{
-			addCapacity( i_newCapacity - m_uiCapacity );
-		}
+		clear();
+		addCapacity( i_newCapacity );
 	}
 
 	bool empty() const
@@ -387,137 +385,6 @@ public:
 
 		return end();
 	}
-
-};
-
-/*!
-	\brief A simple Point class which contains x, y and z coordinates.
-*/
-class PCEVector3{
-
-public:
-	float mX;	/*!< the local X coordinate */
-	float mY;	/*!< the local Y coordinate */
-	float mZ;	/*!< the local Z coordinate */
-
-	/*!
-		\brief Redefinition of == operator.
-	*/
-	inline bool operator== (const PCEVector3& rvalue) const
-	{
-		return mX == rvalue.mX && mY == rvalue.mY && mZ == rvalue.mZ;
-	}
-	
-	/*!
-		\brief Redefinition of != operator.
-	*/
-	inline bool operator!= (const PCEVector3& rvalue) const
-	{
-		return !(*this == rvalue);
-	}
-		
-	/*!
-		\brief Redefinition of = operator.
-	*/
-	PCEVector3& operator= (const PCEVector3& rvalue)
-	{
-		if (this != &rvalue)
-		{
-			mX = rvalue.mX; 
-			mY = rvalue.mY; 
-			mZ = rvalue.mZ;
-		}
-		return *this;
-	}
-
-	PCEVector3()
-		: mX(0)
-		, mY(0)
-		, mZ(0)
-	{}
-
-	PCEVector3(float i_x, float i_y, float i_z)
-		: mX(i_x)
-		, mY(i_y)
-		, mZ(i_z)
-	{}
-
-	PCEVector3(const PCEVector3& i_other)
-		: mX(i_other.mX)
-		, mY(i_other.mY)
-		, mZ(i_other.mZ)
-	{}
-};
-
-
-/*!
-	\brief A simple Point class which contains x and y coordinates.
-*/
-
-class PCEVector2 {
-
-public:
-	float mX;	/*!< the local X coordinate */
-	float mY;	/*!< the local Y coordinate */
-
-	/*!
-		\brief Redefinition of == operator.
-	*/
-	inline bool operator== (const PCEVector2& rvalue) const
-	{
-		return mX == rvalue.mX && mY == rvalue.mY;
-	}
-
-	PCEVector2& operator+=(const PCEVector2& i_other)
-	{
-		mX += i_other.mX;
-		mY += i_other.mY;
-
-		return *this;
-	}
-
-	const PCEVector2 operator+(const PCEVector2& i_other) const
-	{
-		PCEVector2 tmp(*this);
-		tmp += i_other;
-		return tmp;
-	}
-	
-	/*!
-		\brief Redefinition of != operator.
-	*/
-	inline bool operator!= (const PCEVector2& rvalue) const
-	{
-		return !(*this == rvalue);
-	}
-		
-	/*!
-		\brief Redefinition of = operator.
-	*/
-	PCEVector2& operator= (const PCEVector2& rvalue)
-	{
-		if (this != &rvalue)
-		{
-			mX = rvalue.mX; 
-			mY = rvalue.mY;
-		}
-		return *this;
-	}
-
-	PCEVector2()
-		: mX(0)
-		, mY(0)
-	{}
-		
-	PCEVector2(float i_x, float i_y)
-		: mX(i_x)
-		, mY(i_y)
-	{}
-
-	PCEVector2(const PCEVector2& i_other)
-		: mX(i_other.mX)
-		, mY(i_other.mY)
-	{}
 
 };
 

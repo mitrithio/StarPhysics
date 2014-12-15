@@ -1,9 +1,10 @@
 #include "PositionableObject.h"
 
 #include <float.h>
+#include "..\PCEUtilities\PCEPoint.h"
 
 
-PositionableObject::PositionableObject( PCEVector2 i_oRelativePosition, float i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
+PositionableObject::PositionableObject( PCEPoint i_oRelativePosition, float i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
 	: m_pParent( i_owner )
 	, m_oRelativePosition( i_oRelativePosition )
 	, m_fRelativeRotation( i_fRelativeRotation )
@@ -41,17 +42,22 @@ float PositionableObject::GetRelativeRotation() const
 	return m_fRelativeRotation;
 }
 
-void PositionableObject::SetRelativePosition( PCEVector2 i_oPostion )
+void PositionableObject::SetRelativePosition( const PCEPoint& i_oPostion )
 {
 	m_oRelativePosition = i_oPostion;
 }
 
-const PCEVector2& PositionableObject::GetRelativePosition()
+const PCEPoint& PositionableObject::GetRelativePosition()
 {
 	return m_oRelativePosition;
 }
 
-const PCEVector2& PositionableObject::GetAbsolutePosition()
+PCEPoint& PositionableObject::GetEditableRelativePosition()
+{
+	return m_oRelativePosition;
+}
+
+PCEPoint PositionableObject::GetAbsolutePosition()
 {
 	if (m_pParent != nullptr)
 	{
@@ -84,7 +90,7 @@ void PositionableObject::SetID( const char* i_ID )
 
 PositionableObject::PositionableObject()
 	: m_pParent(nullptr)
-	, m_oRelativePosition( PCEVector2( FLT_MAX, FLT_MAX ) )
+	, m_oRelativePosition( INVALID_POINT )
 	, m_fRelativeRotation( FLT_MAX )
 	, m_bEnabled(false)
 	, m_oId(INVALID_OBJECT_ID)

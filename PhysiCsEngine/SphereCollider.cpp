@@ -8,23 +8,28 @@
 SphereCollider::SphereCollider(float i_r, float i_x, float i_y, float i_z)
 	: Collider(PCEIds::DESC_BOUNDING_SPHERE) 
 	, mRadius(i_r)
-	, mCenter(i_x, i_y, i_z)
 {
+	mCenter[0] = i_x;
+	mCenter[1] = i_y;
+	mCenter[2] = i_z;
 }
 
 SphereCollider::SphereCollider()
 	: Collider(PCEIds::DESC_BOUNDING_SPHERE)
-	, mCenter(0.0f,0.0f,0.0f)
 	, mRadius(0.0f)
-{}
+{
+	mCenter[0] = 0.0f;
+	mCenter[1] = 0.0f;
+	mCenter[2] = 0.0f;
+}
 
-const Collider* SphereCollider::subShapeCollidedWith(const PCEVector3 &i_point) const
+const Collider* SphereCollider::subShapeCollidedWith(const PCEHVector3 &i_point) const
 {
 
-	float fDistanceFromPoint = (mCenter.mX - i_point.mX)*(mCenter.mX - i_point.mX) + (mCenter.mY - i_point.mY)*(mCenter.mY - i_point.mY) + (mCenter.mZ - i_point.mZ)*(mCenter.mZ - i_point.mZ);
+	float fDistanceFromPoint = pow(mCenter[0] - i_point[0],2) + pow(mCenter[1] - i_point[1],2) + pow(mCenter[2] - i_point[2],2);
 	int iDistanceFromPoint = *(int*)&fDistanceFromPoint;
 
-	float fPowRadius = mRadius*mRadius;
+	float fPowRadius = pow(mRadius,2);
 	int iPowRadius = *(int*)&fPowRadius;
 
 	const Collider * pCollider = nullptr;
@@ -56,10 +61,10 @@ const Collider* SphereCollider::subShapeCollidedWith(const Collider& i_collider)
 
 const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sphere) const
 {
-	float fSquareDistanceFromOtherCollider = (mCenter.mX - i_sphere->mCenter.mX)*(mCenter.mX - i_sphere->mCenter.mX) + (mCenter.mY - i_sphere->mCenter.mY)*(mCenter.mY - i_sphere->mCenter.mY) + (mCenter.mZ - i_sphere->mCenter.mZ)*(mCenter.mZ - i_sphere->mCenter.mZ);
+	float fSquareDistanceFromOtherCollider = pow(mCenter[0] - i_sphere->mCenter[0],2) + pow(mCenter[1] - i_sphere->mCenter[1],2) + pow(mCenter[2] - i_sphere->mCenter[2],2);
 	int iSquareDistanceFromOtherCollider = *(int*)&fSquareDistanceFromOtherCollider;
 
-	float fSquareRadiusDistance = ( mRadius + i_sphere->mRadius ) * ( mRadius + i_sphere->mRadius );
+	float fSquareRadiusDistance = pow( mRadius + i_sphere->mRadius, 2 );
 	int iSquareRadiusDistance = *(int*)&fSquareRadiusDistance;
 
 	const Collider * pCollider = nullptr;

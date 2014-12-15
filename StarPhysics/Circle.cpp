@@ -6,7 +6,7 @@ Circle::Circle()
 {
 }
 
-Circle::Circle( PCEVector2 i_oPosition, float i_fRotation )
+Circle::Circle( PCEPoint i_oPosition, float i_fRotation )
 	: GameObject( i_oPosition, i_fRotation, nullptr )
 	, m_uiLevel( 0 )
 {
