@@ -89,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCEMath.cpp" />
-    <ClCompile Include="PCEMatrix.cpp" />
     <ClCompile Include="PCEObjectId.cpp" />
     <ClCompile Include="PCEQuaternion.cpp" />
     <ClCompile Include="PCEString.cpp" />

@@ -8,10 +8,10 @@
 class PhysicComponent : public Component
 {
 public:
-	PhysicComponent(PCEPoint i_oPosition, float i_fRotation, bool i_bEnabled = true, PositionableObject * i_oOwner = nullptr);
+	PhysicComponent(PCEPoint i_oPosition, double i_fRotation, bool i_bEnabled = true, PositionableObject * i_oOwner = nullptr);
 	~PhysicComponent(void);
 
-	void update( float i_deltaTime = 0 );
+	void update( double i_deltaTime = 0 );
 
 	void addShape( Shape & io_shape );
 	bool removeShape( Shape & io_shape );

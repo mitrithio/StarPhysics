@@ -1,11 +1,19 @@
 #ifndef PCEQUATERNION_H
 #define PCEQUATERNION_H
 
+#include "PCEVector3.h"
+
 class PCEQuaternion
 {
 public:
 
-	PCEQuaternion( float a, float b, float c, float d );
+	PCEQuaternion();
+
+	PCEQuaternion( const PCEHVector3& i_vEulerAngles );
+
+	PCEQuaternion( double a, double b, double c, double d );
+
+	PCEQuaternion( const double* i_fDimensions );
 
 	PCEQuaternion( const PCEQuaternion& i_other );
 
@@ -23,23 +31,25 @@ public:
 
 	PCEQuaternion operator*(const PCEQuaternion& i_other) const;
 
-	PCEQuaternion& operator*=(float i_fScalar);
+	PCEQuaternion& operator*=(double i_fScalar);
 
-	PCEQuaternion operator*(float i_fScalar) const;
+	PCEQuaternion operator*(double i_fScalar) const;
 
-	PCEQuaternion& operator/=(float i_fScalar);
+	PCEQuaternion& operator/=(double i_fScalar);
 
-	PCEQuaternion operator/(float i_fScalar) const;
+	PCEQuaternion operator/(double i_fScalar) const;
 
-	float& operator[](unsigned int i_uiIndex) const;
+	double& operator[](unsigned int i_uiIndex) const;
 
-	float Module();
+	double Module();
 	
 	PCEQuaternion Normal();
 
+	PCEHVector3 EulerAngle();
+
 private:
 
-	float* m_mQuaternion;
+	double* m_mQuaternion;
 };
 
 #endif // PCEQUATERNION_H

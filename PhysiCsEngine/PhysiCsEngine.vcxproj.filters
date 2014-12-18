@@ -45,6 +45,9 @@
     <ClCompile Include="CollisionHandler.cpp">
       <Filter>System\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCE.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="CollisionHandler.h">
       <Filter>System\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

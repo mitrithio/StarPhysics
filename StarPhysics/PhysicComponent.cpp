@@ -1,7 +1,7 @@
 #include "PhysicComponent.h"
 
 
-PhysicComponent::PhysicComponent(PCEPoint i_position, float i_rotation, bool i_isEnabled /* = true */, PositionableObject * i_owner /* = nullptr */)
+PhysicComponent::PhysicComponent(PCEPoint i_position, double i_rotation, bool i_isEnabled /* = true */, PositionableObject * i_owner /* = nullptr */)
 	: Component(PHYSIC_COMPONENT, i_position, i_rotation, i_isEnabled, i_owner)
 {
 }
@@ -11,7 +11,7 @@ PhysicComponent::~PhysicComponent(void)
 {
 }
 
-void PhysicComponent::update(float i_deltaTime /* = 0 */)
+void PhysicComponent::update(double i_deltaTime /* = 0 */)
 {
 
 }

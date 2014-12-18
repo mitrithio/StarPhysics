@@ -7,11 +7,11 @@
 class Component : public PositionableObject
 {
 public:
-	Component(const PCEObjectId& i_type, PCEPoint i_position, float i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr);
+	Component(const PCEObjectId& i_type, PCEPoint i_position, double i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr);
 
 	virtual ~Component();
 
-	virtual void update(float i_deltaTime = 0) = 0;
+	virtual void update(double i_deltaTime = 0) = 0;
 
 	const PCEObjectId& getType() const;
 

@@ -2,7 +2,7 @@
 
 #include "SphereCollider.h"
 
-PlaneCollider::PlaneCollider( float i_a, float i_b, float i_c, float i_d )
+PlaneCollider::PlaneCollider( double i_a, double i_b, double i_c, double i_d )
 	: Collider(PCEIds::DESC_PLANE)
 	, m_a(i_a)
 	, m_b(i_b)
@@ -48,11 +48,11 @@ const Collider* PlaneCollider::subShapeCollidedWith( const Collider& i_oCollider
 
 const Collider* PlaneCollider::subShapeCollidedWith( const SphereCollider* i_pSphereCollider ) const
 {
-	float fSquareRadius = ( i_pSphereCollider->getRadius() * i_pSphereCollider->getRadius() );
+	double fSquareRadius = ( i_pSphereCollider->getRadius() * i_pSphereCollider->getRadius() );
 	int iSquareRadius = *(int*)&fSquareRadius;
 
 	const PCEHVector3& oSphereCenter = i_pSphereCollider->getCenter();
-	float fSquareDistance = ( m_a*oSphereCenter[0] + m_b*oSphereCenter[1] + m_c*oSphereCenter[2] - m_d );
+	double fSquareDistance = ( m_a*oSphereCenter[0] + m_b*oSphereCenter[1] + m_c*oSphereCenter[2] - m_d );
 	fSquareDistance *= fSquareDistance;
 	fSquareDistance /= ( m_a + m_b + m_c );
 	int iSquareDistance = *(int*)&fSquareDistance;

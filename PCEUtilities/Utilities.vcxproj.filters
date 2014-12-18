@@ -27,9 +27,6 @@
   <ItemGroup>
     <ClCompile Include="PCEString.cpp" />
     <ClCompile Include="PCEObjectId.cpp" />
-    <ClCompile Include="PCEMatrix.cpp">
-      <Filter>PCEMath</Filter>
-    </ClCompile>
     <ClCompile Include="PCEQuaternion.cpp">
       <Filter>PCEMath</Filter>
     </ClCompile>

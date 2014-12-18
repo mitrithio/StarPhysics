@@ -79,6 +79,7 @@
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="PlaneCollider.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="DrawError.h" />
     <ClInclude Include="DrawPhysiCsEngineClasses.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="PlaneCollider.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="DrawError.cpp" />
     <ClCompile Include="DrawPhysiCsEngineClasses.cpp" />

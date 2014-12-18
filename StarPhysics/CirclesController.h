@@ -15,11 +15,11 @@ public:
 
 	const PCEObjectId& GetNextFreeCircleID();
 	void SetCircleFree( const PCEObjectId& i_oCircleId, bool i_bFree );
-	void CreateCircle( PCEPoint i_oPosition, float i_fRotation );
+	void CreateCircle( PCEPoint i_oPosition, double i_fRotation );
 
 	void CreateCirclePool( unsigned int i_uiNumberOfCircle );
 
-	void Update( float i_fDeltaTime = 0 );
+	void Update( double i_fDeltaTime = 0 );
 
 private:
 
@@ -30,6 +30,6 @@ private:
 	static const PCEString		IMAGES_CIRCLE_PATH;
 };
 
-static const Circle INVALID_CIRCLE( INVALID_POINT, FLT_MAX );
+static const Circle INVALID_CIRCLE( INVALID_POINT, DBL_MAX );
 
 #endif

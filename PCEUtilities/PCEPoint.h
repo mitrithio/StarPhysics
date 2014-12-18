@@ -6,6 +6,6 @@
 
 typedef PCEMatrix<3,1> PCEPoint;
 
-static const float FLOAT_ARRAY_MAX[3] = {FLT_MAX, FLT_MAX, FLT_MAX};
+static const double FLOAT_ARRAY_MAX[3] = {DBL_MAX, DBL_MAX, DBL_MAX};
 static const PCEPoint INVALID_POINT( FLOAT_ARRAY_MAX, 3);
 #endif // PCEPOINT_H

@@ -4,7 +4,7 @@
 #include "..\PCEUtilities\PCEPoint.h"
 
 
-PositionableObject::PositionableObject( PCEPoint i_oRelativePosition, float i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
+PositionableObject::PositionableObject( PCEPoint i_oRelativePosition, double i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
 	: m_pParent( i_owner )
 	, m_oRelativePosition( i_oRelativePosition )
 	, m_fRelativeRotation( i_fRelativeRotation )
@@ -17,7 +17,7 @@ PositionableObject::~PositionableObject(void)
 {
 }
 
-float PositionableObject::GetAbsoluteRotation() const
+double PositionableObject::GetAbsoluteRotation() const
 {
 	if (m_pParent != nullptr)
 	{
@@ -37,7 +37,7 @@ void PositionableObject::SetEnable( bool i_bVal )
 	m_bEnabled = i_bVal;
 }
 
-float PositionableObject::GetRelativeRotation() const
+double PositionableObject::GetRelativeRotation() const
 {
 	return m_fRelativeRotation;
 }
@@ -91,7 +91,7 @@ void PositionableObject::SetID( const char* i_ID )
 PositionableObject::PositionableObject()
 	: m_pParent(nullptr)
 	, m_oRelativePosition( INVALID_POINT )
-	, m_fRelativeRotation( FLT_MAX )
+	, m_fRelativeRotation( DBL_MAX )
 	, m_bEnabled(false)
 	, m_oId(INVALID_OBJECT_ID)
 {

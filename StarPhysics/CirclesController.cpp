@@ -25,7 +25,7 @@ CirclesController::~CirclesController()
 	}
 }
 
-void CirclesController::CreateCircle( PCEPoint i_oPosition, float i_fRotation )
+void CirclesController::CreateCircle( PCEPoint i_oPosition, double i_fRotation )
 {
 	Circle * pCircle = new Circle( i_oPosition, i_fRotation );
 	pCircle->SetEnable( false );
@@ -54,7 +54,7 @@ void CirclesController::CreateCirclePool( unsigned int i_uiNumberOfCircle )
 	}
 }
 
-void CirclesController::Update( float i_fDeltaTime )
+void CirclesController::Update( double i_fDeltaTime )
 {
 	for ( PCEMap<PCEObjectId,Circle*>::PCEIterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
 	{

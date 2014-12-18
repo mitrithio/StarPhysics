@@ -9,11 +9,11 @@ class GameObject : public PositionableObject
 {
 public:
 	
-	GameObject(PCEPoint i_position, float i_rotation, PositionableObject * i_owner = nullptr);
+	GameObject(PCEPoint i_position, double i_rotation, PositionableObject * i_owner = nullptr);
 
 	virtual ~GameObject(void);
 
-	virtual void Update( float i_fDeltaTime );
+	virtual void Update( double i_fDeltaTime );
 	void RegisterComponent(Component* i_pComponent);
 
 protected:

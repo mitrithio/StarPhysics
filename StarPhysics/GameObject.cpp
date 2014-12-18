@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include <assert.h>
 
-GameObject::GameObject(PCEPoint i_position, float i_rotation, PositionableObject * i_owner /*= nullptr*/)
+GameObject::GameObject(PCEPoint i_position, double i_rotation, PositionableObject * i_owner /*= nullptr*/)
 	: PositionableObject(i_position, i_rotation, false, i_owner)
 {
 }
@@ -26,7 +26,7 @@ void GameObject::UnregisterComponents()
 	m_mComponents.clear();
 }
 
-void GameObject::Update( float i_fDeltaTime )
+void GameObject::Update( double i_fDeltaTime )
 {
 	for ( MapComponentsIterator itVector = m_mComponents.begin(); itVector != m_mComponents.end(); ++itVector )
 	{

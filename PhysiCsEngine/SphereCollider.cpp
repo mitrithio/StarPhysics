@@ -1,11 +1,11 @@
 #include "PCESystemApi.h"
 #include <typeinfo>
-#include <math.h>
+#include <cmath>
 #include "SphereCollider.h"
 #include "ErrorDefinitions.h"
 
 
-SphereCollider::SphereCollider(float i_r, float i_x, float i_y, float i_z)
+SphereCollider::SphereCollider(double i_r, double i_x, double i_y, double i_z)
 	: Collider(PCEIds::DESC_BOUNDING_SPHERE) 
 	, mRadius(i_r)
 {
@@ -26,10 +26,10 @@ SphereCollider::SphereCollider()
 const Collider* SphereCollider::subShapeCollidedWith(const PCEHVector3 &i_point) const
 {
 
-	float fDistanceFromPoint = pow(mCenter[0] - i_point[0],2) + pow(mCenter[1] - i_point[1],2) + pow(mCenter[2] - i_point[2],2);
+	double fDistanceFromPoint = pow(mCenter[0] - i_point[0],2) + pow(mCenter[1] - i_point[1],2) + pow(mCenter[2] - i_point[2],2);
 	int iDistanceFromPoint = *(int*)&fDistanceFromPoint;
 
-	float fPowRadius = pow(mRadius,2);
+	double fPowRadius = pow(mRadius,2);
 	int iPowRadius = *(int*)&fPowRadius;
 
 	const Collider * pCollider = nullptr;
@@ -61,10 +61,10 @@ const Collider* SphereCollider::subShapeCollidedWith(const Collider& i_collider)
 
 const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sphere) const
 {
-	float fSquareDistanceFromOtherCollider = pow(mCenter[0] - i_sphere->mCenter[0],2) + pow(mCenter[1] - i_sphere->mCenter[1],2) + pow(mCenter[2] - i_sphere->mCenter[2],2);
+	double fSquareDistanceFromOtherCollider = pow(mCenter[0] - i_sphere->mCenter[0],2) + pow(mCenter[1] - i_sphere->mCenter[1],2) + pow(mCenter[2] - i_sphere->mCenter[2],2);
 	int iSquareDistanceFromOtherCollider = *(int*)&fSquareDistanceFromOtherCollider;
 
-	float fSquareRadiusDistance = pow( mRadius + i_sphere->mRadius, 2 );
+	double fSquareRadiusDistance = pow( mRadius + i_sphere->mRadius, 2 );
 	int iSquareRadiusDistance = *(int*)&fSquareRadiusDistance;
 
 	const Collider * pCollider = nullptr;

@@ -1,6 +1,6 @@
 #include "GraphicComponent.h"
 
-GraphicComponent::GraphicComponent( const PCEString& i_sImagePath, PCEPoint i_oPosition, float i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled /*= true*/ )
+GraphicComponent::GraphicComponent( const PCEString& i_sImagePath, PCEPoint i_oPosition, double i_fRotation, const PositionableObject * i_oOwner, bool i_bEnabled /*= true*/ )
 	: Component( GRAPHIC_COMPONENT, i_oPosition, i_fRotation )
 {
 	CreateBitmap( i_sImagePath.c_str() );
@@ -35,7 +35,7 @@ void GraphicComponent::DestroyBitmap()
 	delete mp_image;
 }
 
-void GraphicComponent::update( float /*i_deltaTime*/ /*= 0 */ )
+void GraphicComponent::update( double /*i_deltaTime*/ /*= 0 */ )
 {
 
 }
