@@ -4,7 +4,6 @@
 void CollisionHandler::CollisionItem::ApplyCollision( RigidBody *pRigidBody1, RigidBody *pRigidBody2, double L, double m, double DT )
 {
 	double f;
-	double vn;
 	double modVtang;
 	double fTotalElasticConst;
 	{
@@ -13,21 +12,21 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody *pRigidBody1, Ri
 		fTotalElasticConst = fK1 * fK2 / (fK1 + fK2);
 	}
 
-	PCEHVector3 vTangVelocity;
-	PCEHVector3 vTangForce;
-	PCEHVector3 vNormForce;
+	PCEVector3D vTangVelocity;
+	PCEVector3D vTangForce;
+	PCEVector3D vNormForce;
 
-	vn = DotProduct(VelImpatto,Normale);
-	vTangVelocity = Normale * vn;
-	vTangVelocity = VelImpatto - vTangVelocity;
+	double vn = DotProduct(m_vImpactVelocity,m_vImpactNormal);
+	vTangVelocity = m_vImpactNormal * vn;
+	vTangVelocity = m_vImpactVelocity - vTangVelocity;
 
-	f = (fTotalElasticConst * Deformazione) + (L * vn);
+	f = (fTotalElasticConst * m_fDeformation) + (L * vn);
 	if(f < 0) 
 	{
 		f = 0;
 	}
 
-	vNormForce = Normale * f;
+	vNormForce = m_vImpactNormal * f;
 
 	f *= m;
 	modVtang = vTangVelocity.Module();
@@ -46,7 +45,7 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody *pRigidBody1, Ri
 
 	if(pRigidBody1 != NULL) 
 	{
-		pRigidBody1->ApplyForce(vNormForce, PuntoImpatto);
+		pRigidBody1->ApplyForce(vNormForce, m_vImpactPoint);
 	}
 
 	vNormForce[0] = -vNormForce[0];
@@ -55,6 +54,6 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody *pRigidBody1, Ri
 
 	if(pRigidBody2 != NULL) 
 	{
-		pRigidBody2->ApplyForce(vNormForce, PuntoImpatto);
+		pRigidBody2->ApplyForce(vNormForce, m_vImpactPoint);
 	}
 }

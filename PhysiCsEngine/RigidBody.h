@@ -9,33 +9,33 @@ class RigidBody
 {
 public:
 
-	RigidBody(Shape& i_oOwner, double i_fMass, const PCEHVector3& i_vInertialMass, const PCEHVector3& i_vPosition, const PCEQuaternion& i_oRotation);
-	RigidBody(Shape& i_oOwner, double i_fMass, const PCEHVector3& i_vInertialMass, const PCEHVector3& i_vPosition, const PCEHVector3& i_vEulerAngles);
+	RigidBody(Shape& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEQuaternion& i_oRotation);
+	RigidBody(Shape& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEVector3D& i_vEulerAngles);
 	
 	// this will not copy owner shape pointer, so set it manually
 	RigidBody(const RigidBody& i_other);
 
-	void ApplyForce(const PCEHVector3& i_vForce, const PCEPoint& i_oPointOfApplication);
+	void ApplyForce(const PCEVector3D& i_vForce, const PCEPoint& i_oPointOfApplication);
 
 	void Update(double dt);
 
 	void SetOwner(Shape& val);
 	void SetElasticConstant(double val);
-	void SetVelocity(const PCEHVector3& val);
-	void SetAngularVelocity(const PCEHVector3& val);
-	void SetMomentum(const PCEHVector3& val);
-	void SetAngularMomentum(const PCEHVector3& val);
-	void SetTotalForce(const PCEHVector3& val);
-	void SetTotalAngularMomentum(const PCEHVector3& val);
+	void SetVelocity(const PCEVector3D& val);
+	void SetAngularVelocity(const PCEVector3D& val);
+	void SetMomentum(const PCEVector3D& val);
+	void SetAngularMomentum(const PCEVector3D& val);
+	void SetTotalForce(const PCEVector3D& val);
+	void SetTotalAngularMomentum(const PCEVector3D& val);
 
 	const Shape& GetOwner() const;
 	double GetElasticConstant() const;
-	const PCEHVector3& GetVelocity() const;
-	const PCEHVector3& GetAngularVelocity() const;
-	const PCEHVector3& GetMomentum() const;
-	const PCEHVector3& GetAngularMomentum() const;
-	const PCEHVector3& GetTotalForce() const;
-	const PCEHVector3& GetTotalAngularMomentum() const;
+	const PCEVector3D& GetVelocity() const;
+	const PCEVector3D& GetAngularVelocity() const;
+	const PCEVector3D& GetMomentum() const;
+	const PCEVector3D& GetAngularMomentum() const;
+	const PCEVector3D& GetTotalForce() const;
+	const PCEVector3D& GetTotalAngularMomentum() const;
 
 	bool operator==(const RigidBody& i_other) const;
 	bool operator!=(const RigidBody& i_other) const;
@@ -49,18 +49,18 @@ private:
 	Shape*			m_pOwner;
 	double			m_fElasticConstant;
 	double			m_fMass;
-	PCEHVector3		m_vInertialMatrixTrace;
+	PCEVector3D		m_vInertialMatrixTrace;
 
 	PCEPoint		m_vPos;
 	PCEQuaternion	m_oRotation;
-	PCEHVector3		m_vVelocity;
-	PCEHVector3		m_vAngVelocity;
-	PCEHVector3		m_vMomentum;
-	PCEHVector3		m_vAngularMomentum;
+	PCEVector3D		m_vVelocity;
+	PCEVector3D		m_vAngVelocity;
+	PCEVector3D		m_vMomentum;
+	PCEVector3D		m_vAngularMomentum;
 	PCEMatrix<3,3>	m_oRotationMatrix;
 
-	PCEHVector3		m_vTotalForce;
-	PCEHVector3		m_vTotalAngularMomentum;
+	PCEVector3D		m_vTotalForce;
+	PCEVector3D		m_vTotalAngularMomentum;
 };
 
 #endif //RIGIDBODY_H

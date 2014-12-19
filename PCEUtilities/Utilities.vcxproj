@@ -77,9 +77,9 @@
   <ItemGroup>
     <ClInclude Include="PCEMath.h" />
     <ClInclude Include="PCEMatrix.h" />
+    <ClInclude Include="PCEMatrix3x3.h" />
     <ClInclude Include="PCEObjectId.h" />
     <ClInclude Include="PCEMap.h" />
-    <ClInclude Include="PCEPoint.h" />
     <ClInclude Include="PCEQuaternion.h" />
     <ClInclude Include="PCEString.h" />
     <ClInclude Include="PCEUtilities.h" />

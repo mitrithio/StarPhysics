@@ -16,7 +16,7 @@ public:
 	const double getRadius() const					{return mRadius;}
 	void setRadius(const double i_radius)			{mRadius = i_radius;}
 
-	const Collider* subShapeCollidedWith(const PCEHVector3& i_point) const;
+	const Collider* subShapeCollidedWith(const PCEVector3D& i_point) const;
 	const Collider* subShapeCollidedWith(const Collider& i_collider) const;
 
 private:

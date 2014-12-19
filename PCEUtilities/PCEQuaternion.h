@@ -9,7 +9,7 @@ public:
 
 	PCEQuaternion();
 
-	PCEQuaternion( const PCEHVector3& i_vEulerAngles );
+	PCEQuaternion( const PCEVector3D& i_vEulerAngles );
 
 	PCEQuaternion( double a, double b, double c, double d );
 
@@ -45,7 +45,7 @@ public:
 	
 	PCEQuaternion Normal();
 
-	PCEHVector3 EulerAngle();
+	PCEVector3D EulerAngle();
 
 private:
 

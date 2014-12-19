@@ -23,7 +23,7 @@ SphereCollider::SphereCollider()
 	mCenter[2] = 0.0f;
 }
 
-const Collider* SphereCollider::subShapeCollidedWith(const PCEHVector3 &i_point) const
+const Collider* SphereCollider::subShapeCollidedWith(const PCEPoint &i_point) const
 {
 
 	double fDistanceFromPoint = pow(mCenter[0] - i_point[0],2) + pow(mCenter[1] - i_point[1],2) + pow(mCenter[2] - i_point[2],2);

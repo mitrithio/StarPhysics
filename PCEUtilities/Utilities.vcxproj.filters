@@ -17,10 +17,10 @@
     <ClInclude Include="PCEVector3.h">
       <Filter>PCEMath</Filter>
     </ClInclude>
-    <ClInclude Include="PCEPoint.h">
+    <ClInclude Include="PCEQuaternion.h">
       <Filter>PCEMath</Filter>
     </ClInclude>
-    <ClInclude Include="PCEQuaternion.h">
+    <ClInclude Include="PCEMatrix3x3.h">
       <Filter>PCEMath</Filter>
     </ClInclude>
   </ItemGroup>

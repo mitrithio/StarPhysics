@@ -28,7 +28,7 @@ PCEQuaternion::PCEQuaternion( const PCEQuaternion& i_other )
 	m_mQuaternion[3] = i_other.m_mQuaternion[3];
 }
 
-PCEQuaternion::PCEQuaternion( const PCEHVector3& i_vEulerAngles )
+PCEQuaternion::PCEQuaternion( const PCEVector3D& i_vEulerAngles )
 {
 	double c1 = cos(i_vEulerAngles[2U] * 0.5f);
 	double c2 = cos(i_vEulerAngles[1U] * 0.5f);
@@ -169,9 +169,9 @@ PCEQuaternion PCEQuaternion::Normal()
 }
 
 // this function is replicated from Stanford University quaternion class.
-PCEHVector3 PCEQuaternion::EulerAngle()
+PCEVector3D PCEQuaternion::EulerAngle()
 {
-	PCEHVector3 vEulerAngles;
+	PCEVector3D vEulerAngles;
 	const static double HALF_PI = M_PI_2;
 	const static double EPSILON = 1e-10;
 	double sqw, sqx, sqy, sqz;
