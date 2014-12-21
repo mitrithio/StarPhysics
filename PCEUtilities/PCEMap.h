@@ -209,9 +209,21 @@ public:
 			return *this;
 		}
 
-		virtual PCEIterator operator+( unsigned int i_uiAddedIndex )
+		virtual PCEIterator operator+( unsigned int i_uiValue )
 		{
-			m_uiIndex += i_uiAddedIndex;
+			m_uiIndex += i_uiValue;
+			return *this;
+		}
+
+		virtual PCEIterator operator-( const PCEIterator& i_other )
+		{
+			m_uiIndex -= i_other.m_uiIndex;
+			return *this;
+		}
+
+		virtual PCEIterator operator-( unsigned int i_uiValue )
+		{
+			m_uiIndex -= i_uiValue;
 			return *this;
 		}
 
@@ -249,6 +261,23 @@ public:
 	PCEIterator end()
 	{
 		return begin() + size();
+	}
+
+	PCEIterator find( const KeyType& i_oKey )
+	{
+		bool bFound = false;
+		PCEIterator it = begin();
+		for ( ; !bFound && it != end(); ++it )
+		{
+			bFound = ( (*it)->first == i_oKey )
+		}
+
+		if ( bFound )
+		{
+			return it - 1;
+		}
+
+		return it;
 	}
 };
 

@@ -1,7 +1,6 @@
 #include "PositionableObject.h"
 
-#include <float.h>
-#include "..\PCEUtilities\PCEPoint.h"
+#include "../PCEUtilities/PCEMath.h"
 
 
 PositionableObject::PositionableObject( PCEPoint i_oRelativePosition, double i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )

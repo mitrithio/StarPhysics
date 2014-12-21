@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PCEMATRIX3X3_h 
+#define PCEMATRIX3X3_h
 
 #include "PCEVector3.h"
 #include <cassert>
@@ -62,7 +63,7 @@ public:
 		return *this;
 	}
 
-	const PCEMatrix3x3& operator+=( const PCEMatrix3x3& m )
+	const PCEMatrix3x3& operator-=( const PCEMatrix3x3& m )
 	{
 		m_vRowVectors[0] -= m.m_vRowVectors[0];
 		m_vRowVectors[1] -= m.m_vRowVectors[1];
@@ -177,3 +178,4 @@ private:
 	PCEVector3D m_vRowVectors[3];
 };
 
+#endif  //PCEMATRIX3X3_h

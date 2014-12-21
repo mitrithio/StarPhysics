@@ -48,7 +48,7 @@ void CirclesController::CreateCirclePool( unsigned int i_uiNumberOfCircle )
 	{
 		for ( unsigned int uiIndex = 0; uiIndex < i_uiNumberOfCircle; ++uiIndex )
 		{
-			CreateCircle( PCEPoint( 0, 0 ), 0.f );
+			CreateCircle( PCEPoint( 0, 0, 0 ), 0.f );
 		}
 		m_uiNextCircleFree = 0;
 	}

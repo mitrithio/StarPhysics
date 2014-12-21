@@ -3,14 +3,14 @@
 
 #include "../PCEUtilities/PCEMath.h"
 
-class Shape;
+class Collider;
 
 class RigidBody
 {
 public:
 
-	RigidBody(Shape& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEQuaternion& i_oRotation);
-	RigidBody(Shape& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEVector3D& i_vEulerAngles);
+	RigidBody(Collider& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEQuaternion& i_oRotation);
+	RigidBody(Collider& i_oOwner, double i_fMass, const PCEVector3D& i_vInertialMass, const PCEVector3D& i_vPosition, const PCEVector3D& i_vEulerAngles);
 	
 	// this will not copy owner shape pointer, so set it manually
 	RigidBody(const RigidBody& i_other);
@@ -19,48 +19,132 @@ public:
 
 	void Update(double dt);
 
-	void SetOwner(Shape& val);
-	void SetElasticConstant(double val);
-	void SetVelocity(const PCEVector3D& val);
-	void SetAngularVelocity(const PCEVector3D& val);
-	void SetMomentum(const PCEVector3D& val);
-	void SetAngularMomentum(const PCEVector3D& val);
-	void SetTotalForce(const PCEVector3D& val);
-	void SetTotalAngularMomentum(const PCEVector3D& val);
+	inline void RigidBody::ElasticConstant( double val )
+	{
+		m_fElasticConstant = val;
+	}
 
-	const Shape& GetOwner() const;
-	double GetElasticConstant() const;
-	const PCEVector3D& GetVelocity() const;
-	const PCEVector3D& GetAngularVelocity() const;
-	const PCEVector3D& GetMomentum() const;
-	const PCEVector3D& GetAngularMomentum() const;
-	const PCEVector3D& GetTotalForce() const;
-	const PCEVector3D& GetTotalAngularMomentum() const;
+	inline void RigidBody::Muv( double val )
+	{
+		m_rFluidFrictionCoeff = val;
+	}
 
-	bool operator==(const RigidBody& i_other) const;
-	bool operator!=(const RigidBody& i_other) const;
+	inline void RigidBody::InverseMass( double val )
+	{
+		m_rInverseMass = val;
+	}
+
+	inline void RigidBody::Velocity( const PCEVector3D& val )
+	{
+		m_vVelocity = val;
+
+		m_vMomentum = m_vVelocity * m_fMass;
+	}
+
+	inline void RigidBody::AngularVelocity( const PCEVector3D& val )
+	{
+		m_vAngVelocity = val;
+
+		m_vAngularMomentum = AbsoluteRotation(m_oRotationMatrix, WiseProduct(m_vAngVelocity,m_vInertialMatrixTrace));
+	}
+
+	inline void RigidBody::Momentum( const PCEVector3D& val )
+	{
+		m_vMomentum = val;
+	}
+
+	inline void RigidBody::AngularMomentum( const PCEVector3D& val )
+	{
+		m_vAngularMomentum = val;
+	}
+
+	inline void RigidBody::TotalForce( const PCEVector3D& val )
+	{
+		m_vTotalForce = val;
+	}
+
+	inline void RigidBody::TotalAngularMomentum( const PCEVector3D& val )
+	{
+		m_vTotalAngularMomentum = val;
+	}
+
+	inline const Collider& RigidBody::Owner() const
+	{
+		return *m_pOwner;
+	}
+
+	inline double RigidBody::ElasticConstant() const
+	{
+		return m_fElasticConstant;
+	}
+
+	inline double RigidBody::Muv() const
+	{
+		return m_rFluidFrictionCoeff;
+	}
+
+	inline double RigidBody::InverseMass() const
+	{
+		return m_rInverseMass;
+	}
+
+	inline const PCEVector3D& RigidBody::Velocity() const
+	{
+		return m_vVelocity;
+	}
+
+	inline const PCEVector3D& RigidBody::AngularVelocity() const
+	{
+		return m_vAngVelocity;
+	}
+
+	inline const PCEVector3D& RigidBody::Momentum() const
+	{
+		return m_vMomentum;
+	}
+
+	inline const PCEVector3D& RigidBody::AngularMomentum() const
+	{
+		return m_vAngularMomentum;
+	}
+
+	inline const PCEVector3D& RigidBody::TotalForce() const
+	{
+		return m_vTotalForce;
+	}
+
+	inline const PCEVector3D& RigidBody::TotalAngularMomentum() const
+	{
+		return m_vTotalAngularMomentum;
+	}
+
 	RigidBody& operator=(const RigidBody& i_other);
 
 private:
 
 	void SetupOtherMembers();
 
+	bool operator==(const RigidBody& i_other) const;
+	bool operator!=(const RigidBody& i_other) const;
 private:
-	Shape*			m_pOwner;
+	Collider*		m_pOwner;
+
 	double			m_fElasticConstant;
+	double			m_rFluidFrictionCoeff;
+	double			m_rInverseMass;
 	double			m_fMass;
-	PCEVector3D		m_vInertialMatrixTrace;
 
 	PCEPoint		m_vPos;
-	PCEQuaternion	m_oRotation;
+	PCEVector3D		m_vInertialMatrixTrace;
 	PCEVector3D		m_vVelocity;
 	PCEVector3D		m_vAngVelocity;
 	PCEVector3D		m_vMomentum;
 	PCEVector3D		m_vAngularMomentum;
-	PCEMatrix<3,3>	m_oRotationMatrix;
-
 	PCEVector3D		m_vTotalForce;
 	PCEVector3D		m_vTotalAngularMomentum;
+	PCEQuaternion	m_oRotation;
+
+	PCEMatrix3x3	m_oRotationMatrix;
 };
 
 #endif //RIGIDBODY_H

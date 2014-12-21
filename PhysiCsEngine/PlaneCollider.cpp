@@ -29,7 +29,7 @@ PlaneCollider::PlaneCollider( PCEVector3D i_oFirstVector, PCEVector3D i_oSecondV
 	m_d = - ( m_a * i_oPoint[0] + m_b * i_oPoint[1] + m_c * i_oPoint[2] );
 }
 
-const Collider* PlaneCollider::subShapeCollidedWith( const PCEVector3D& i_oPoint ) const
+const Collider* PlaneCollider::CheckCollisionWith( const PCEVector3D& i_oPoint ) const
 {
 	if ( m_a * i_oPoint[0] + m_b * i_oPoint[1] + m_c * i_oPoint[2] == m_d )
 	{
@@ -39,14 +39,14 @@ const Collider* PlaneCollider::subShapeCollidedWith( const PCEVector3D& i_oPoint
 	return nullptr;
 }
 
-const Collider* PlaneCollider::subShapeCollidedWith( const Collider& i_oCollider ) const
+const Collider* PlaneCollider::CheckCollisionWith( const Collider& i_oCollider ) const
 {
 	if (i_oCollider.getDescription() == PCEIds::DESC_BOUNDING_SPHERE )
-		return subShapeCollidedWith(static_cast<const SphereCollider *>(&i_oCollider));
-	else return i_oCollider.subShapeCollidedWith(*this);
+		return CheckCollisionWith(static_cast<const SphereCollider *>(&i_oCollider));
+	else return i_oCollider.CheckCollisionWith(*this);
 }
 
-const Collider* PlaneCollider::subShapeCollidedWith( const SphereCollider* i_pSphereCollider ) const
+const Collider* PlaneCollider::CheckCollisionWith( const SphereCollider* i_pSphereCollider ) const
 {
 	double fSquareRadius = ( i_pSphereCollider->getRadius() * i_pSphereCollider->getRadius() );
 	int iSquareRadius = *(int*)&fSquareRadius;

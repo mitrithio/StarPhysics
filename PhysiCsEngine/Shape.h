@@ -85,18 +85,16 @@ public:
 	/*!
 	\brief Check for collision.
 	\param [in] i_point The point where collision could be.
-	\return This Shape or a subShape that are involved in collision with i_shape. 
-			nullptr if neither shape and its sub shapes are involved in collision.
+	\return The distance between this collider and the point.
 	*/
-	virtual const Collider* subShapeCollidedWith(const PCEVector3D& i_point) const = 0;
+	virtual double CheckCollisionWith(const PCEVector3D& i_point) const = 0;
 
 	/*!
 	\brief Check for collision.
 	\param [in] i_collider The Shape that could be involved in collision with this Shape.
-	\return This Shape or a subShape that are involved in collision with i_shape. 
-			nullptr if neither shape and its sub shapes are involved in collision.
+	\return The distance between this collider and the other.
 	*/
-	virtual const Collider* subShapeCollidedWith(const Collider& i_collider) const = 0;
+	virtual double CheckCollisionWith(const Collider& i_collider) const = 0;
 };
 
 class Mesh : public Shape

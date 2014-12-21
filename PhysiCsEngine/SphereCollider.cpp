@@ -23,7 +23,7 @@ SphereCollider::SphereCollider()
 	mCenter[2] = 0.0f;
 }
 
-const Collider* SphereCollider::subShapeCollidedWith(const PCEPoint &i_point) const
+const Collider* SphereCollider::CheckCollisionWith(const PCEPoint &i_point) const
 {
 
 	double fDistanceFromPoint = pow(mCenter[0] - i_point[0],2) + pow(mCenter[1] - i_point[1],2) + pow(mCenter[2] - i_point[2],2);
@@ -52,14 +52,14 @@ const Collider* SphereCollider::subShapeCollidedWith(const PCEPoint &i_point) co
 	return pCollider;
 }
 
-const Collider* SphereCollider::subShapeCollidedWith(const Collider& i_collider) const
+const Collider* SphereCollider::CheckCollisionWith(const Collider& i_collider) const
 {
 	if (i_collider.getDescription() == PCEIds::DESC_BOUNDING_SPHERE)
-		return subShapeCollidedWith(static_cast<const SphereCollider *>(&i_collider));
-	else return i_collider.subShapeCollidedWith(*this);
+		return CheckCollisionWith(static_cast<const SphereCollider *>(&i_collider));
+	else return i_collider.CheckCollisionWith(*this);
 }
 
-const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sphere) const
+const Collider* SphereCollider::CheckCollisionWith(const SphereCollider* i_sphere) const
 {
 	double fSquareDistanceFromOtherCollider = pow(mCenter[0] - i_sphere->mCenter[0],2) + pow(mCenter[1] - i_sphere->mCenter[1],2) + pow(mCenter[2] - i_sphere->mCenter[2],2);
 	int iSquareDistanceFromOtherCollider = *(int*)&fSquareDistanceFromOtherCollider;

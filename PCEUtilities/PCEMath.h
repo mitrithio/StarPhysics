@@ -31,13 +31,6 @@ PCEVector3D CrossProduct(const PCEVector3D& i_oFirst, const PCEVector3D& i_oSeco
 
 PCEMatrix3x3 MatriceDaQuaternione(const PCEQuaternion& i_oQuaternion);
 
-PCEVector3D operator*( double i_fValue, const PCEVector3D& i_oSecond )
-{
-	PCEVector3D oRes = i_oSecond;
-	oRes *= i_fValue;
-	return oRes;
-}
-
 PCEVector3D operator/( double i_fValue, const PCEVector3D& i_oSecond )
 {
 	PCEVector3D oRes;
@@ -101,9 +94,9 @@ PCEMatrix<ROW,COL> operator/( double i_fScalar, const PCEMatrix<ROW,COL>& i_oSec
 	return oRes;
 }
 
-inline PCEVector3D operator*( const double& s, const PCEVector3D& v )
+inline PCEVector3D operator*( const double& i_rValue, const PCEVector3D& i_vVector3 )
 {
-	return v * s;
+	return i_vVector3 * i_rValue;
 }
 
 #endif //PCEMATH_H

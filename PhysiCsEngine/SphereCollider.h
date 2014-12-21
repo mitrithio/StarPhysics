@@ -16,14 +16,14 @@ public:
 	const double getRadius() const					{return mRadius;}
 	void setRadius(const double i_radius)			{mRadius = i_radius;}
 
-	const Collider* subShapeCollidedWith(const PCEVector3D& i_point) const;
-	const Collider* subShapeCollidedWith(const Collider& i_collider) const;
+	const Collider* CheckCollisionWith(const PCEVector3D& i_point) const;
+	const Collider* CheckCollisionWith(const Collider& i_collider) const;
 
 private:
 	PCEPoint mCenter;
 	double mRadius;
 
-	const Collider* SphereCollider::subShapeCollidedWith(const SphereCollider* i_sphere) const;
+	const Collider* SphereCollider::CheckCollisionWith(const SphereCollider* i_sphere) const;
 };
 
 

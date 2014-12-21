@@ -11,13 +11,13 @@ public:
 	PlaneCollider( PCEVector3D i_oOrthogonalVector, PCEVector3D i_oPoint );
 	PlaneCollider( PCEVector3D i_oFirstVector, PCEVector3D i_oSecondVector, PCEVector3D i_oPoint );
 
-	virtual const Collider* subShapeCollidedWith( const PCEVector3D& i_oPoint ) const;
+	virtual const Collider* CheckCollisionWith( const PCEVector3D& i_oPoint ) const;
 
-	virtual const Collider* subShapeCollidedWith( const Collider& i_oCollider ) const;
+	virtual const Collider* CheckCollisionWith( const Collider& i_oCollider ) const;
 
 private:
 
-	virtual const Collider* subShapeCollidedWith( const SphereCollider* i_pSphereCollider ) const;
+	virtual const Collider* CheckCollisionWith( const SphereCollider* i_pSphereCollider ) const;
 
 private:
 
