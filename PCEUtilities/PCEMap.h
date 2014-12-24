@@ -2,21 +2,47 @@
 #define PCEMAP_H
 
 #include <assert.h>
-#include "PCEVector.h"
+#include "PCEPair.h"
 
 
-template <class KeyType, class ValueType>
+template <class Key, class T>
 class PCEMap
 {
 public:
 
-	PCEMap(){}
+	typedef Key								key_type;
+	typedef T								mapped_type;
+	typedef PCEPair<key_type,mapped_type>	value_type;
+	typedef value_type&						reference;
+	typedef const reference					const_reference;
+	typedef value_type*						iterator;
+	typedef const iterator					const_iterator;
 
-	PCEMap( const PCEMap<KeyType,ValueType>& i_other )
-		: m_keyValueVector( i_other.m_keyValueVector )
+	explicit PCEMap()
+		: size_(0)
+		, capacity_(0)
+		, values_(nullptr)
 	{}
 
-	~PCEMap(){}
+	PCEMap(const PCEMap& i_other)
+		: size_(i_other.size_)
+		, capacity_(i_other.capacity_)
+	{
+		values_ = new value_type[capacity_];
+		unsigned int uiCount = 0;
+		for (const_iterator it = i_other.begin(); it != i_other.end(); ++it, ++uiCount)
+		{
+			&values_[uiCount] = new(&values_[uiCount]) value_type(*it);
+		}
+	}
+
+	~PCEMap()
+	{
+		if (!empty())
+		{
+			delete [] values_;
+		}
+	}
 
 	const bool empty() const
 	{
@@ -33,7 +59,7 @@ public:
 		return m_keyValueVector.capacity();
 	}
 
-	ValueType& operator[](const KeyType& i_key)
+	mapped_type& operator[](const key_type& i_key)
 	{
 		int indexValue = containsKey(i_key);
 		if (indexValue == -1)
@@ -47,14 +73,22 @@ public:
 		return m_keyValueVector[indexValue].second;
 	}
 
-	const ValueType& at(const KeyType& i_key) const
+	mapped_type& at(const key_type& i_key)
+	{
+		if (find(i_key) != end())
+		{
+			return (*find(i_key)).second;
+		}
+	}
+
+	const mapped_type& at(const key_type& i_key) const
 	{
 		int indexValue = containsKey(i_key);
 		assert(indexValue != -1);
 		return m_keyValueVector[indexValue]->second;
 	}
 
-	const int erase(const KeyType& i_key)
+	const int erase(const key_type& i_key)
 	{
 		int indexValue = containsKey(i_key);
 		int found = 0;
@@ -68,7 +102,7 @@ public:
 		return found;
 	}
 
-	const int erase(const KeyType *i_arrayKey, const int i_arrayLenght)
+	const int erase(const key_type *i_arrayKey, const int i_arrayLenght)
 	{
 		int found = 0;
 		for (int arrayIndex = 0; arrayIndex < i_arrayLenght; ++arrayIndex)
@@ -90,7 +124,7 @@ public:
 		m_keyValueVector.clear();
 	}
 
-	const int containsKey(const KeyType& i_key)
+	const int containsKey(const key_type& i_key)
 	{
 		int valueFounded = -1;
 
@@ -105,7 +139,7 @@ public:
 		return valueFounded;
 	}
 
-	PCEMap<KeyType,ValueType>& operator=( const PCEMap<KeyType,ValueType>& i_other )
+	PCEMap<key_type,mapped_type>& operator=( const PCEMap<key_type,mapped_type>& i_other )
 	{
 		if ( this != &i_other )
 		{
@@ -115,158 +149,38 @@ public:
 		return *this;
 	}
 
-	bool operator==( const PCEMap<KeyType,ValueType>& i_other ) const
+	bool operator==( const PCEMap<key_type,mapped_type>& i_other ) const
 	{
 		return m_keyValueVector == i_other.m_keyValueVector;
 	}
 
-	bool operator!=( const PCEMap<KeyType,ValueType>& i_other ) const
+	bool operator!=( const PCEMap<key_type,mapped_type>& i_other ) const
 	{
 		return !(*this == i_other);
 	}
 
 private:
 
-	struct KeyValuePair
-	{
-		KeyType first;
-		ValueType second;
-
-		bool operator==( const KeyValuePair& i_other ) const
-		{
-			return first == i_other.first && second == i_other.second;
-		}
-
-		bool operator!=( const KeyValuePair& i_other ) const
-		{
-			return !( *this == i_other ); 
-		}
-	};
-
-	PCEVector<KeyValuePair> m_keyValueVector;
+	size_t			size_;
+	size_t			capacity_;
+	value_type *	values_;
 
 public:
 
-	class PCEIterator
+	iterator begin()
 	{
-	public:
-
-		PCEIterator( PCEVector<KeyValuePair>* i_pVector )
-			: m_uiIndex(0)
-			, m_pVector( i_pVector )
-		{
-		}
-
-		PCEIterator( unsigned int i_uiIndex, PCEVector<KeyValuePair>* i_pVector )
-			: m_uiIndex(i_uiIndex)
-			, m_pVector( i_pVector )
-		{
-		}
-
-		PCEIterator( const PCEIterator& i_PCEIt )
-			: m_uiIndex( i_PCEIt.m_uiIndex )
-			, m_pVector( i_PCEIt.m_pVector )
-		{
-		}
-
-		virtual ~PCEIterator(){}
-
-		virtual PCEIterator& operator++()
-		{
-			++m_uiIndex;
-			return *this;
-		}
-
-		virtual PCEIterator operator++( int )
-		{
-			PCEIterator tempIt( *this );
-			++tempIt;
-			return tempIt;
-		}
-
-		virtual PCEIterator& operator--()
-		{
-			--m_uiIndex;
-			return *this;
-		}
-
-		virtual PCEIterator operator--( int )
-		{
-			PCEIterator tempIt( *this );
-			--tempIt;
-			return tempIt;
-		}
-
-		virtual PCEIterator& operator+=( const PCEIterator& i_other )
-		{
-			m_uiIndex += i_other.m_uiIndex;
-			return *this;
-		}
-
-		virtual PCEIterator operator+( const PCEIterator& i_other )
-		{
-			m_uiIndex += i_other.m_uiIndex;
-			return *this;
-		}
-
-		virtual PCEIterator operator+( unsigned int i_uiValue )
-		{
-			m_uiIndex += i_uiValue;
-			return *this;
-		}
-
-		virtual PCEIterator operator-( const PCEIterator& i_other )
-		{
-			m_uiIndex -= i_other.m_uiIndex;
-			return *this;
-		}
-
-		virtual PCEIterator operator-( unsigned int i_uiValue )
-		{
-			m_uiIndex -= i_uiValue;
-			return *this;
-		}
-
-		virtual bool operator==( const PCEIterator& i_other ) const
-		{
-			return ( m_uiIndex == i_other.m_uiIndex );
-		}
-
-		virtual bool operator!=( const PCEIterator& i_other ) const
-		{
-			return !( *this == i_other );
-		}
-
-		virtual KeyValuePair& operator*()
-		{
-			return m_pVector->at( m_uiIndex );
-		}
-
-		virtual const KeyValuePair& operator*() const
-		{
-			return m_pVector->at( m_uiIndex );
-		}
-
-	protected:
-
-		unsigned int m_uiIndex;
-		PCEVector<KeyValuePair>* m_pVector;
-	};
-
-	PCEIterator begin()
-	{
-		return PCEIterator( &m_keyValueVector );
+		return iterator( &m_keyValueVector );
 	}
 
-	PCEIterator end()
+	iterator end()
 	{
 		return begin() + size();
 	}
 
-	PCEIterator find( const KeyType& i_oKey )
+	iterator find( const key_type& i_oKey )
 	{
 		bool bFound = false;
-		PCEIterator it = begin();
+		iterator it = begin();
 		for ( ; !bFound && it != end(); ++it )
 		{
 			bFound = ( (*it)->first == i_oKey )

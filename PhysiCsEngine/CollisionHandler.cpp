@@ -23,6 +23,14 @@ void CollisionHandler::RegisterEverStaticRigidBody( const PCEObjectId& i_oId, Ri
 	}
 }
 
+void CollisionHandler::UnregisterRigidBody( const PCEObjectId& i_oId )
+{
+	if (m_mDynamicObjects.find(i_oId) != m_mDynamicObjects.end())
+	{
+		m_mDynamicObjects.erase(i_oId);
+	}
+}
+
 void CollisionHandler::Update( double i_fFrameTime )
 {
 	DetectCollisions( i_fFrameTime );
@@ -30,12 +38,12 @@ void CollisionHandler::Update( double i_fFrameTime )
 
 unsigned int CollisionHandler::DetectCollisions( double i_rFrameTime )
 {
-	PCEMap<PCEObjectId,RigidBody*>::PCEIterator itDynamics = m_mDynamicObjects.begin();
-	PCEMap<PCEObjectId,RigidBody*>::PCEIterator itDynamicsEnd = m_mDynamicObjects.end();
-	PCEMap<PCEObjectId,RigidBody*>::PCEIterator itNextDynamic = itDynamics + 1;
+	PCEMap<PCEObjectId,RigidBody*>::iterator itDynamics = m_mDynamicObjects.begin();
+	PCEMap<PCEObjectId,RigidBody*>::iterator itDynamicsEnd = m_mDynamicObjects.end();
+	PCEMap<PCEObjectId,RigidBody*>::iterator itNextDynamic = itDynamics + 1;
 
-	PCEMap<PCEObjectId,RigidBody*>::PCEIterator itStatics = m_mStaticObjects.begin();
-	PCEMap<PCEObjectId,RigidBody*>::PCEIterator itStaticsEnd = m_mStaticObjects.end();
+	PCEMap<PCEObjectId,RigidBody*>::iterator itStatics = m_mStaticObjects.begin();
+	PCEMap<PCEObjectId,RigidBody*>::iterator itStaticsEnd = m_mStaticObjects.end();
 	
 	for ( ; itDynamics != itDynamicsEnd; ++itDynamics )
 	{
@@ -69,6 +77,7 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody& i_oRigidBody1, 
 			rTotalElasticConst = fK1;
 		}
 	}
+
 	PCEVector3D vElasticForce = m_vImpactNormal * ( rTotalElasticConst * m_rDeformation );
 
 	// Fluid Friction:
@@ -82,12 +91,14 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody& i_oRigidBody1, 
 	{
 		rNormalForceModule = 0;
 	}
+
 	PCEVector3D vNormForce = m_vImpactNormal * rNormalForceModule;
 
 	// Force Tangent Component: dry friction and fluid friction tangent
 	PCEVector3D vTangVelocity = m_vImpactVelocity - (DotProduct(m_vImpactVelocity,m_vImpactNormal) * m_vImpactNormal);
 	double rFrictionForceModule = rNormalForceModule * i_rMu;
 	PCEVector3D vTangForce = ( vTangVelocity * rFrictionForceModule ) + vTangFluidFriction;
+
 /*
 	double modVtang = vTangVelocity.Module();
 	if(modVtang > 9.81f * i_rFrameTime)
@@ -99,6 +110,7 @@ void CollisionHandler::CollisionItem::ApplyCollision( RigidBody& i_oRigidBody1, 
 		vTangForce /= ( 9.8f * i_rFrameTime );
 	}
 */
+
 	vNormForce += vTangForce;	// now vNormForce is the total force
 
 	i_oRigidBody1.ApplyForce(vNormForce, m_vImpactPoint);

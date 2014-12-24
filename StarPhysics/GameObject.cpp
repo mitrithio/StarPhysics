@@ -19,7 +19,7 @@ void GameObject::RegisterComponent(Component* i_pComponent)
 
 void GameObject::UnregisterComponents()
 {
-	for ( PCEMap<PCEObjectId, PCEVector<Component*>>::PCEIterator it = m_mComponents.begin(); it != m_mComponents.end(); ++it )
+	for ( PCEMap<PCEObjectId, PCEVector<Component*>>::iterator it = m_mComponents.begin(); it != m_mComponents.end(); ++it )
 	{
 		(*it).second.clear();
 	}

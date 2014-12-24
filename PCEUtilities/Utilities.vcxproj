@@ -80,10 +80,12 @@
     <ClInclude Include="PCEMatrix3x3.h" />
     <ClInclude Include="PCEObjectId.h" />
     <ClInclude Include="PCEMap.h" />
+    <ClInclude Include="PCEPair.h" />
     <ClInclude Include="PCEQuaternion.h" />
     <ClInclude Include="PCEString.h" />
     <ClInclude Include="PCEUtilities.h" />
     <ClInclude Include="PCEUtilitiesSystemApi.h" />
+    <ClInclude Include="PCEUtils.h" />
     <ClInclude Include="PCEVector.h" />
     <ClInclude Include="PCEVector3.h" />
   </ItemGroup>

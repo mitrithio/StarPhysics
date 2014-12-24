@@ -67,7 +67,7 @@ public:
 
 	void RegisterDynamicRigidBody( const PCEObjectId& i_oId, RigidBody& i_oDynamicRigidBody );
 	void RegisterEverStaticRigidBody( const PCEObjectId& i_oId, RigidBody& i_oEverStaticRigidBody );
-	void UnregisterRigidBody( const RigidBody& i_oRigidBody );
+	void UnregisterRigidBody( const PCEObjectId& i_oId );
 	unsigned int DetectCollisions( double i_rFrameTime );
 	
 	void Update(double i_fFrameTime);

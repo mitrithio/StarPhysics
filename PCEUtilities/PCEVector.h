@@ -272,77 +272,77 @@ private:
 
 public:
 
-	class PCEIterator
+	class iterator
 	{
 	public:
 
-		PCEIterator()
+		iterator()
 			: m_uiIndex(0)
 		{
 		}
 
-		PCEIterator( unsigned int i_uiIndex )
+		iterator( unsigned int i_uiIndex )
 			: m_uiIndex(i_uiIndex)
 		{
 		}
 
-		PCEIterator( const PCEIterator& i_PCEIt )
+		iterator( const iterator& i_PCEIt )
 			: m_uiIndex( i_PCEIt.m_uiIndex )
 		{
 		}
 
-		virtual ~PCEIterator(){}
+		virtual ~iterator(){}
 
-		virtual PCEIterator& operator++()
+		virtual iterator& operator++()
 		{
 			++m_uiIndex;
 			return *this;
 		}
 
-		virtual PCEIterator operator++( int )
+		virtual iterator operator++( int )
 		{
-			PCEIterator tempIt( *this );
+			iterator tempIt( *this );
 			++tempIt;
 			return tempIt;
 		}
 
-		virtual PCEIterator& operator--()
+		virtual iterator& operator--()
 		{
 			--m_uiIndex;
 			return *this;
 		}
 
-		virtual PCEIterator operator--( int )
+		virtual iterator operator--( int )
 		{
-			PCEIterator tempIt( *this );
+			iterator tempIt( *this );
 			--tempIt;
 			return tempIt;
 		}
 
-		virtual PCEIterator& operator+=( const PCEIterator& i_other )
+		virtual iterator& operator+=( const iterator& i_other )
 		{
 			m_uiIndex += i_other.m_uiIndex;
 			return *this;
 		}
 
-		virtual PCEIterator operator+( const PCEIterator& i_other )
+		virtual iterator operator+( const iterator& i_other )
 		{
 			m_uiIndex += i_other.m_uiIndex;
 			return *this;
 		}
 
-		virtual PCEIterator operator+( unsigned int i_uiAddedIndex )
+		virtual iterator operator+( unsigned int i_uiAddedIndex )
 		{
 			m_uiIndex += i_uiAddedIndex;
 			return *this;
 		}
 
-		virtual bool operator==( const PCEIterator& i_other ) const
+		virtual bool operator==( const iterator& i_other ) const
 		{
 			return ( m_uiIndex == i_other.m_uiIndex );
 		}
 
-		virtual bool operator!=( const PCEIterator& i_other )
+		virtual bool operator!=( const iterator& i_other )
 		{
 			return !( *this == i_other );
 		}
@@ -363,19 +363,19 @@ public:
 		PCEVector<T>* m_pVector;
 	};
 
-	PCEIterator begin()
+	iterator begin()
 	{
-		return PCEIterator();
+		return iterator();
 	}
 
-	PCEIterator end()
+	iterator end()
 	{
-		return PCEIterator( size() );
+		return iterator( size() );
 	}
 
-	const PCEIterator& find( const T& i_value )
+	const iterator& find( const T& i_value )
 	{
-		for ( PCEIterator it = begin(); it != end(); ++it )
+		for ( iterator it = begin(); it != end(); ++it )
 		{
 			if ( (*it) == i_value )
 			{

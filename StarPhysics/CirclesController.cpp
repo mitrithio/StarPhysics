@@ -19,7 +19,7 @@ CirclesController::CirclesController( unsigned int i_uiNumberOfCircles )
 
 CirclesController::~CirclesController()
 {
-	for ( PCEMap<PCEObjectId,Circle*>::PCEIterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
+	for ( PCEMap<PCEObjectId,Circle*>::iterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
 	{
 		delete (*it).second;
 	}
@@ -56,7 +56,7 @@ void CirclesController::CreateCirclePool( unsigned int i_uiNumberOfCircle )
 
 void CirclesController::Update( double i_fDeltaTime )
 {
-	for ( PCEMap<PCEObjectId,Circle*>::PCEIterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
+	for ( PCEMap<PCEObjectId,Circle*>::iterator it = m_oCirclesMap.begin(); it != m_oCirclesMap.end(); ++it )
 	{
 		(*it).second->Update( i_fDeltaTime );
 	}

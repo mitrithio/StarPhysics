@@ -26,9 +26,9 @@ protected:
 
 protected:
 	typedef PCEVector<Component*>							VectorComponent;
-	typedef VectorComponent::PCEIterator					VectorComponentIterator;
+	typedef VectorComponent::iterator					VectorComponentIterator;
 	typedef PCEMap<PCEObjectId, PCEVector<Component*>>		MapComponents;
-	typedef MapComponents::PCEIterator						MapComponentsIterator;
+	typedef MapComponents::iterator						MapComponentsIterator;
 	
 	MapComponents m_mComponents;
 
