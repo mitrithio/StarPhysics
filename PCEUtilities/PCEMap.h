@@ -1,189 +1,186 @@
 #ifndef PCEMAP_H
 #define PCEMAP_H
 
-#include <assert.h>
+#include <cassert>
+#include "PCEUtils.h"
 #include "PCEPair.h"
+#include "PCEVector.h"
 
-
-template <class Key, class T>
+template <class Key, typename T, class Cmp = PCECompareLess<Key>, class Alloc = PCEAllocator< PCEPair< const Key, T > > >
 class PCEMap
 {
 public:
 
-	typedef Key								key_type;
-	typedef T								mapped_type;
-	typedef PCEPair<key_type,mapped_type>	value_type;
-	typedef value_type&						reference;
-	typedef const reference					const_reference;
-	typedef value_type*						iterator;
-	typedef const iterator					const_iterator;
+	typedef Key										key_type;
+	typedef T										mapped_type;
+	typedef Cmp										key_compare;
+	typedef Alloc									allocator_type;
+	typedef PCEPair<const key_type, mapped_type>	value_type;
+	typedef PCEVector<value_type>					my_base;
+	typedef typename my_base::reference				reference;
+	typedef typename my_base::const_reference		const_reference;
+	typedef typename my_base::iterator				iterator;
+	typedef typename my_base::const_iterator		const_iterator;
+	typedef std::size_t								size_type;
+	typedef std::ptrdiff_t							difference_type;
 
-	explicit PCEMap()
-		: size_(0)
-		, capacity_(0)
-		, values_(nullptr)
+	typedef iterator								input_iterator;
+	
+public:
+
+	class value_compare
+	{
+		friend class PCEMap;
+	protected:
+		Cmp comp;
+		value_compare(Cmp i_cmp) : comp(i_cmp) {}  // constructed with map's comparison object
+	public:
+		typedef bool result_type;
+		typedef value_type first_argument_type;
+		typedef value_type second_argument_type;
+		bool operator() (const value_type& x, const value_type& y) const
+		{
+			return comp(x.first, y.first);
+		}
+	};
+
+public:
+
+	explicit PCEMap(const key_compare& i_cmp = key_compare(), const allocator_type& i_alloc = allocator_type())
+		: values_(i_alloc)
+		, cmp_(i_cmp)
+		, allocator_(i_alloc)
 	{}
 
-	PCEMap(const PCEMap& i_other)
-		: size_(i_other.size_)
-		, capacity_(i_other.capacity_)
+	explicit PCEMap(const allocator_type& i_alloc)
+		: values_(i_alloc)
+		, cmp_(PCECompareLess<Key>())
+		, allocator_(i_alloc)
+	{}
+
+	PCEMap(input_iterator i_first, input_iterator i_last, const key_compare& i_cmp = key_compare(), const allocator_type& i_alloc = allocator_type())
+		: values_(i_first,i_last,i_alloc)
+		, cmp_(i_cmp)
+		, allocator_(i_alloc)
 	{
-		values_ = new value_type[capacity_];
-		unsigned int uiCount = 0;
-		for (const_iterator it = i_other.begin(); it != i_other.end(); ++it, ++uiCount)
-		{
-			&values_[uiCount] = new(&values_[uiCount]) value_type(*it);
-		}
 	}
+
+	PCEMap(const PCEMap& i_other)
+		: values_(i_other.values_,i_other.allocator_)
+		, cmp_(i_other.cmp_)
+		, allocator_(i_other.allocator_)
+	{}
 
 	~PCEMap()
 	{
-		if (!empty())
-		{
-			delete [] values_;
-		}
 	}
 
-	const bool empty() const
+	mapped_type& at(const key_type& k)
 	{
-		return m_keyValueVector.empty();
+		iterator itWhere = lower_bound(k);
+		assert ( itWhere != end() && !key_comp()(k,itWhere.first) ); // out of bound
+		return itWhere.second;
 	}
 
-	const int size() const
+	const mapped_type& at(const key_type& k) const
 	{
-		return m_keyValueVector.size();
+		const_iterator itWhere = lower_bound(k);
+		assert ( itWhere != end() && !key_comp()(k,itWhere.first) ); // out of bound
+		return itWhere.second;
 	}
 
-	const int max_size() const
+	iterator begin()
 	{
-		return m_keyValueVector.capacity();
+		return values_.begin();
 	}
 
-	mapped_type& operator[](const key_type& i_key)
+	const_iterator begin() const
 	{
-		int indexValue = containsKey(i_key);
-		if (indexValue == -1)
-		{
-			KeyValuePair newPair;
-			newPair.first = i_key;
-			m_keyValueVector.push_back(newPair);
-			indexValue = m_keyValueVector.size() - 1;
-		}
-
-		return m_keyValueVector[indexValue].second;
+		return values_.begin();
 	}
 
-	mapped_type& at(const key_type& i_key)
+	const_iterator cbegin() const
 	{
-		if (find(i_key) != end())
-		{
-			return (*find(i_key)).second;
-		}
+		return values_.cbegin();
 	}
 
-	const mapped_type& at(const key_type& i_key) const
+	const_iterator cend() const
 	{
-		int indexValue = containsKey(i_key);
-		assert(indexValue != -1);
-		return m_keyValueVector[indexValue]->second;
-	}
-
-	const int erase(const key_type& i_key)
-	{
-		int indexValue = containsKey(i_key);
-		int found = 0;
-		while (indexValue != -1)
-		{
-			++found;
-			m_keyValueVector.erase(indexValue);
-			indexValue = containsKey(i_key);
-		}
-
-		return found;
-	}
-
-	const int erase(const key_type *i_arrayKey, const int i_arrayLenght)
-	{
-		int found = 0;
-		for (int arrayIndex = 0; arrayIndex < i_arrayLenght; ++arrayIndex)
-		{
-			int indexValue = containsKey(i_arrayKey[arrayIndex]);
-			while (indexValue != -1)
-			{
-				++found;
-				m_keyValueVector.erase(indexValue);
-				indexValue = containsKey(i_arrayKey[arrayIndex]);
-			}
-		}
-
-		return found;
+		return values_.cend();
 	}
 
 	void clear()
 	{
-		m_keyValueVector.clear();
+		erase(begin(),end());
 	}
 
-	const int containsKey(const key_type& i_key)
+	size_type count(const key_type& k)
 	{
-		int valueFounded = -1;
-
-		for (uint32_t index = 0; valueFounded == -1 && index < m_keyValueVector.size(); ++index)
+		const_iterator itWhere = lower_bound(k);
+		if (itWhere != end() && key_comp()(i_oKey,itWhere.first))
 		{
-			if (m_keyValueVector[index].first == i_key)
-			{
-				valueFounded = index;
-			}
+			return 1;
 		}
 
-		return valueFounded;
+		return 0;
 	}
 
-	PCEMap<key_type,mapped_type>& operator=( const PCEMap<key_type,mapped_type>& i_other )
+	bool empty() const
 	{
-		if ( this != &i_other )
-		{
-			m_keyValueVector = i_other.m_keyValueVector;
-		}
-
-		return *this;
-	}
-
-	bool operator==( const PCEMap<key_type,mapped_type>& i_other ) const
-	{
-		return m_keyValueVector == i_other.m_keyValueVector;
-	}
-
-	bool operator!=( const PCEMap<key_type,mapped_type>& i_other ) const
-	{
-		return !(*this == i_other);
-	}
-
-private:
-
-	size_t			size_;
-	size_t			capacity_;
-	value_type *	values_;
-
-public:
-
-	iterator begin()
-	{
-		return iterator( &m_keyValueVector );
+		return values_.empty();
 	}
 
 	iterator end()
 	{
-		return begin() + size();
+		return values_.end();
 	}
 
-	iterator find( const key_type& i_oKey )
+	const_iterator end() const
+	{
+		return values_.end();
+	}
+
+	PCEPair<iterator,iterator> equal_range(const key_type& k)
+	{
+		return PCEPair<iterator,iterator>(lower_bound(k),upper_bound(k));
+	}
+
+	PCEPair<const_iterator,const_iterator> equal_range(const key_type& k) const
+	{
+		return PCEPair<const_iterator,const_iterator>(lower_bound(k),upper_bound(k));
+	}
+
+	iterator erase(const_iterator position)
+	{
+		return values_.erase(position);
+	}
+
+	size_type erase(const key_type& k)
+	{
+		iterator pos = find(k);
+		if ( pos != end() )
+		{
+			erase(pos);
+			return 1;
+		}
+
+		return 0;
+	}
+
+	iterator erase(const_iterator first, const_iterator second)
+	{
+		iterator it = first;
+		for ( ; it != second+1 ; it = erase(it) )
+		return it;
+	}
+
+	iterator find( const key_type& i_k )
 	{
 		bool bFound = false;
 		iterator it = begin();
 		for ( ; !bFound && it != end(); ++it )
 		{
-			bFound = ( (*it)->first == i_oKey )
+			bFound = ( (*it).first == i_k );
 		}
 
 		if ( bFound )
@@ -193,6 +190,286 @@ public:
 
 		return it;
 	}
+
+	const_iterator find(const key_type& i_k) const
+	{
+		bool bFound = false;
+		const_iterator it = begin();
+		for ( ; !bFound && it != end(); ++it )
+		{
+			bFound = ( (*it).first == i_k );
+		}
+
+		if ( bFound )
+		{
+			return it - 1;
+		}
+
+		return it;
+	}
+
+	allocator_type get_allocator() const
+	{
+		return allocator_;
+	}
+
+	PCEPair<iterator, bool> insert(const value_type& i_val)
+	{
+		bool bRet = false;
+		for ( iterator itValue = begin(); !bRet && itValue != end(); ++itValue )
+		{
+			bRet = !cmp_(itValue.first,i_val.first);
+		}
+
+		if (bRet) // if true, itValue points to the position after i_val possible position, to end() otherwise.
+		{	
+			--itValue;
+			if ( !cmp_(i_val.first,itValue.first) )
+			{ // i_val.first is in the map already
+				bRet = false;
+
+				return PCEPair<iterator, bool>(itValue, bRet);
+			}
+		}
+		
+		return PCEPair<iterator, bool>( insert(itValue,i_val), bRet ); 
+	}
+
+	template<class U, class V> 
+	PCEPair<iterator, bool> insert(PCEPair<U,V>&& i_val)
+	{
+		bool bRet = false;
+		iterator itValue = begin();
+		for ( ; !bRet && itValue != end(); ++itValue )
+		{
+			bRet = !cmp_(itValue->first,i_val.first);
+		}
+
+		if (bRet) // if true, itValue points to the position after i_val possible position, to end() otherwise.
+		{	
+			--itValue;
+			if ( !cmp_(i_val.first,itValue->first) )
+			{ 
+				// i_val.first is in the map already
+				bRet = false;
+
+				return PCEPair<iterator, bool>(itValue, bRet);
+			}
+		}
+
+		return PCEPair<iterator, bool>( insert(itValue,i_val), bRet );
+	}
+
+	iterator insert(const_iterator i_pos, const value_type& i_val)
+	{
+		iterator it = find(i_val.first);
+		if (it != end())
+		{ // i_val.first already in the map
+			;
+		}
+		else if (i_pos != end())
+		{ 
+			if ( cmp_( (i_pos - 1)->first,i_val.first ) && !cmp_( i_pos->first,i_val.first ) )
+			{
+				// right position, insert in position i_pos
+				size_type indexPos = i_pos - begin();
+				it = begin() + indexPos;
+				values_.insert(it,1,i_val);
+			}
+			else
+			{
+				// wrong position, no insertion;
+				it = end();
+			}
+		}
+		else 
+		{
+			// i_pos == end(), so is to check is the right position
+			if ( cmp_( (i_pos - 1)->first,i_val.first ) )
+			{
+				// insert as last element
+				it = end();
+				values_.push_back(i_val);
+			}
+			else
+			{
+				// wrong position, no insertion;
+				it = end();
+			}
+		}
+
+		return it;
+	}
+
+	template<class U, class V> 
+	iterator insert(const_iterator i_pos, PCEPair<U,V>&& i_val)
+	{
+		iterator it = find(i_val.first);
+		if (it != end())
+		{ // i_val.first already in the map
+			;
+		}
+		else if (i_pos != end())
+		{ 
+			if ( cmp_( (i_pos - 1)->first,i_val.first ) && !cmp_( i_pos->first,i_val.first ) )
+			{
+				// right position, insert in position i_pos
+				size_type indexPos = i_pos - begin();
+				it = begin() + indexPos;
+				values_.insert(it,1,i_val);
+			}
+			else
+			{
+				// wrong position, no insertion;
+				it = end();
+			}
+		}
+		else 
+		{
+			// i_pos == end(), so is to check is the right position
+			if ( cmp_( (i_pos - 1)->first,i_val.first ) )
+			{
+				// insert as last element
+				it = end();
+				values_.push_back(i_val);
+			}
+			else
+			{
+				// wrong position, no insertion;
+				it = end();
+			}
+		}
+
+		return it;
+	}
+
+	void insert(input_iterator i_first, input_iterator i_last)
+	{
+		for ( ; i_first != i_last; ++i_first )
+		{
+			insert(*i_first);
+		}
+	}
+
+	key_compare key_comp() const
+	{
+		return cmp_;
+	}
+
+	iterator lower_bound(const key_type& k)
+	{
+		iterator it = begin();
+		for ( ;
+			it != end() ;
+			++it )
+		{
+			if ( !cmp_(it.first, k) )
+			{
+				return it;
+			}
+		}
+
+		return it;
+	}
+
+	const_iterator lower_bound(const key_type& k) const
+	{
+		const_iterator it = begin();
+		for ( ;
+			it != end() ;
+			++it )
+		{
+			if ( !cmp_(it.first, k) )
+			{
+				return it;
+			}
+		}
+
+		return it;
+	}
+
+	size_type max_size() const
+	{
+		return values_.max_size();
+	}
+
+	PCEMap& operator=(const PCEMap& i_other)
+	{
+		if ( this != i_other )
+		{
+			cmp_ = i_other.cmp_;
+			allocator_ = i_other.allocator_;
+			values_ = i_other.values_;
+		}
+
+		return *this;
+	}
+
+	mapped_type& operator[](const key_type& i_k)
+	{
+		return (*((this->insert(make_pair<const key_type,mapped_type>(i_k,mapped_type()))).first)).second;
+	}
+
+	mapped_type& operator[](key_type&& i_k)
+	{
+		return (*((this->insert(make_pair<const key_type,mapped_type>(i_k,mapped_type()))).first)).second;
+	}
+
+	size_type size() const
+	{
+		return values_.size();
+	}
+
+	void swap(PCEMap& i_other)
+	{
+		PCEMap m(*this);
+		i_other = *this;
+		*this = m;
+	}
+
+	iterator upper_bound(const key_type& k)
+	{
+		iterator it = begin();
+		for (  ;
+			it != end();
+			++it )
+		{
+			if ( key_comp()(k,it->first) )
+			{
+				return it;
+			}
+		}
+
+		return it;
+	}
+
+	const_iterator upper_bound(const key_type& k) const
+	{
+		const_iterator it = begin();
+		for (  ;
+			it != end();
+			++it )
+		{
+			if ( key_comp()(k,it->first) )
+			{
+				return it;
+			}
+		}
+
+		return it;
+	}
+
+	value_compare value_comp() const
+	{
+		return value_compare(cmp_);
+	}
+
+private:
+
+	my_base			values_;
+
+	key_compare		cmp_;
+	allocator_type	allocator_;
 };
 
 #endif

@@ -34,14 +34,9 @@ unsigned long PCEObjectId::Djb2HashAlgorithm( const char* str )
 	return hash;
 }
 
-bool PCEObjectId::operator==( const PCEObjectId& i_other ) const
+unsigned long PCEObjectId::GetHash() const
 {
-	return m_ulHash == i_other.m_ulHash;
-}
-
-bool PCEObjectId::operator!=( const PCEObjectId& i_other ) const
-{
-	return ( *this == i_other );
+	return m_ulHash;
 }
 
 PCEObjectId& PCEObjectId::operator=( const PCEObjectId& i_other )
@@ -55,4 +50,34 @@ PCEObjectId& PCEObjectId::operator=( const PCEObjectId& i_other )
 	}
 
 	return *this;
+}
+
+bool operator==( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return i_first.GetHash() == i_second.GetHash();
+}
+
+bool operator!=( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return !(i_first.GetHash() == i_second.GetHash());
+}
+
+bool operator<( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return i_first.GetHash() < i_second.GetHash();
+}
+
+bool operator<=( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return !(i_second.GetHash() < i_first.GetHash());
+}
+
+bool operator>( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return i_second.GetHash() < i_first.GetHash();
+}
+
+bool operator>=( const PCEObjectId& i_first, const PCEObjectId& i_second )
+{
+	return !(i_first.GetHash() < i_second.GetHash());
 }

@@ -16,8 +16,8 @@ public:
 	const double getRadius() const					{return mRadius;}
 	void setRadius(const double i_radius)			{mRadius = i_radius;}
 
-	const Collider* CheckCollisionWith(const PCEVector3D& i_point) const;
-	const Collider* CheckCollisionWith(const Collider& i_collider) const;
+	double CheckCollisionWith(const PCEVector3D& i_point) const;
+	double CheckCollisionWith(const Collider& i_collider) const;
 
 private:
 	PCEPoint mCenter;

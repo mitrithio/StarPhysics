@@ -12,9 +12,9 @@ public:
 	PCEObjectId( const PCEObjectId& i_other );
 
 	static unsigned long Djb2HashAlgorithm( const char* str );
+	
+	unsigned long GetHash() const;
 
-	bool operator==( const PCEObjectId& i_other ) const;
-	bool operator!=( const PCEObjectId& i_other ) const;
 	PCEObjectId& operator=( const PCEObjectId& i_other );
 
 private:
@@ -24,6 +24,13 @@ private:
 	PCEString m_szDebugName;
 #endif
 };
+
+bool operator==(const PCEObjectId& i_first, const PCEObjectId& i_second);
+bool operator!=(const PCEObjectId& i_first, const PCEObjectId& i_second);
+bool operator<(const PCEObjectId& i_first, const PCEObjectId& i_second);
+bool operator<=(const PCEObjectId& i_first, const PCEObjectId& i_second);
+bool operator>(const PCEObjectId& i_first, const PCEObjectId& i_second);
+bool operator>=(const PCEObjectId& i_first, const PCEObjectId& i_second);
 
 static PCEObjectId INVALID_OBJECT_ID("");
 

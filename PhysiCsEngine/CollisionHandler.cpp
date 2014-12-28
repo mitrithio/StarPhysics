@@ -9,7 +9,7 @@ CollisionHandler::CollisionHandler( const Config& i_oConfiguration )
 
 void CollisionHandler::RegisterDynamicRigidBody( const PCEObjectId& i_oId, RigidBody& i_oDynamicRigidBody )
 {
-	if ( m_mDynamicObjects.find(i_oId) == m_mDynamicObjects.end() );
+	if ( m_mDynamicObjects.find(i_oId) == m_mDynamicObjects.end() )
 	{ 
 		m_mDynamicObjects[i_oId] = &i_oDynamicRigidBody;
 	}
@@ -54,6 +54,8 @@ unsigned int CollisionHandler::DetectCollisions( double i_rFrameTime )
 			double distance = pSecondShape.CheckCollisionWith( pFirstShape );
 		}
 	}
+
+	return 1;
 }
 
 void CollisionHandler::CollisionItem::ApplyCollision( RigidBody& i_oRigidBody1, RigidBody& i_oRigidBody2, double i_rMu, double /*i_rFrameTime*/ )

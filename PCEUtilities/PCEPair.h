@@ -8,33 +8,26 @@ struct PCEPair
 	T2 second;
 
 	PCEPair()
+		: first()
+		, second()
 	{}
 
 	template<class U, class V> 
 	PCEPair(const PCEPair<U,V>& i_other)
-	{
-		first = i_other.first;
-		second = i_other.second;
-	}
-
-	PCEPair(const PCEPair& i_other)
-	{
-		first = i_other.first;
-		second = i_other.second;
-	}
+		: first(i_other.first)
+		: second(i_other.second)
+	{}
 
 	PCEPair(const T1& i_oFirst, const T2& i_oSecond)
-	{
-		first = i_oFirst;
-		second = i_oSecond;
-	}
+		: first(i_oFirst)
+		, second(i_oSecond)
+	{}
 
 	template<class U, class V> 
 	PCEPair(U&& i_oFirst, V&& i_oSecond)
-	{
-		first = i_oFirst;
-		second = i_oSecond;
-	}
+		: first(i_oFirst)
+		, second(i_oSecond)
+	{}
 
 	PCEPair& operator=(const PCEPair& i_other)
 	{
