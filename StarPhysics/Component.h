@@ -7,7 +7,7 @@
 class Component : public PositionableObject
 {
 public:
-	Component(const PCEObjectId& i_type, PCEPoint i_position, double i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr);
+	Component(const PCEObjectId& i_type, PCEPoint3D i_position, double i_rotation, bool i_isEnabled = true, PositionableObject * i_owner = nullptr);
 
 	virtual ~Component();
 

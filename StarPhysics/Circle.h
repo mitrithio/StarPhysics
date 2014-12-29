@@ -9,7 +9,7 @@ class Circle : public GameObject
 public:
 	Circle();
 	Circle( const Circle& i_oCircle );
-	Circle( PCEPoint i_oPosition, double i_fRotation );
+	Circle( PCEPoint3D i_oPosition, double i_fRotation );
 	~Circle(void);
 
 	void setLevel(unsigned int i_uiLevel);

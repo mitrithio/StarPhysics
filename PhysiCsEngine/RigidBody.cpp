@@ -76,7 +76,7 @@ void RigidBody::Update( double dt )
 	m_oRotationMatrix = MatriceDaQuaternione(m_oRotation);
 }
 
-void RigidBody::ApplyForce( const PCEVector3D& i_vForce, const PCEPoint& i_oPointOfApplication )
+void RigidBody::ApplyForce( const PCEVector3D& i_vForce, const PCEPoint3D& i_oPointOfApplication )
 {
 	PCEVector3D vArm;
 

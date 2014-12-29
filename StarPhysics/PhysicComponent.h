@@ -8,7 +8,7 @@
 class PhysicComponent : public Component
 {
 public:
-	PhysicComponent(PCEPoint i_oPosition, double i_fRotation, bool i_bEnabled = true, PositionableObject * i_oOwner = nullptr);
+	PhysicComponent(PCEPoint3D i_oPosition, double i_fRotation, bool i_bEnabled = true, PositionableObject * i_oOwner = nullptr);
 	~PhysicComponent(void);
 
 	void update( double i_deltaTime = 0 );

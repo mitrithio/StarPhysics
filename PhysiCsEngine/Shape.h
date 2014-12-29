@@ -18,13 +18,14 @@ namespace PCEIds
 */
 class Shape{
 public:
+
 	/*!
-	\brief Default constructor. It sets nullptr to m_desc.
+	\brief Default constructor.
 	*/
-	Shape(const PCEObjectId& i_desc = INVALID_OBJECT_ID, const PCEObjectId& i_type = INVALID_OBJECT_ID, unsigned int i_capacity = 0)
+	Shape(const PCEObjectId& i_desc = INVALID_OBJECT_ID, const PCEObjectId& i_type = INVALID_OBJECT_ID)
 		: m_desc(i_desc)
 		, m_type(i_type)
-		, m_subShapes(i_capacity)
+		, m_vSubShapes()
 	{}
 
 	virtual ~Shape(){};
@@ -33,53 +34,45 @@ public:
 	\brief Getter for m_desc
 	\return m_desc
 	*/
-	inline const PCEObjectId& getDescription() const			{return m_desc;}
+	inline const PCEObjectId& GetDescription() const			{return m_desc;}
 	
 	/*!
 	\brief Getter for m_type
 	\return m_type
 	*/
-	inline const PCEObjectId& getDescriptionType() const	{return m_type;}
+	inline const PCEObjectId& GetType() const	{return m_type;}
 
 	/*!
 	\brief Adds a Shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
 	\param [in] i_subShape The Shape to add.
 	*/
-	virtual void addSubShape(Shape& i_subShape);
+	void AddSubShape(Shape& i_subShape);
 
 	/*!
 	\brief Adds an array of pointer to shape to mpSubShapes array. If mpSubShapes array is full, it adds some space copying the array in a new memory fragment, deleting old memory allocated.
 	\param [in] i_subShapeVector The array of pointer to shape to add.
 	*/
-	virtual void addSubShape(const PCEVector<Shape *>& i_subShapeVector);
+	void AddSubShape(const PCEVector<Shape*>& i_subShapeVector);
 
 	/*!
 	\brief Getter for mpSubShapes attribute.
 	\return A pointer to the sub shapes' vector.
 	*/
-	inline const PCEVector<Shape*>& getSubShapes() const		{return m_subShapes;}
-
-protected:
-	PCEObjectId m_desc;				/*!< \brief The description name of shape. */
-	PCEObjectId m_type;			/*!< \brief The description type of shape. */
-										
-	PCEVector<Shape*> m_subShapes;		/*!< \brief A PCEVector of Shape.*/
+	inline const PCEVector<Shape*>& GetSubShapes() const		{return m_vSubShapes;}
 
 private:
-	/*!
-	\brief Adds i_value capacity to capacity of sub shapes' array.
-	\param [in] i_value The number of augmented capacity.
-	\return A PCE_ERROR: PCE_OK if the operation went well, PCE_CAPACITY if memory if full.
-	*/
-	void addCapacity(unsigned int i_value);
+	PCEObjectId		  m_desc;			/*!< \brief The description name of shape. */
+	PCEObjectId		  m_type;			/*!< \brief The description type of shape. */
+										
+	PCEVector<Shape*> m_vSubShapes;		/*!< \brief A PCEVector of Shape.*/
 };
 
 class Collider : public Shape
 {
 public:
 
-	Collider(const PCEObjectId& i_desc = INVALID_OBJECT_ID, unsigned int i_capacity = 0)
-		: Shape(i_desc, PCEIds::TYPE_COLLIDER, i_capacity)
+	Collider(const PCEObjectId& i_desc = INVALID_OBJECT_ID)
+		: Shape(i_desc, PCEIds::TYPE_COLLIDER)
 	{}
 
 	/*!

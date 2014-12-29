@@ -17,71 +17,71 @@ public:
 		m_pCoordinates[2] = 0;
 	}
 
-	PCEVector3D( const double& a, const double& b, const double& c )
+	PCEVector3D(const float& a, const float& b, const float& c)
 	{
 		m_pCoordinates[0] = a;
 		m_pCoordinates[1] = b;
 		m_pCoordinates[2] = c;
 	}
 
-	inline double& x()
+	inline float& x()
 	{
 		return operator[](0);
 	}
 
-	inline const double& x() const
+	inline const float& x() const
 	{
 		return operator[](0);
 	}
 
-	inline double& y()
+	inline float& y()
 	{
 		return operator[](1);
 	}
 
-	inline const double& y() const
+	inline const float& y() const
 	{
 		return operator[](1);
 	}
 
-	inline double& z()
+	inline float& z()
 	{
 		return operator[](2);
 	}
 
-	inline const double& z() const
+	inline const float& z() const
 	{
 		return operator[](2);
 	}
 
-	inline double& operator[]( unsigned int i_uiIndex )
+	inline float& operator[]( unsigned int i_uiIndex)
 	{
-		assert( i_uiIndex >= 0 && i_uiIndex < 3 );
+		assert( i_uiIndex >= 0 && i_uiIndex < 3);
 		return m_pCoordinates[i_uiIndex];
 	}
 	
-	inline const double& operator[]( unsigned int i_uiIndex ) const
+	inline const float& operator[]( unsigned int i_uiIndex) const
 	{
-		assert( i_uiIndex >= 0 && i_uiIndex < 3 );
+		assert( i_uiIndex >= 0 && i_uiIndex < 3);
 		return m_pCoordinates[i_uiIndex];
 	}
 
-	inline bool operator==( const PCEVector3D& i_other ) const
+	inline bool operator==(const PCEVector3D& i_other) const
 	{
 		return (i_other.x()==x() && i_other.y()==y() && i_other.z()==z());
 	}
 
-	inline bool operator!=( const PCEVector3D& i_other ) const
+	inline bool operator!=(const PCEVector3D& i_other) const
 	{
 		return !(*this == i_other);
 	}
 
 	inline PCEVector3D operator-() const
 	{
-		return PCEVector3D( -x(), -y(), -z() );
+		return PCEVector3D( -x(), -y(), -z());
 	}
 
-	inline const PCEVector3D& operator=( const PCEVector3D& i_other )
+	inline const PCEVector3D& operator=(const PCEVector3D& i_other)
 	{
 		x() = i_other.x();
 		y() = i_other.y();
@@ -90,7 +90,7 @@ public:
 		return *this;
 	}
 
-	inline const PCEVector3D& operator+=( const PCEVector3D& i_other )
+	inline const PCEVector3D& operator+=(const PCEVector3D& i_other)
 	{
 		x() += i_other.x();
 		y() += i_other.y();
@@ -99,7 +99,7 @@ public:
 		return *this;
 	}
 
-	inline const PCEVector3D& operator-=( const PCEVector3D& i_other )
+	inline const PCEVector3D& operator-=(const PCEVector3D& i_other)
 	{
 		x() -= i_other.x();
 		y() -= i_other.y();
@@ -108,65 +108,69 @@ public:
 		return *this;
 	}
 
-	inline const PCEVector3D& operator*=( const double& i_rValue )
+	inline const PCEVector3D& operator*=(const float& i_value)
 	{
-		x() *= i_rValue;
-		y() *= i_rValue;
-		z() *= i_rValue;
+		x() *= i_value;
+		y() *= i_value;
+		z() *= i_value;
 
 		return *this;
 	}
 
-	inline const PCEVector3D& operator/=( const double& i_rValue )
+	inline const PCEVector3D& operator/=(const float& i_value)
 	{
-		double r = 1 / i_rValue;
+		float r = 1 / i_value;
 
-		x() *= r;
-		y() *= r;
-		z() *= r;
+		*this *= r;
 
 		return *this;
 	}
 
-	inline PCEVector3D operator+( const PCEVector3D& v ) const
+	inline PCEVector3D operator+(const PCEVector3D& i_other) const
 	{
-		return PCEVector3D( x() + v.x(), y() + v.y(), z() + v.z() );
+		PCEVector3D tmp = *this;
+		tmp += i_other;
+		return tmp;
 	}
 
-	inline PCEVector3D operator-( const PCEVector3D& v ) const
+	inline PCEVector3D operator-(const PCEVector3D& i_other) const
 	{
-		return PCEVector3D( x() - v.x(), y() - v.y(), z() - v.z() );
+		PCEVector3D tmp = *this;
+		tmp -= i_other;
+		return tmp;
 	}
 
-	inline PCEVector3D operator*( const double& s ) const
+	inline PCEVector3D operator*(const float& i_value) const
 	{
-		return PCEVector3D( x()*s, y()*s, z()*s );
+		PCEVector3D tmp = *this;
+		tmp *= i_value;
+		return tmp;
 	}
 
-	inline const PCEVector3D operator/(double s) const
+	inline PCEVector3D operator/(const float& i_value) const
 	{
-		s = 1/s;
-
-		return PCEVector3D( s*x(), s*y(), s*z() );
+		PCEVector3D tmp = *this;
+		tmp /= i_value;
+		return tmp;
 	}
 
-	inline PCEVector3D Cross( const PCEVector3D& v ) const
+	inline PCEVector3D Cross(const PCEVector3D& i_other) const
 	{
 
-		return PCEVector3D( y()*v.z() - z()*v.y()
-						  , z()*v.x() - x()*v.z()
-						  , x()*v.y() - y()*v.x() 
-						  );
+		return PCEVector3D( y()*i_other.z() - z()*i_other.y()
+						  , z()*i_other.x() - x()*i_other.z()
+						  , x()*i_other.y() - y()*i_other.x() 
+						 );
 	}
 
-	inline double Dot( const PCEVector3D& v ) const
+	inline float Dot(const PCEVector3D& i_other) const
 	{
-		return x()*v.x() + y()*v.y() + z()*v.z();
+		return x()*i_other.x() + y()*i_other.y() + z()*i_other.z();
 	}
 
-	inline double Module() const
+	inline float Module() const
 	{
-		return sqrt( Dot(*this) );
+		return sqrt( Dot(*this));
 	}
 
 	inline PCEVector3D Unit() const
@@ -180,20 +184,196 @@ public:
 	}
 /*
 	TODO
-	inline bool NearlyEqual( const PCEVector3D& v, const double e ) const
+	inline bool NearlyEqual(const PCEVector3D& i_other, const float e) const
 	{
-		double rModule = Module();
+		float rModule = Module();
 		return (rModule + e) == 0 || (rModule - e) == 0;
 	}
 */
 
 private:
 
-	double m_pCoordinates[3];
+	float m_pCoordinates[3];
 };
 
-typedef PCEVector3D PCEPoint;
+class PCEVector2D
+{
 
-static const PCEPoint INVALID_POINT(DBL_MAX, DBL_MAX, DBL_MAX);
+public:
+
+	PCEVector2D()
+	{
+		m_pCoordinates[0] = 0;
+		m_pCoordinates[1] = 0;
+	}
+
+	PCEVector2D(const float& a, const float& b)
+	{
+		m_pCoordinates[0] = a;
+		m_pCoordinates[1] = b;
+	}
+
+	inline float& x()
+	{
+		return operator[](0);
+	}
+
+	inline const float& x() const
+	{
+		return operator[](0);
+	}
+
+	inline float& y()
+	{
+		return operator[](1);
+	}
+
+	inline const float& y() const
+	{
+		return operator[](1);
+	}
+
+	inline float& operator[]( unsigned int i_uiIndex)
+	{
+		return m_pCoordinates[i_uiIndex];
+	}
+	
+	inline const float& operator[]( unsigned int i_uiIndex) const
+	{
+		return m_pCoordinates[i_uiIndex];
+	}
+
+	inline bool operator==(const PCEVector2D& i_other) const
+	{
+		return (i_other.x()==x() && i_other.y()==y());
+	}
+
+	inline bool operator!=(const PCEVector2D& i_other) const
+	{
+		return !(*this == i_other);
+	}
+
+	inline PCEVector2D operator-() const
+	{
+		return PCEVector2D(-x(), -y());
+	}
+
+	inline const PCEVector2D& operator=(const PCEVector2D& i_other)
+	{
+		if (this != &i_other)
+		{
+			x() = i_other.x();
+			y() = i_other.y();
+		}
+		
+		return *this;
+	}
+
+	inline const PCEVector2D& operator+=(const PCEVector2D& i_other)
+	{
+		x() += i_other.x();
+		y() += i_other.y();
+
+		return *this;
+	}
+
+	inline const PCEVector2D& operator-=(const PCEVector2D& i_other)
+	{
+		x() -= i_other.x();
+		y() -= i_other.y();
+
+		return *this;
+	}
+
+	inline const PCEVector2D& operator*=(const float& i_rValue)
+	{
+		x() *= i_rValue;
+		y() *= i_rValue;
+
+		return *this;
+	}
+
+	inline const PCEVector2D& operator/=(const float& i_rValue)
+	{
+		float r = 1 / i_rValue;
+
+		x() *= r;
+		y() *= r;
+
+		return *this;
+	}
+
+	inline PCEVector2D operator+(const PCEVector2D& i_other) const
+	{
+		PCEVector2D tmp = *this;
+		tmp += i_other;
+		return tmp;
+	}
+
+	inline PCEVector2D operator-(const PCEVector2D& i_other) const
+	{
+		PCEVector2D tmp = *this;
+		tmp -= i_other;
+		return tmp;
+	}
+
+	inline PCEVector2D operator*(const float& i_value) const
+	{
+		PCEVector2D tmp = *this;
+		tmp *= i_value;
+		return tmp;
+	}
+
+	inline PCEVector2D operator/(const float& i_value) const
+	{
+		PCEVector2D tmp = *this;
+		tmp /= i_value;
+		return tmp;
+	}
+
+	inline float Cross(const PCEVector2D& i_other) const
+	{
+		return x()*i_other.y() - y()*i_other.x();
+
+	}
+
+	inline float Dot(const PCEVector2D& i_other) const
+	{
+		return x()*i_other.x() + y()*i_other.y();
+	}
+
+	inline float Module() const
+	{
+		return sqrt( Dot(*this));
+	}
+
+	inline PCEVector2D Unit() const
+	{
+		return (*this) / Module();
+	}
+
+	void Normalize()
+	{
+		(*this) /= Module();
+	}
+/*
+	TODO
+	inline bool NearlyEqual(const PCEVector3D& i_other, const float e) const
+	{
+		float rModule = Module();
+		return (rModule + e) == 0 || (rModule - e) == 0;
+	}
+*/
+
+private:
+
+	float m_pCoordinates[2];
+};
+
+typedef PCEVector3D PCEPoint3D;
+typedef PCEVector2D PCEPoint2D;
+
+static const PCEPoint3D INVALID_POINT(FLT_MAX, FLT_MAX, FLT_MAX);
+static const PCEPoint2D INVALID_POINT(FLT_MAX, FLT_MAX);
 
 #endif // PCEVECTOR3_H

@@ -9,7 +9,7 @@ class Cannon : public GameObject
 {
 public:
 	Cannon();
-	Cannon( PCEPoint i_oPosition, double i_fRotation );
+	Cannon( PCEPoint3D i_oPosition, double i_fRotation );
 	~Cannon();
 
 private:

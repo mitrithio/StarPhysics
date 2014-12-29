@@ -2,17 +2,12 @@
 #include "DrawError.h"
 #include "Shape.h"
 
-void Shape::addSubShape(Shape& i_subShape)
+void Shape::AddSubShape(Shape& i_oShape)
 {
-	m_subShapes.push_back(&i_subShape);
+	m_vSubShapes.push_back(&i_oShape);
 }
 
-void Shape::addSubShape(const PCEVector<Shape *>& i_subShapeVector)
+void Shape::AddSubShape(const PCEVector<Shape*>& i_vShape)
 {
-	m_subShapes.insert(m_subShapes.end(),i_subShapeVector.begin(),i_subShapeVector.end());
-}
-
-void Shape::addCapacity(unsigned int i_value)
-{
-	m_subShapes.resize(m_subShapes.capacity() + i_value);
+	m_vSubShapes.insert(m_vSubShapes.end(),i_vShape.begin(),i_vShape.end());
 }

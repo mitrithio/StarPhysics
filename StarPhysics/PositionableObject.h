@@ -6,17 +6,17 @@
 class PositionableObject
 {
 public:
-	PositionableObject(PCEPoint i_oRelativePosition, double i_fRelativeRotation, bool i_bEnabled = true, PositionableObject * i_oOwner  = nullptr);
+	PositionableObject(PCEPoint3D i_oRelativePosition, double i_fRelativeRotation, bool i_bEnabled = true, PositionableObject * i_oOwner  = nullptr);
 	virtual ~PositionableObject(void);
 
 	double GetAbsoluteRotation() const;
 	double GetRelativeRotation() const;
 	bool IsEnable();
 	void SetEnable( bool i_bVal );
-	void SetRelativePosition( const PCEPoint& i_oPostion );
-	const PCEPoint& GetRelativePosition();
-	PCEPoint& GetEditableRelativePosition();
-	PCEPoint GetAbsolutePosition();
+	void SetRelativePosition( const PCEPoint3D& i_oPostion );
+	const PCEPoint3D& GetRelativePosition();
+	PCEPoint3D& GetEditableRelativePosition();
+	PCEPoint3D GetAbsolutePosition();
 	const PositionableObject* GetOwner() const;
 
 	const PCEObjectId& GetID() const;
@@ -33,7 +33,7 @@ protected:
 protected:
 
 	PositionableObject * m_pParent;
-	PCEPoint m_oRelativePosition;
+	PCEPoint3D m_oRelativePosition;
 	double m_fRelativeRotation;
 
 private:

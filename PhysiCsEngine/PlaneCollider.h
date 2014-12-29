@@ -1,6 +1,6 @@
 #include "Shape.h"
 
-class SphereCollider;
+class Sphere3DCollider;
 
 class PlaneCollider : public Collider
 {
@@ -17,7 +17,7 @@ public:
 
 private:
 
-	virtual const Collider* CheckCollisionWith( const SphereCollider* i_pSphereCollider ) const;
+	virtual const Collider* CheckCollisionWith( const Sphere3DCollider* i_pSphereCollider ) const;
 
 private:
 

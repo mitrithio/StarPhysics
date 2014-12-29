@@ -25,7 +25,7 @@ CirclesController::~CirclesController()
 	}
 }
 
-void CirclesController::CreateCircle( PCEPoint i_oPosition, double i_fRotation )
+void CirclesController::CreateCircle( PCEPoint3D i_oPosition, double i_fRotation )
 {
 	Circle * pCircle = new Circle( i_oPosition, i_fRotation );
 	pCircle->SetEnable( false );
@@ -48,7 +48,7 @@ void CirclesController::CreateCirclePool( unsigned int i_uiNumberOfCircle )
 	{
 		for ( unsigned int uiIndex = 0; uiIndex < i_uiNumberOfCircle; ++uiIndex )
 		{
-			CreateCircle( PCEPoint( 0, 0, 0 ), 0.f );
+			CreateCircle( PCEPoint3D( 0, 0, 0 ), 0.f );
 		}
 		m_uiNextCircleFree = 0;
 	}

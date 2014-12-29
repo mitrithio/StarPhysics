@@ -4,26 +4,27 @@
 #include "PCESystemApi.h"
 #include "Shape.h"
 
-class SphereCollider : public Collider
+class Sphere3DCollider : public Collider
 {
 public:
 
-	SphereCollider();
-	SphereCollider(double i_r, double i_x, double i_y, double i_z = 0);
+	Sphere3DCollider();
+	Sphere3DCollider(float i_r, float i_x, float i_y, float i_z);
+	Sphere3DCollider(const PCEPoint3D& i_oCenter, float i_rRadius)
 
-	const PCEPoint getCenter() const				{return mCenter;}
-	void setCenter(const PCEPoint i_center)			{mCenter = i_center;}
-	const double getRadius() const					{return mRadius;}
-	void setRadius(const double i_radius)			{mRadius = i_radius;}
+	const PCEPoint3D getCenter() const				{return mCenter;}
+	void setCenter(const PCEPoint3D i_center)			{mCenter = i_center;}
+	const float getRadius() const					{return mRadius;}
+	void setRadius(const float i_radius)			{mRadius = i_radius;}
 
-	double CheckCollisionWith(const PCEVector3D& i_point) const;
-	double CheckCollisionWith(const Collider& i_collider) const;
+	float CheckCollisionWith(const PCEVector3D& i_point) const;
+	float CheckCollisionWith(const Collider& i_collider) const;
 
 private:
-	PCEPoint mCenter;
-	double mRadius;
+	PCEPoint3D mCenter;
+	float mRadius;
 
-	const Collider* SphereCollider::CheckCollisionWith(const SphereCollider* i_sphere) const;
+	const Collider* Sphere3DCollider::CheckCollisionWith(const Sphere3DCollider* i_sphere) const;
 };
 
 

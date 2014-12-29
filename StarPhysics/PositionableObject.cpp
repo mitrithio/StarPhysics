@@ -3,7 +3,7 @@
 #include "../PCEUtilities/PCEMath.h"
 
 
-PositionableObject::PositionableObject( PCEPoint i_oRelativePosition, double i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
+PositionableObject::PositionableObject( PCEPoint3D i_oRelativePosition, double i_fRelativeRotation, bool i_isEnabled/* = true*/, PositionableObject * i_owner/* = nullptr*/ )
 	: m_pParent( i_owner )
 	, m_oRelativePosition( i_oRelativePosition )
 	, m_fRelativeRotation( i_fRelativeRotation )
@@ -41,22 +41,22 @@ double PositionableObject::GetRelativeRotation() const
 	return m_fRelativeRotation;
 }
 
-void PositionableObject::SetRelativePosition( const PCEPoint& i_oPostion )
+void PositionableObject::SetRelativePosition( const PCEPoint3D& i_oPostion )
 {
 	m_oRelativePosition = i_oPostion;
 }
 
-const PCEPoint& PositionableObject::GetRelativePosition()
+const PCEPoint3D& PositionableObject::GetRelativePosition()
 {
 	return m_oRelativePosition;
 }
 
-PCEPoint& PositionableObject::GetEditableRelativePosition()
+PCEPoint3D& PositionableObject::GetEditableRelativePosition()
 {
 	return m_oRelativePosition;
 }
 
-PCEPoint PositionableObject::GetAbsolutePosition()
+PCEPoint3D PositionableObject::GetAbsolutePosition()
 {
 	if (m_pParent != nullptr)
 	{

@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include <assert.h>
 
-GameObject::GameObject(PCEPoint i_position, double i_rotation, PositionableObject * i_owner /*= nullptr*/)
+GameObject::GameObject(PCEPoint3D i_position, double i_rotation, PositionableObject * i_owner /*= nullptr*/)
 	: PositionableObject(i_position, i_rotation, false, i_owner)
 {
 }

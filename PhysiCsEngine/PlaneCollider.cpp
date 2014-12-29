@@ -41,12 +41,12 @@ const Collider* PlaneCollider::CheckCollisionWith( const PCEVector3D& i_oPoint )
 
 const Collider* PlaneCollider::CheckCollisionWith( const Collider& i_oCollider ) const
 {
-	if (i_oCollider.getDescription() == PCEIds::DESC_BOUNDING_SPHERE )
-		return CheckCollisionWith(static_cast<const SphereCollider *>(&i_oCollider));
+	if (i_oCollider.GetDescription() == PCEIds::DESC_BOUNDING_SPHERE )
+		return CheckCollisionWith(static_cast<const Sphere3DCollider *>(&i_oCollider));
 	else return i_oCollider.CheckCollisionWith(*this);
 }
 
-const Collider* PlaneCollider::CheckCollisionWith( const SphereCollider* i_pSphereCollider ) const
+const Collider* PlaneCollider::CheckCollisionWith( const Sphere3DCollider* i_pSphereCollider ) const
 {
 	double fSquareRadius = ( i_pSphereCollider->getRadius() * i_pSphereCollider->getRadius() );
 	int iSquareRadius = *(int*)&fSquareRadius;

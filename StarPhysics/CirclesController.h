@@ -15,7 +15,7 @@ public:
 
 	const PCEObjectId& GetNextFreeCircleID();
 	void SetCircleFree( const PCEObjectId& i_oCircleId, bool i_bFree );
-	void CreateCircle( PCEPoint i_oPosition, double i_fRotation );
+	void CreateCircle( PCEPoint3D i_oPosition, double i_fRotation );
 
 	void CreateCirclePool( unsigned int i_uiNumberOfCircle );
 

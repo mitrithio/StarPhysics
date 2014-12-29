@@ -12,13 +12,13 @@ DrawPhysiCsEngineClasses::~DrawPhysiCsEngineClasses(void)
 {
 }
 
-void DrawPhysiCsEngineClasses::DrawBoundingSphere(const SphereCollider* i_sphere)
+void DrawPhysiCsEngineClasses::DrawBoundingSphere(const Sphere3DCollider* i_sphere)
 {
 	char buffer[256]; 
-	sprintf_s(buffer, "SphereCollider: %f, %f, %f; radius: %f\n", i_sphere->getCenter()[0], i_sphere->getCenter()[1], i_sphere->getCenter()[2], i_sphere->getRadius()); 
+	sprintf_s(buffer, "Sphere3DCollider: %f, %f, %f; radius: %f\n", i_sphere->getCenter()[0], i_sphere->getCenter()[1], i_sphere->getCenter()[2], i_sphere->getRadius()); 
 	OutputDebugStringA(buffer);
 
-   	const PCEVector<Shape *> tpSubs = i_sphere->getSubShapes();
+   	const PCEVector<Shape *> tpSubs = i_sphere->GetSubShapes();
    	if (!tpSubs.empty())
    	{
    		sprintf_s(buffer, "*** SubSpheres: *** \n"); 
@@ -27,7 +27,7 @@ void DrawPhysiCsEngineClasses::DrawBoundingSphere(const SphereCollider* i_sphere
    		{
  			if (tpSubs.at(i) != nullptr)
  			{
- 				DrawBoundingSphere(static_cast<const SphereCollider*>(tpSubs.at(i)));
+ 				DrawBoundingSphere(static_cast<const Sphere3DCollider*>(tpSubs.at(i)));
  			}
    		}
    	}

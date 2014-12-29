@@ -15,7 +15,7 @@ public:
 	// this will not copy owner shape pointer, so set it manually
 	RigidBody(const RigidBody& i_other);
 
-	void ApplyForce(const PCEVector3D& i_vForce, const PCEPoint& i_oPointOfApplication);
+	void ApplyForce(const PCEVector3D& i_vForce, const PCEPoint3D& i_oPointOfApplication);
 
 	void Update(double dt);
 
@@ -134,7 +134,7 @@ private:
 	double			m_rInverseMass;
 	double			m_fMass;
 
-	PCEPoint		m_vPos;
+	PCEPoint3D		m_vPos;
 	PCEVector3D		m_vInertialMatrixTrace;
 	PCEVector3D		m_vVelocity;
 	PCEVector3D		m_vAngVelocity;
